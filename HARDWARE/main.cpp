@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace std;
+
 struct Base
 {
     double side;
@@ -44,7 +46,25 @@ int main()
     Component foot = contour - cross01 - cross02 - holes;
 
     writer << foot;
-    std::cout << writer;
+
+    ofstream file("base.scad");
+            if (file)
+            {
+                file << "//-------------------------------------------------------------------------" << endl;
+                file << "//-- base.scad" << endl;
+                file << "//-------------------------------------------------------------------------" << endl;
+                file << "//--This file has been generated automatically according to your data."<< endl;
+                file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+                file << "//--------------------------------------------------------------------------" << endl << endl;
+                file << writer;
+                file.close();
+            }
+            else
+            {
+                cerr << "Error, cannot open the file" << endl;
+            }
+
+    cout << "Done!" << endl;
 
     return 0;
 
