@@ -5,9 +5,15 @@
 #include <ooml/components.h>
 #include <iostream>
 #include <fstream>
+#include <math.h>
 
 using namespace std;
 
+struct Point
+{
+    double x;
+    double y;
+};
 struct Base
 {
     double side;
@@ -18,12 +24,32 @@ struct Base
     double cross_small;
     double cross_large;
 };
-
-int main()
+struct Ear
 {
-    struct Base base = {52, 4, 15, 15, 3/2, 40, 20};
-    IndentWriter writer;
+    double base;
+    double no_name;
+    double height;
+    double corona_r;
+    double drill_r;
+    double thickness;
 
+};
+
+struct Point _2ndDegree(double a, double b, double c)
+{
+    struct Point solution;
+    solution.x = (-b + sqrt( pow(b, 2) -4*a*c)) / (2*a);
+    solution.y = (-b - sqrt( pow(b, 2) -4*a*c)) / (2*a);
+    return solution;
+}
+struct Point tang_points(double origin_x, double origin_y, double center_x, double center_y, double radius, bool leftmost)
+{
+
+}
+
+void part01(struct Base base)
+{
+    IndentWriter writer;
     Component contour = Cube::create(base.side, base.side, base.thickness);
 
     Component cross01 = Cube::create(base.cross_small, base.cross_large, base.thickness + 0.1);
@@ -64,8 +90,52 @@ int main()
                 cerr << "Error, cannot open the file" << endl;
             }
 
-    cout << "Done!" << endl;
+}
+void part02(struct Ear ear)
+{
+    IndentWriter writer;
+
+    //-- Compute the servo's corona circle
+    Component2D corona = Circle::create(ear.corona_r, 100);
+
+    //-- Create the ear shape
+    Polygon<Point2D> shape;
+    shape.addPoint(Point2D(0,0));
+    shape.addPoint(Point2D(ear.base/2, 0));
+    shape.addPoint(Point2D(ear.base/2, ear.no_name));
+
+    //-- Compute tangent points
+    struct Point tang[2];
+    tang[0] = tang_points(ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, true);
+    tang[1] = tang_points(-ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, false);
+    shape.addPoint(Point2D(tang[0].x,tang[0].y));
+    shape.addPoint(Point2D(tang[1].x,tang[1].y));
+
+    //-- Remaining points
+    shape.addPoint(Point2D(-ear.base/2, ear.no_name));
+    shape.addPoint(Point2D(-ear.base/2, 0));
+
+    //-- Extrude the ear shape
+    Component ear_shape = PolygonalPrism(shape, ear.thickness);
+
+    Component ear_result = corona + ear_shape;
+
+    writer << ear_result;
+
+    cout << writer;
+}
+
+int main()
+{
+    struct Base base = {52, 4, 15, 15, 3/2, 40, 20};
+
+    //part01( base);
+
+    //part02(ear);
+
+    //cout << "Done!" << endl;
 
     return 0;
 
 }
+
