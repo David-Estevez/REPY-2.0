@@ -65,6 +65,12 @@ struct Point tang_points(double origin_x, double origin_y, double center_x, doub
         dummy[3].x = dummy[2].x;
         dummy[3].y = _2ndDegree( 1, -2*center_y, pow( (dummy[3].x - center_x), 2) + pow(center_y, 2) - pow(radius, 2), true);
 
+        //Debug
+        cout << "Before: ";
+        for (int j = 0; j<4; j++)
+            cout << dummy[j].x << " " << dummy[j].y << " ";
+        cout << endl;
+
         int solutions = 0; //-- Solutions already found
         int i = 0;
 
@@ -72,7 +78,9 @@ struct Point tang_points(double origin_x, double origin_y, double center_x, doub
         {
            double check = pow( (dummy[i].x - center_x), 2) + pow( (dummy[i].y - center_y), 2) - pow(radius, 2);
 
-           if ( check < 0.0001 && check >-0.0001) //-- Check if it is aproximately 0
+           cout << "Check #" << i << ": " << check <<endl;
+
+           if ( check < 0.00001 && check >-0.00001) //-- Check if it is aproximately 0
            {
                tangent[solutions].x = dummy[i].x;
                tangent[solutions].y = dummy[i].y;
@@ -80,6 +88,13 @@ struct Point tang_points(double origin_x, double origin_y, double center_x, doub
            }
            i++;
          }
+
+        //Debug
+        cout << "inside:";
+        cout << tangent[0].x << " ";
+        cout << tangent[0].y << " ";
+        cout << tangent[1].x << " ";
+        cout << tangent[1].y << endl << endl;
 
         //-- Choose leftmost or rightmost solution
          if (leftmost)
@@ -159,8 +174,16 @@ void part02(struct Ear ear)
 
     //-- Compute tangent points
     struct Point tang[2];
-    tang[0] = tang_points(ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, false);
+    tang[0] = tang_points(ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, true);
     tang[1] = tang_points(-ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, true);
+
+    //Debug
+    cout << "TANG:";
+    cout << tang[0].x << " ";
+    cout << tang[0].y << " ";
+    cout << tang[1].x << " ";
+    cout << tang[1].y << endl << endl;
+
     shape.addPoint(Point2D(tang[0].x,tang[0].y));
     shape.addPoint(Point2D(tang[1].x,tang[1].y));
 
