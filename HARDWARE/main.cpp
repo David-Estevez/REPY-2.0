@@ -177,6 +177,23 @@ void part02(struct Ear ear)
     writer << ear_result;
 
     cout << writer;
+
+    ofstream file("ear.scad");
+            if (file)
+            {
+                file << "//-------------------------------------------------------------------------" << endl;
+                file << "//-- ear.scad" << endl;
+                file << "//-------------------------------------------------------------------------" << endl;
+                file << "//--This file has been generated automatically according to your data."<< endl;
+                file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+                file << "//--------------------------------------------------------------------------" << endl << endl;
+                file << writer;
+                file.close();
+            }
+            else
+            {
+                cerr << "Error, cannot open the file" << endl;
+            }
 }
 
 int main()
