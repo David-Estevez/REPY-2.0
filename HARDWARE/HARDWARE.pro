@@ -5,4 +5,10 @@ LIBS +=  -lOOMLCore \
 INCLUDEPATH += /usr/include/ooml
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    ear.cpp \
+    base.cpp
+
+HEADERS += \
+    ear.h \
+    base.h

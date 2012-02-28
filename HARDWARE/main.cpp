@@ -1,5 +1,6 @@
-// Base for REPY module
+// New REPY module
 // Author: David Estévez (DEF)
+// Work in progress
 
 #include <ooml/core.h>
 #include <ooml/components.h>
@@ -7,13 +8,19 @@
 #include <fstream>
 #include <math.h>
 
+#include "ear.h"
+#include "base.h"
+
 using namespace std;
 
+/*
 struct Point
 {
     double x;
     double y;
 };
+
+
 struct Base
 {
     double side;
@@ -27,13 +34,14 @@ struct Base
 struct Ear
 {
     double base;
-    double no_name;
+    double shift;
     double height;
     double corona_r;
     double drill_r;
     double thickness;
 
 };
+
 
 double _2ndDegree(double a, double b, double c, bool negative)
 {
@@ -99,25 +107,25 @@ struct Point tang_points(double origin_x, double origin_y, double center_x, doub
  }
 
 
-void part01(struct Base base)
+void base(double side, double thickness, double drill_x, double drill_y, double drill_r, double cross_small, double cross_large)
 {
     IndentWriter writer;
-    Component contour = Cube::create(base.side, base.side, base.thickness);
+    Component contour = Cube::create(side, side, thickness);
 
-    Component cross01 = Cube::create(base.cross_small, base.cross_large, base.thickness + 0.1);
-    Component cross02 = Cube::create(base.cross_large, base.cross_small, base.thickness + 0.1);
+    Component cross01 = Cube::create(cross_small, cross_large, thickness + 0.1);
+    Component cross02 = Cube::create(cross_large, cross_small, thickness + 0.1);
 
-    Component drill01 = Cylinder::create( base.drill_r, base.thickness+0.1, 20, true);
-    drill01.translate( base.drill_x, base.drill_y, 0);
+    Component drill01 = Cylinder::create( drill_r, thickness+0.1, 20, true);
+    drill01.translate( drill_x, drill_y, 0);
 
-    Component drill02 = Cylinder::create( base.drill_r, base.thickness+0.1, 20, true);
-    drill02.translate( base.drill_x, -base.drill_y, 0);
+    Component drill02 = Cylinder::create( drill_r, thickness+0.1, 20, true);
+    drill02.translate( drill_x, -drill_y, 0);
 
-    Component drill03 = Cylinder::create( base.drill_r, base.thickness+0.1, 20, true);
-    drill03.translate( -base.drill_x, base.drill_y, 0);
+    Component drill03 = Cylinder::create( drill_r, thickness+0.1, 20, true);
+    drill03.translate( -drill_x, drill_y, 0);
 
-    Component drill04 = Cylinder::create( base.drill_r, base.thickness+0.1, 20, true);
-    drill04.translate( -base.drill_x, -base.drill_y, 0);
+    Component drill04 = Cylinder::create( drill_r, thickness+0.1, 20, true);
+    drill04.translate( -drill_x, -drill_y, 0);
 
     Component holes = drill01 + drill02 + drill03 + drill04;
 
@@ -143,35 +151,35 @@ void part01(struct Base base)
             }
 
 }
-void part02(struct Ear ear)
+void ear(double base, double shift, double height, double corona_r, double drill_r, double thickness)
 {
     IndentWriter writer;
 
     //-- Compute the servo's corona circle
-    Component2D corona = Circle::create(ear.corona_r, 100);
-    corona.translate(0, ear.height, 0);
+    Component2D corona = Circle::create(corona_r, 100);
+    corona.translate(0, height, 0);
 
     //-- Create the ear shape
     Polygon<Point2D> shape;
     shape.addPoint(Point2D(0,0));
-    shape.addPoint(Point2D(ear.base/2, 0));
-    shape.addPoint(Point2D(ear.base/2, ear.no_name));
+    shape.addPoint(Point2D(base/2, 0));
+    shape.addPoint(Point2D(base/2, shift));
 
     //-- Compute tangent points
     struct Point tang[2];
-    tang[0] = tang_points(ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, false);
-    tang[1] = tang_points(-ear.base/2, ear.no_name, 0, ear.height, ear.corona_r, true);
+    tang[0] = tang_points(base/2, shift, 0, height, corona_r, false);
+    tang[1] = tang_points(-base/2, shift, 0, height, corona_r, true);
 
     shape.addPoint(Point2D(tang[0].x,tang[0].y));
     shape.addPoint(Point2D(tang[1].x,tang[1].y));
 
     //-- Remaining points
-    shape.addPoint(Point2D(-ear.base/2, ear.no_name));
-    shape.addPoint(Point2D(-ear.base/2, 0));
+    shape.addPoint(Point2D(-base/2, shift));
+    shape.addPoint(Point2D(-base/2, 0));
 
     //-- Extrude the ear shape
-    Component ear_shape = PolygonalPrism(shape, ear.thickness);
-    Component ear_extrude = corona.linearExtrudedCopy(ear.thickness,0,100,10,false);
+    Component ear_shape = PolygonalPrism(shape, thickness);
+    Component ear_extrude = corona.linearExtrudedCopy(thickness,0,100,10,false);
     Component ear_result = ear_extrude + ear_shape;
 
     writer << ear_result;
@@ -196,18 +204,52 @@ void part02(struct Ear ear)
             }
 }
 
+*/
+
 int main()
 {
-    struct Base base = {52, 4, 15, 15, 3/2, 40, 20};
-    struct Ear ear = { 50, 10, 50, 25/2, 3/2, 4};
+ Base  base( 52, 4, 15, 15, 3/2); // 40, 20);
+ Ear ear; // 50, 10, 50, 25/2, 3/2, 4);
 
-    //part01( base);
+ IndentWriter writer, writer2;
+ writer << base.build();
+ cout << writer << endl << endl;
+ ofstream file("base02.scad");
+         if (file)
+         {
+             file << "//-------------------------------------------------------------------------" << endl;
+             file << "//-- base.scad" << endl;
+             file << "//-------------------------------------------------------------------------" << endl;
+             file << "//--This file has been generated automatically according to your data."<< endl;
+             file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+             file << "//--------------------------------------------------------------------------" << endl << endl;
+             file << writer;
+             file.close();
+         }
+         else
+         {
+             cerr << "Error, cannot open the file" << endl;
+         }
 
-    part02(ear);
-    //cout << _2ndDegree( 2 , 4, -5, true) << endl << _2ndDegree(2,4,-5,false);
-    //cout << "Done!" << endl;
-
-    return 0;
+  writer2 << ear.build();
+  cout << writer2 << endl;
+  ofstream file2("ear02.scad");
+         if (file2)
+         {
+             file2 << "//-------------------------------------------------------------------------" << endl;
+             file2 << "//-- ear.scad" << endl;
+             file2 << "//-------------------------------------------------------------------------" << endl;
+             file2 << "//--This file has been generated automatically according to your data."<< endl;
+             file2 << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+             file2 << "//--------------------------------------------------------------------------" << endl << endl;
+             file2 << writer2;
+             file2.close();
+         }
+         else
+         {
+             cerr << "Error, cannot open the file" << endl;
+         }
+ return 0;
 
 }
 
