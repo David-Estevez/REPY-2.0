@@ -79,6 +79,39 @@ struct Point tang_points(double origin_x, double origin_y, double center_x, doub
          }
  }
 
+
+//-- Class members
+
+
+Ear::Ear(): Component()
+{
+    _base = 50;
+    _shift = 10;
+    _height = 50;
+    _corona_r = 25/2;
+    _thickness = 4;
+
+    //-Optional parameters
+    _drill_r = 0;
+    _reinf_thickness = 0;
+    build();
+}
+
+Ear::Ear( double base, double shift, double height, double corona_r, double thickness)
+{
+    _base = base;
+    _shift = shift;
+    _height = height;
+    _corona_r = corona_r;
+    _thickness = thickness;
+
+    //-Optional parameters
+    _drill_r = 0;
+    _reinf_thickness = 0;
+
+    build();
+ }
+
 Component Ear::build()
 {
     //-- Compute the servo's corona circle
@@ -106,8 +139,47 @@ Component Ear::build()
     //-- Extrude the ear shape
     Component ear_shape = PolygonalPrism(shape, _thickness);
     Component ear_extrude = corona.linearExtrudedCopy(_thickness,0,100,10,false);
+
+    //-- Make the drill for the axis if needed
+    if (_drill_r != 0)
+    {
+        if ( _drill_r == _drill_r_big)
+            {
+             Component hole = Cylinder::create( _drill_r, _thickness + 0.1);
+             hole.translate(0, _height, _thickness/2);
+             ear_shape = ear_shape - hole;
+            }
+        else
+            {
+            //-- This is the hole with the shape for the screw head
+            }
+    }
+
+    //-- Final shape
     Component ear_result = ear_extrude + ear_shape;
+
+    //--Add the reinforcement if needed
+    if (_reinf_thickness != 0 )
+        {
+        Component reinf_shape = PolygonalPrism(shape, _reinf_thickness);
+        Component reinf_extrude = corona.linearExtrudedCopy(_reinf_thickness,0,100,10,false);
+        Component reinforcement = reinf_shape - reinf_extrude;
+        reinforcement.translate(0,0,_thickness);
+        ear_result = ear_result + reinforcement;
+        }
 
     return ear_result;
 
 }
+
+void Ear::add_drill( double radius, double radius_big)
+{
+    _drill_r = radius;
+    if (radius_big == -1)
+        _drill_r_big = radius;
+    else
+        _drill_r_big = radius_big;
+
+}
+
+void Ear::add_reinforcement( double thickness)  { _reinf_thickness = thickness;}

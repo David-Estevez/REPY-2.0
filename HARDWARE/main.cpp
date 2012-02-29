@@ -209,7 +209,9 @@ void ear(double base, double shift, double height, double corona_r, double drill
 int main()
 {
  Base  base( 52, 4, 15, 15, 3/2); // 40, 20);
- Ear ear; // 50, 10, 50, 25/2, 3/2, 4);
+ Ear ear(50, 10, 50, 25/2, 4);
+ ear.add_drill(3/2);
+ ear.add_reinforcement(3);
 
  IndentWriter writer, writer2;
  writer << base.build();
