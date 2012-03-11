@@ -1,3 +1,18 @@
+//------------------------------------------------------
+//-- REPY-2.0
+//------------------------------------------------------
+//-- This component is the 'ear' of a REPY module.
+//-- It is completely parametric, so one can build
+//-- a module to fit their own needs.
+//-- There are several configurations available,
+//-- including reinforced 'ear'.
+//------------------------------------------------------
+//-- Author: David Estevez (DEF)
+//------------------------------------------------------
+//-- Based on REPY module, by
+//-- Juan Gonzalez-Gomez (Obijuan)
+//------------------------------------------------------
+
 #include <ooml/core.h>
 #include <ooml/components.h>
 #include <iostream>
@@ -14,7 +29,7 @@ struct Point
     double y;
 };
 
-/*Auxiliar funcions*/
+//-- Auxiliar funcions (mainly for finding tangent points
 
 double _2ndDegree(double a, double b, double c, bool negative)
 {
@@ -26,7 +41,7 @@ double _2ndDegree(double a, double b, double c, bool negative)
     return solution;
 }
 
-struct Point tang_points(double origin_x, double origin_y, double center_x, double center_y, double radius, bool leftmost)
+struct Point tang_point(double origin_x, double origin_y, double center_x, double center_y, double radius, bool leftmost)
 {
         //-- Get the line where the tangent points should be
         double m = (center_x - origin_x) / (origin_y - center_y);
@@ -81,7 +96,7 @@ struct Point tang_points(double origin_x, double origin_y, double center_x, doub
 
 
 //-- Class members
-
+//----------------------------------------
 
 Ear::Ear(): Component()
 {
@@ -91,13 +106,13 @@ Ear::Ear(): Component()
     _corona_r = 25/2;
     _thickness = 4;
 
-    //-Optional parameters
+    //-- Optional parameters
     _drill_r = 0;
     _reinf_thickness = 0;
     build();
 }
 
-Ear::Ear( double base, double shift, double height, double corona_r, double thickness)
+Ear::Ear( double base, double shift, double height, double corona_r, double thickness): Component()
 {
     _base = base;
     _shift = shift;
@@ -126,8 +141,8 @@ Component Ear::build()
 
     //-- Compute tangent points
     struct Point tang[2];
-    tang[0] = tang_points(_base/2, _shift, 0, _height, _corona_r, false);
-    tang[1] = tang_points(-_base/2, _shift, 0, _height, _corona_r, true);
+    tang[0] = tang_point(_base/2, _shift, 0, _height, _corona_r, false);
+    tang[1] = tang_point(-_base/2, _shift, 0, _height, _corona_r, true);
 
     shape.addPoint(Point2D(tang[0].x,tang[0].y));
     shape.addPoint(Point2D(tang[1].x,tang[1].y));
@@ -172,6 +187,7 @@ Component Ear::build()
 
 }
 
+//-- Add the drill for the axis/servo corona
 void Ear::add_drill( double radius, double radius_big)
 {
     _drill_r = radius;
@@ -182,4 +198,5 @@ void Ear::add_drill( double radius, double radius_big)
 
 }
 
+//-- Add an extra layer as reinforcement
 void Ear::add_reinforcement( double thickness)  { _reinf_thickness = thickness;}

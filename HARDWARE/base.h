@@ -1,3 +1,16 @@
+//------------------------------------------------------
+//-- REPY-2.0
+//------------------------------------------------------
+//-- This component is the base of a REPY module.
+//-- It is completely parametric, so one can build
+//-- a module to fit their own needs.
+//------------------------------------------------------
+//-- Author: David Estevez (DEF)
+//------------------------------------------------------
+//-- Based on REPY module, by
+//-- Juan Gonzalez-Gomez (Obijuan)
+//------------------------------------------------------
+
 #include <ooml/core.h>
 #include <ooml/components.h>
 
@@ -7,11 +20,12 @@
 class Base: public Component
 {
 public:
-    Base(): Component(), _side(52), _thickness(4), _drill_x(15), _drill_y(15), _drill_r(3/2), _cross_small(40), _cross_large(20) { build();}
-    Base(double side, double thickness, double drill_x, double drill_y, double drill_r):
-            Component(), _side(side), _thickness(thickness),
-            _drill_x(drill_x), _drill_y(drill_y), _drill_r(drill_r),
-            _cross_small(0), _cross_large(0) { build(); }
+    //-- Constructor
+    Base();
+    Base(double side, double thickness, double drill_x, double drill_y, double drill_r);
+
+    //--Add a cross-shaped hole to the base of the module
+    void add_cross( double small, double large);
 
 //protected:
     virtual Component build();

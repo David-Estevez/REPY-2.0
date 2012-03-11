@@ -1,3 +1,18 @@
+//------------------------------------------------------
+//-- REPY-2.0
+//------------------------------------------------------
+//-- This component is the 'ear' of a REPY module.
+//-- It is completely parametric, so one can build
+//-- a module to fit their own needs.
+//-- There are several configurations available,
+//-- including reinforced 'ear'.
+//------------------------------------------------------
+//-- Author: David Estevez (DEF)
+//------------------------------------------------------
+//-- Based on REPY module, by
+//-- Juan Gonzalez-Gomez (Obijuan)
+//------------------------------------------------------
+
 #include <ooml/core.h>
 #include <ooml/components.h>
 
@@ -7,10 +22,13 @@
 class Ear: public Component
 {
 public:
-    Ear(); // : Component(), _base(50), _shift(10), _height(50), _corona_r(25/2),_drill_r(0), _thickness(4), _reinf_thickness(0) { build();}
+    //-- Constructor
+    Ear();
     Ear( double base, double shift, double height, double corona_r, double thickness);
-    //-- Adds an hole for the axis
+
+    //-- Adds a hole for the axis
     void add_drill( double radius, double radius_big = -1);
+    //-- Adds a reinforcement to the module
     void add_reinforcement( double thickness);
 
 //protected:
