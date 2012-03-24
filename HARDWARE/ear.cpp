@@ -98,7 +98,7 @@ struct Point tang_point(double origin_x, double origin_y, double center_x, doubl
 //-- Class members
 //----------------------------------------
 
-Ear::Ear(): Component()
+Ear::Ear(): AbstractPart()
 {
     _base = 50;
     _shift = 10;
@@ -112,7 +112,7 @@ Ear::Ear(): Component()
     build();
 }
 
-Ear::Ear( double base, double shift, double height, double corona_r, double thickness): Component()
+Ear::Ear( double base, double shift, double height, double corona_r, double thickness): AbstractPart()
 {
     _base = base;
     _shift = shift;

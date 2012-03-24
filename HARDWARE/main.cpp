@@ -25,14 +25,14 @@ int main()
 {
  Base  base( 52, 4, 15, 15, 3/2);
  base.add_cross( 20, 40);
- Component base_prime = base.build();
- base_prime.translate(10,10,10);
+
+ base.translate(10,10,10);
 
  Ear ear(50, 10, 50, 25/2, 4);
  ear.add_drill(3/2);
 
 
- Component result = base_prime + ear.build();
+ Component result = base + ear;
 
  IndentWriter writer;
  writer << result;

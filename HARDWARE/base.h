@@ -17,7 +17,7 @@
 #ifndef BASE_H
 #define BASE_H
 
-class Base: public Component
+class Base: public AbstractPart
 {
 public:
     //-- Constructor
@@ -27,7 +27,7 @@ public:
     //--Add a cross-shaped hole to the base of the module
     void add_cross( double small, double large);
 
-//protected:
+protected:
     virtual Component build();
 
 private:

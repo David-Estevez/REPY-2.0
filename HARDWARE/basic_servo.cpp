@@ -12,7 +12,7 @@
 
 #include "basic_servo.h"
 
-Basic_servo::Basic_servo(double tol):Component() { _tol = tol;}
+Basic_servo::Basic_servo(double tol):AbstractPart() { _tol = tol;}
 
 Component Basic_servo::Build()
 {

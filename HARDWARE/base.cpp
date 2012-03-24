@@ -17,7 +17,7 @@
 #include "base.h"
 
 
-Base::Base(): Component()
+Base::Base(): AbstractPart()
 {
     //--Default values
     _side = 52;
@@ -33,7 +33,7 @@ Base::Base(): Component()
     build();
 }
 
-Base::Base(double side, double thickness, double drill_x, double drill_y, double drill_r): Component()
+Base::Base(double side, double thickness, double drill_x, double drill_y, double drill_r): AbstractPart()
 {
     _side = side;
     _thickness = thickness;

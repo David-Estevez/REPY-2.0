@@ -33,11 +33,12 @@
 #define SERVO_HOLE_X 5
 #define SERVO_HOLE_Y 4
 
-class Basic_servo: public Component
+class Basic_servo: public AbstractPart
 {
 public:
     Basic_servo(double tolerance = 1);
 
+protected:
     virtual Component Build();
 
 private:

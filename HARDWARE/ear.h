@@ -19,7 +19,7 @@
 #ifndef EAR_H
 #define EAR_H
 
-class Ear: public Component
+class Ear: public AbstractPart
 {
 public:
     //-- Constructor
@@ -28,10 +28,11 @@ public:
 
     //-- Adds a hole for the axis
     void add_drill( double radius, double radius_big = -1);
+
     //-- Adds a reinforcement to the module
     void add_reinforcement( double thickness);
 
-//protected:
+protected:
     virtual Component build();
 
 private:
