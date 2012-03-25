@@ -6,25 +6,27 @@
 //--------------------------------------------------------------------------
 
 union() {
-  difference() {
-    cube(size=[52.000, 52.000, 4.000], center=true);
-    union() {
-      translate(v=[15.000, 15.000, 0.000]) {
-        cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
-      } // End translate
-      translate(v=[15.000, -15.000, 0.000]) {
-        cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
-      } // End translate
-      translate(v=[-15.000, 15.000, 0.000]) {
-        cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
-      } // End translate
-      translate(v=[-15.000, -15.000, 0.000]) {
-        cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
-      } // End translate
-    } // End union
-    cube(size=[20.000, 40.000, 4.100], center=true);
-    cube(size=[40.000, 20.000, 4.100], center=true);
-  } // End difference
+  translate(v=[10.000, 10.000, 10.000]) {
+    difference() {
+      cube(size=[52.000, 52.000, 4.000], center=true);
+      union() {
+        translate(v=[15.000, 15.000, 0.000]) {
+          cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
+        } // End translate
+        translate(v=[15.000, -15.000, 0.000]) {
+          cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
+        } // End translate
+        translate(v=[-15.000, 15.000, 0.000]) {
+          cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
+        } // End translate
+        translate(v=[-15.000, -15.000, 0.000]) {
+          cylinder(h=4.100, r1=1.000, r2=1.000, $fn=20, center=true);
+        } // End translate
+      } // End union
+      cube(size=[20.000, 40.000, 4.100], center=true);
+      cube(size=[40.000, 20.000, 4.100], center=true);
+    } // End difference
+  } // End translate
   linear_extrude(height=4.000, twist=0, $fn=100, convexity=10, center=false) {
     translate(v=[0.000, 50.000, 0.000]) {
       circle(r=12.000, $fn=100);

@@ -109,7 +109,7 @@ Ear::Ear(): AbstractPart()
     //-- Optional parameters
     _drill_r = 0;
     _reinf_thickness = 0;
-    build();
+    rebuild();
 }
 
 Ear::Ear( double base, double shift, double height, double corona_r, double thickness): AbstractPart()
@@ -124,7 +124,7 @@ Ear::Ear( double base, double shift, double height, double corona_r, double thic
     _drill_r = 0;
     _reinf_thickness = 0;
 
-    build();
+    rebuild();
  }
 
 Component Ear::build()
@@ -196,7 +196,9 @@ void Ear::add_drill( double radius, double radius_big)
     else
         _drill_r_big = radius_big;
 
+    rebuild();
+
 }
 
 //-- Add an extra layer as reinforcement
-void Ear::add_reinforcement( double thickness)  { _reinf_thickness = thickness;}
+void Ear::add_reinforcement( double thickness)  { _reinf_thickness = thickness; rebuild();}

@@ -12,9 +12,9 @@
 
 #include "basic_servo.h"
 
-Basic_servo::Basic_servo(double tol):AbstractPart() { _tol = tol;}
+Basic_servo::Basic_servo(double tol):AbstractPart() { _tol = tol; rebuild();}
 
-Component Basic_servo::Build()
+Component Basic_servo::build()
 {
     //-- Create body
     Component body = Cube::create( SERVO_WIDTH, SERVO_LENGTH, SERVO_HEIGHT, false);

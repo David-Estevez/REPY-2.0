@@ -30,7 +30,7 @@ Base::Base(): AbstractPart()
     _cross_small = 0;
     _cross_large = 0;
 
-    build();
+    rebuild();
 }
 
 Base::Base(double side, double thickness, double drill_x, double drill_y, double drill_r): AbstractPart()
@@ -45,7 +45,7 @@ Base::Base(double side, double thickness, double drill_x, double drill_y, double
     _cross_small = 0;
     _cross_large = 0;
 
-    build();
+    rebuild();
 }
 
 Component Base::build()
@@ -88,5 +88,6 @@ void Base::add_cross( double small, double large)
 {
     _cross_small = small;
     _cross_large = large;
+    rebuild();
 }
 

@@ -39,7 +39,7 @@ public:
     Basic_servo(double tolerance = 1);
 
 protected:
-    virtual Component Build();
+    virtual Component build();
 
 private:
    double _tol; //-- Value for the tolerance
