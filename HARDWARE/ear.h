@@ -1,3 +1,4 @@
+
 //------------------------------------------------------
 //-- REPY-2.0
 //------------------------------------------------------
@@ -24,10 +25,10 @@ class Ear: public AbstractPart
 public:
     //-- Constructor
     Ear();
-    Ear( double base, double shift, double height, double corona_r, double thickness);
+    Ear( double base, double shift, double height, double horn_r, double thickness);
 
     //-- Adds a hole for the axis
-    void add_drill( double radius, double radius_big = -1);
+    void add_drill( double radius, double radius_big = -1, double screw_head = 0);
 
     //-- Adds a reinforcement to the module
     void add_reinforcement( double thickness);
@@ -39,12 +40,13 @@ private:
     double _base;
     double _shift;
     double _height;
-    double _corona_r;
+    double _horn_r;
     double _thickness;
     //--Optional parameters
     double _drill_r;
     double _drill_r_big;
     double _reinf_thickness;
+    double _screw_head;
 
 };
 

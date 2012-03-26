@@ -21,19 +21,44 @@
 
 using namespace std;
 
+#define DRILL_X 30
+#define DRILL_Y 30
+#define DRILL_D 3
+
 int main()
 {
- Base  base( 52, 4, 15, 15, 3/2);
- base.add_cross( 20, 40);
 
- base.translate(10,10,10);
+ //-- Parameters to be used:
+ float side = 52;
+ float thickness_base = 4;
 
- Ear ear(50, 10, 50, 25/2, 4);
- ear.add_drill(3/2);
+ float thickness_ear01 = 4;
+ float thickness_ear02 = 4;
 
+ //-- Create the base
+ Base  base( side, thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
 
- Component result = base + ear;
+ //-- Create the servo object to substract
+ Basic_servo servo(true, 2 * thickness_ear01);
+ servo.color(0.25,0.25,0.25);
+ servo.rotate(90, 0, 180);
+ servo.translate( 0, -(side/2 - 2 * thickness_ear01), SERVO_LEG_Y + thickness_base/2);
 
+ //-- Create first ear
+ Ear ear01(side , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, thickness_ear01);
+ ear01.add_drill(3/2 + 0.1);
+ ear01.rotate(90,0,0);
+ ear01.translate(0, - (side/2 - 2 * thickness_ear01), thickness_base/2);
+
+ //-- Create second ear
+ Ear ear02(side, 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, thickness_ear02);
+ ear02.rotate(90,0,0);
+ ear02.translate(0, SERVO_LEG_H + SERVO_LEG_Z/2 - (side/2 - 2 * thickness_ear01), thickness_base/2);
+
+ //-- Add up all things
+ Component result = base + ear01 + ear02 - servo;
+
+ //-- Printing the result
  IndentWriter writer;
  writer << result;
  cout << writer << endl << endl;

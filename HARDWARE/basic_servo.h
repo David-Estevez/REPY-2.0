@@ -36,13 +36,15 @@
 class Basic_servo: public AbstractPart
 {
 public:
-    Basic_servo(double tolerance = 1);
+    Basic_servo(bool screw = false, double thickness = 0, double tolerance = 1);
 
 protected:
     virtual Component build();
 
 private:
    double _tol; //-- Value for the tolerance
+   bool _screw; //-- If true, it shows the screws
+   double _thickness; //-- Screw thickness
 };
 
 #endif // BASIC_SERVO_H

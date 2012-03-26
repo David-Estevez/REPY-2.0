@@ -73,7 +73,7 @@ Component Base::build()
     {
         Component cross01 = Cube::create(_cross_small, _cross_large, _thickness + 0.1);
         Component cross02 = Cube::create(_cross_large, _cross_small, _thickness + 0.1);
-        holes = holes - cross01 - cross02;
+        holes = holes + cross01 + cross02;
     }
 
     //-- Add up all the components

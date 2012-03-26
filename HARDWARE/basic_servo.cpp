@@ -12,7 +12,13 @@
 
 #include "basic_servo.h"
 
-Basic_servo::Basic_servo(double tol):AbstractPart() { _tol = tol; rebuild();}
+Basic_servo::Basic_servo(bool screw, double thickness, double tol):AbstractPart()
+{
+    _screw = screw;
+    _thickness = thickness;
+    _tol = tol;
+    rebuild();
+}
 
 Component Basic_servo::build()
 {
@@ -30,7 +36,7 @@ Component Basic_servo::build()
     Component leg02 = leg01.translatedCopy(0, -(SERVO_LENGTH + SERVO_LEG_Y), 0);
 
     //-- Holes
-    Component hole_base = Cylinder::create( SERVO_HOLE_R, SERVO_LEG_Z+0.1, 20, true);
+    Component hole_base = Cylinder::create( SERVO_HOLE_R, SERVO_LEG_Z+0.1+_thickness, 20, true);
     Component hole01 = hole_base.translatedCopy( SERVO_HOLE_X,   SERVO_LENGTH + SERVO_HOLE_Y, SERVO_LEG_H + SERVO_LEG_Z);
     Component hole02 = hole_base.translatedCopy( SERVO_HOLE_X,  -SERVO_HOLE_Y, SERVO_LEG_H + SERVO_LEG_Z);
     Component hole03 = hole_base.translatedCopy( -SERVO_HOLE_X, -SERVO_HOLE_Y, SERVO_LEG_H + SERVO_LEG_Z);
@@ -38,7 +44,12 @@ Component Basic_servo::build()
     Component holes = hole01 + hole02 + hole03 + hole04;
 
     //-- Final object
-    Component servo = body + axis + leg01 + leg02 - holes;
+    Component servo;
+
+    if (!_screw)
+    servo = body + axis + leg01 + leg02 - holes;
+    else
+    servo = body + axis + leg01 + leg02 + holes;
 
     return servo;
 
