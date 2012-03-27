@@ -21,9 +21,15 @@
 
 using namespace std;
 
+//-- Drills are dependent of the skymega board hole configuration
 #define DRILL_X 30
 #define DRILL_Y 30
 #define DRILL_D 3
+
+//-- M3 screw parameters
+#define M3 3/2
+#define M3_HEAD 4.5/2
+#define M3_HEAD_H 2
 
 int main()
 {
@@ -44,11 +50,13 @@ int main()
  servo.rotate(90, 0, 180);
  servo.translate( 0, -(side/2 - 2 * thickness_ear01), SERVO_LEG_Y + thickness_base/2);
 
+ //Problems with this:
  //-- Create first ear
  Ear ear01(side , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, thickness_ear01);
- ear01.add_drill(3/2 + 0.1);
- ear01.rotate(90,0,0);
- ear01.translate(0, - (side/2 - 2 * thickness_ear01), thickness_base/2);
+ ear01.add_drill( M3 +0.1, M3_HEAD + 0.1, M3_HEAD_H);
+ ear01.rotate(90, 0, 0);
+ ear01.rotate(0,0,180);
+ ear01.translate(0, - (side/2 - thickness_ear01), thickness_base/2);
 
  //-- Create second ear
  Ear ear02(side, 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, thickness_ear02);
@@ -62,11 +70,11 @@ int main()
  IndentWriter writer;
  writer << result;
  cout << writer << endl << endl;
- ofstream file("TEST01.scad");
+ ofstream file("REPY-2.0_lower.scad");
          if (file)
          {
              file << "//-------------------------------------------------------------------------" << endl;
-             file << "//-- TEST01.scad" << endl;
+             file << "//-- REPY-2.0_lower.scad" << endl;
              file << "//-------------------------------------------------------------------------" << endl;
              file << "//--This file has been generated automatically according to your data."<< endl;
              file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;

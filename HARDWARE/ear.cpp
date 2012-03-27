@@ -130,9 +130,9 @@ Ear::Ear( double base, double shift, double height, double horn_r, double thickn
 
 Component Ear::build()
 {
-    //-- Compute the servo's corona circle
-    Component2D corona = Circle::create(_horn_r, 100);
-    corona.translate(0, _height, 0);
+    //-- Compute the servo's horn circle
+    Component2D horn = Circle::create(_horn_r, 100);
+    horn.translate(0, _height, 0);
 
     //-- Create the ear shape
     Polygon<Point2D> shape;
@@ -154,10 +154,22 @@ Component Ear::build()
 
     //-- Extrude the ear shape
     Component ear_shape = PolygonalPrism(shape, _thickness);
-    Component ear_extrude = corona.linearExtrudedCopy(_thickness,0,100,10,false);
+    Component ear_extrude = horn.linearExtrudedCopy(_thickness,0,100,10,false);
 
     //-- Final shape
     Component ear_result = ear_extrude + ear_shape;
+
+    //-- Extra things:
+
+    //--Add the reinforcement if needed
+    if (_reinf_thickness != 0 )
+        {
+        Component reinf_shape = PolygonalPrism(shape, _reinf_thickness);
+        Component reinf_extrude = horn.linearExtrudedCopy(_reinf_thickness,0,100,10,false);
+        Component reinforcement = reinf_shape - reinf_extrude;
+        reinforcement.translate(0,0,_thickness);
+        ear_result = ear_result + reinforcement;
+        }
 
     //-- Make the drill for the axis if needed
     if (_drill_r != 0)
@@ -171,18 +183,18 @@ Component Ear::build()
         else
             {
             //-- This is the hole with the shape for the screw head
+            Component hole_top = Cylinder::create(_drill_r, _drill_r_big, _screw_head + 0.1, 100, false);
+            hole_top.translate(0,0, _thickness - _screw_head);
+            Component hole_down = Cylinder::create(_drill_r, _thickness - _screw_head + 0.1, 100, false);
+            hole_down.translate(0,0, -0.1 );
+            Component hole = hole_top + hole_down;
+            hole.translate(0, _height, 0);
+            hole.color(0.5,0.2,1);
+            ear_result = ear_result - hole;
             }
     }
 
-    //--Add the reinforcement if needed
-    if (_reinf_thickness != 0 )
-        {
-        Component reinf_shape = PolygonalPrism(shape, _reinf_thickness);
-        Component reinf_extrude = corona.linearExtrudedCopy(_reinf_thickness,0,100,10,false);
-        Component reinforcement = reinf_shape - reinf_extrude;
-        reinforcement.translate(0,0,_thickness);
-        ear_result = ear_result + reinforcement;
-        }
+
 
     return ear_result;
 
