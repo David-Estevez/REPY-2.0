@@ -8,7 +8,7 @@
 difference() {
   union() {
     difference() {
-      cube(size=[52.000, 52.000, 4.000], center=true);
+      cube(size=[55.000, 55.000, 4.000], center=true);
       translate(v=[15.000, 15.000, 0.000]) {
         cylinder(h=4.100, r1=1.500, r2=1.500, $fn=20, center=true);
       } // End translate
@@ -22,7 +22,7 @@ difference() {
         cylinder(h=4.100, r1=1.500, r2=1.500, $fn=20, center=true);
       } // End translate
     } // End difference
-    translate(v=[0.000, -22.000, 2.000]) {
+    translate(v=[0.000, -23.500, 1.800]) {
       rotate(a=[0.000, 0.000, 180.000]) {
         rotate(a=[90.000, 0.000, 0.000]) {
           difference() {
@@ -50,7 +50,7 @@ difference() {
         } // End rotate
       } // End rotate
     } // End translate
-    translate(v=[0.000, 11.000, 2.000]) {
+    translate(v=[0.000, 9.500, 1.800]) {
       rotate(a=[90.000, 0.000, 0.000]) {
         union() {
           linear_extrude(height=4.000, twist=0, $fn=100, convexity=10, center=false) {
@@ -63,7 +63,7 @@ difference() {
       } // End rotate
     } // End translate
   } // End union
-  translate(v=[0.000, -18.000, 8.500]) {
+  translate(v=[0.000, -19.500, 8.500]) {
     rotate(a=[90.000, 0.000, 180.000]) {
       color([0.250, 0.250, 0.250, 1.000]) {
         union() {

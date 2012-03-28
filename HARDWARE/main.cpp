@@ -18,53 +18,26 @@
 #include "ear.h"
 #include "base.h"
 #include "basic_servo.h"
+#include "repy_lower.h"
 
 using namespace std;
-
-//-- Drills are dependent of the skymega board hole configuration
-#define DRILL_X 30
-#define DRILL_Y 30
-#define DRILL_D 3
-
-//-- M3 screw parameters
-#define M3 3/2
-#define M3_HEAD 4.5/2
-#define M3_HEAD_H 2
 
 int main()
 {
 
- //-- Parameters to be used:
- float side = 52;
- float thickness_base = 4;
+ REPY_lower lower_part;
 
- float thickness_ear01 = 4;
- float thickness_ear02 = 4;
+ Component result = lower_part;
 
- //-- Create the base
- Base  base( side, thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
+ //--------------------------------------------
 
- //-- Create the servo object to substract
- Basic_servo servo(true, 2 * thickness_ear01);
- servo.color(0.25,0.25,0.25);
- servo.rotate(90, 0, 180);
- servo.translate( 0, -(side/2 - 2 * thickness_ear01), SERVO_LEG_Y + thickness_base/2);
+ //UPDATE THE CODE FOR UPPER PART!!
 
- //Problems with this:
- //-- Create first ear
- Ear ear01(side , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, thickness_ear01);
- ear01.add_drill( M3 +0.1, M3_HEAD + 0.1, M3_HEAD_H);
- ear01.rotate(90, 0, 0);
- ear01.rotate(0,0,180);
- ear01.translate(0, - (side/2 - thickness_ear01), thickness_base/2);
+ //--------------------------------------------
 
- //-- Create second ear
- Ear ear02(side, 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, thickness_ear02);
- ear02.rotate(90,0,0);
- ear02.translate(0, SERVO_LEG_H + SERVO_LEG_Z/2 - (side/2 - 2 * thickness_ear01), thickness_base/2);
+ /*This is for the upper part
 
- //-- Add up all things
- Component result = base + ear01 + ear02 - servo;
+ result = result + result02;*/
 
  //-- Printing the result
  IndentWriter writer;
