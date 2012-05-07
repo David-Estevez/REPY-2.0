@@ -18,7 +18,7 @@ More information on:
 
 Basic shape finished
 ---------------------------------------------------------
-![Basic shape](http://github.com/David-Estevez/REPY-2-0/repy2.0.png)
+![Basic shape](http://github.com/David-Estevez/REPY-2-0/blob/master/repy2.0.png)
 
 Components release
 ---------------------------------------------------------
