@@ -3,7 +3,7 @@ REPY-2.0
 =========================================================
 
 Symmetric module for modular robots.
-m
+
 
 * Author: [David Estevez-Fernandez (DEF)](http://www.thingiverse.com/DEF)
 
@@ -12,13 +12,10 @@ This work is based on REPY module, by:
 
 More information on: 
 
-* [Thingiverse](http://www.thingiverse.com/thing:13442) (English)
+* [Thingiverse](http://www.thingiverse.com/thing:13442)
 
 * http://www.iearobotics.com/wiki/index.php?title=M%C3%B3dulos_REPY-1 (Spanish)
 
-Basic shape finished
----------------------------------------------------------
-![Basic shape](http://github.com/David-Estevez/REPY-2-0/blob/master/repy2.0.png)
 
 Components release
 ---------------------------------------------------------
