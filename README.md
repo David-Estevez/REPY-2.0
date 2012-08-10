@@ -9,6 +9,8 @@ Symmetric module for modular robots.
 This work is based on REPY module, by:
 [Juan Gonzalez-Gomez (Obijuan)](http://www.thingiverse.com/Obijuan)
 
+![Version 1.1](http://www.iearobotics.com/wiki/images/2/2e/Repy1-v1.1-1.jpg "Version 1.1")
+
 More information on: 
 
 * [Thingiverse](http://www.thingiverse.com/thing:13442)
@@ -25,7 +27,6 @@ done with the two basic parts: bases and ears.
 Both parts are entirely parametric, so you can make a 
 module that adapts to your needs (e.g. servo size)
 
-![Project status](https:/github.com/David-Estevez/REPY-2.0/repy2.0.png?branch=master)
 
 Usage:
 ---------------------------------------------------------
