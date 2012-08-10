@@ -1,4 +1,3 @@
-
 REPY-2.0
 =========================================================
 
@@ -26,6 +25,7 @@ done with the two basic parts: bases and ears.
 Both parts are entirely parametric, so you can make a 
 module that adapts to your needs (e.g. servo size)
 
+![Project status](https:/github.com/David-Estevez/REPY-2.0/repy2.0.png?branch=master)
 
 Usage:
 ---------------------------------------------------------
