@@ -10,7 +10,7 @@ This work is based on REPY module, by:
 [Juan Gonzalez-Gomez (Obijuan)](http://www.thingiverse.com/Obijuan)
 
 
-<img src="http://www.iearobotics.com/wiki/images/2/2e/Repy1-v1.1-1.jpg" alt="Version 1.1" height="100" width="50" /> 
+<img src="http://www.iearobotics.com/wiki/images/2/2e/Repy1-v1.1-1.jpg" alt="Version 1.1" width="300" /> 
 
 More information on: 
 
