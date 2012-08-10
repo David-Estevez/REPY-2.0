@@ -9,7 +9,8 @@ Symmetric module for modular robots.
 This work is based on REPY module, by:
 [Juan Gonzalez-Gomez (Obijuan)](http://www.thingiverse.com/Obijuan)
 
-![Version 1.1](http://www.iearobotics.com/wiki/images/2/2e/Repy1-v1.1-1.jpg "Version 1.1")
+
+<img src="http://www.iearobotics.com/wiki/images/2/2e/Repy1-v1.1-1.jpg" alt="Version 1.1" height="100" width="50" /> 
 
 More information on: 
 
