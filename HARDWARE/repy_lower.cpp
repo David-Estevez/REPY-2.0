@@ -34,6 +34,8 @@ REPY_lower::REPY_lower():AbstractPart()
 Component REPY_lower::build()
 {
     //--Create the module itself:
+    //---------------------------------
+
     //-- Create the base
     Base base(SIDE_BOARD + 2*_board_safe, _thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
 

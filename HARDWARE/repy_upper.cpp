@@ -34,14 +34,14 @@ REPY_upper::REPY_upper(): AbstractPart()
 Component REPY_upper::build()
 {
     //-- Base:
-    Base  base( _side, _thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
+    Base  base( SIDE_BOARD + 2*_board_safe, _thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
 
     //-- Ears:
-    Ear ear01(side , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01);
-    ear01.add_drill( M3 +0.1 );
+    Ear ear01( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01);
+    ear01.add_drill( M3 + 0.1 );
     ear01.rotate(90, 0, 0);
-    Component ear02 = ear01.translatedCopy(0,- (_side/2 - _thickness_ear01), _thickness_base/2);
-    ear01.translate(0,_side/2, thickness_base/2);
+    Component ear02 = ear01.translatedCopy(0,- ((SIDE_BOARD + 2*_board_safe)/2 - _thickness_ear01), _thickness_base/2);
+    ear01.translate(0,(SIDE_BOARD + 2*_board_safe)/2, _thickness_base/2);
 
     //-- Add up everything:
     Component result = base + ear01 + ear02;

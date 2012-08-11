@@ -29,7 +29,7 @@ struct Point
     double y;
 };
 
-//-- Auxiliar funcions (mainly for finding tangent points
+//-- Auxiliar funcions (mainly for finding tangent points)
 
 double _2ndDegree(double a, double b, double c, bool negative)
 {
@@ -133,6 +133,7 @@ Component Ear::build()
     //-- Compute the servo's horn circle
     Component2D horn = Circle::create(_horn_r, 100);
     horn.translate(0, _height, 0);
+
 
     //-- Create the ear shape
     Polygon<Point2D> shape;
