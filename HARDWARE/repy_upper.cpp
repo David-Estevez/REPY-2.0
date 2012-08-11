@@ -1,7 +1,7 @@
 //------------------------------------------------------
 //-- REPY-2.0
 //------------------------------------------------------
-//-- This is the lower part of a REPY module.
+//-- This is the upper part of a REPY module.
 //-- It is completely parametric, so one can build
 //-- a module to fit their own needs.
 //------------------------------------------------------

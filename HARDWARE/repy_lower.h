@@ -52,6 +52,8 @@ public:
     REPY_lower();
     //-- Need to make another constructor for giving it parameters
 
+    void showServo(bool enable);
+
 protected:
     virtual Component build();
 
@@ -66,6 +68,9 @@ private:
     float _thickness_ear01;
     float _thickness_ear02;
 
+    //-- Other parameters
+    //-- Show/don't show the servo on the model
+    bool _servo_enabled;
 };
 
 #endif // REPY_LOWER_H

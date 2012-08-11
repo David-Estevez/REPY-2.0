@@ -28,10 +28,12 @@ int main()
     //-- Variables for choosing what to output
     bool render_lower = true;
     bool render_upper = true;
+    bool render_assembly = true;
 
     if( render_lower )
     {
         REPY_lower lower_part;
+        lower_part.showServo(true);
 
         //-- Printing the lower part
         IndentWriter writer_lower;
@@ -57,9 +59,9 @@ int main()
         }
     }
 
-    if ( render_upper)
+    if ( render_upper )
     {
-        REPY_lower upper_part;
+        REPY_upper upper_part;
 
         //-- Printing the upper part
         IndentWriter writer_upper;
@@ -78,6 +80,44 @@ int main()
             file_upper << writer_upper;
             file_upper.close();
             cout << "Upper part saved succesfully." << endl;
+        }
+        else
+        {
+            cerr << "Error, cannot open the file" << endl;
+        }
+    }
+
+    if ( render_assembly )
+    {
+        REPY_upper upper_part;
+        REPY_lower lower_part;
+
+        lower_part.showServo(true);
+
+        Component rotated_upper_part = upper_part.translate(0,0,-(SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2))
+                                                 .rotate(0, 180, 0)
+                                                 .translate(0,0, (SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2));
+
+        //-- Assembly
+        Component assembly = rotated_upper_part + lower_part;
+
+        //-- Printing the upper part
+        IndentWriter writer_assembly;
+        writer_assembly << assembly;
+        //cout << writer_assembly << endl << endl;
+
+        ofstream file_assembly("REPY-2.0_assembly.scad");
+        if (file_assembly)
+        {
+            file_assembly << "//-------------------------------------------------------------------------" << endl;
+            file_assembly << "//-- REPY-2.0_assembly.scad" << endl;
+            file_assembly << "//-------------------------------------------------------------------------" << endl;
+            file_assembly << "//--This file has been generated automatically according to your data."<< endl;
+            file_assembly << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+            file_assembly << "//--------------------------------------------------------------------------" << endl << endl;
+            file_assembly << writer_assembly;
+            file_assembly.close();
+            cout << "Assembly saved succesfully." << endl;
         }
         else
         {

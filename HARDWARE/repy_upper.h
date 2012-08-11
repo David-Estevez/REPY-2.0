@@ -39,10 +39,10 @@
 #define M3_HEAD 4.5/2
 #define M3_HEAD_H 2
 
-#ifndef REPY_LOWER_H
-#define REPY_LOWER_H
-
 #endif //M3_SCREW
+
+#ifndef REPY_UPPER_H
+#define REPY_UPPER_H
 
 //-- Upper part of REPY module:
 

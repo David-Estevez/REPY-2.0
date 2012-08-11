@@ -28,6 +28,10 @@ REPY_lower::REPY_lower():AbstractPart()
     _thickness_ear01 = 4;
     _thickness_ear02 = 4;
 
+    //-- Don't render the servo by default:
+    _servo_enabled = false;
+
+
     rebuild();
 }
 
@@ -51,15 +55,27 @@ Component REPY_lower::build()
     ear01.add_drill( M3 +0.1, M3_HEAD + 0.1, M3_HEAD_H);
     ear01.rotate(90, 0, 0);
     ear01.rotate(0,0,180);
-    ear01.translate(0, - ((SIDE_BOARD+2*_board_safe)/2 - _thickness_ear01), _thickness_base/2-0.2);
+    ear01.translate(0, - ((SIDE_BOARD+2*_board_safe)/2 - _thickness_ear01), _thickness_base/2 -0.2);
 
     //-- Create second ear
     Ear ear02(SIDE_BOARD, 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02);
     ear02.rotate(90,0,0);
-    ear02.translate(0, SERVO_LEG_H + SERVO_LEG_Z/2 - ((SIDE_BOARD+2*_board_safe)/2 - 2 * _thickness_ear01),-0.2+ _thickness_base/2);
+    ear02.translate(0, SERVO_LEG_H + SERVO_LEG_Z/2 - ((SIDE_BOARD+2*_board_safe)/2 - 2 * _thickness_ear01), _thickness_base/2 -0.2);
 
     //-- Add up all things
     Component result = base + ear01 + ear02 - servo;
 
+    //-- If desired, show the servo
+    if (_servo_enabled)
+        result = result + servo;
+
     return result;
+}
+
+void REPY_lower::showServo(bool enable)
+{
+    //-- Update the variable _servo_enabled:
+    _servo_enabled = enable;
+
+    rebuild();
 }
