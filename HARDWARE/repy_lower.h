@@ -35,8 +35,8 @@
 #ifndef M3_SCREW
 #define M3_SCREW
 
-#define M3 3/2
-#define M3_HEAD 4.5/2
+#define M3 3/2.0
+#define M3_HEAD 4.5/2.0
 #define M3_HEAD_H 2
 
 #ifndef REPY_LOWER_H
