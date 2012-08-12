@@ -11,6 +11,7 @@
 #include <ooml/components.h>
 
 #include "basic_servo.h"
+#include "ear.h"
 
 //-- Basic servo implementations:
 //=============================================================================================
@@ -115,16 +116,31 @@ Servo_Horn_2_arms::Servo_Horn_2_arms(double tolerance)
 
 Component Servo_Horn_2_arms::build()
 {
-   //-- Construct axis:
-    Component axis = Cylinder::create();
+
+    //-- Construct axis:
+    Component axis = Cylinder::create(HORN_2_ARMS_AXIS_R, HORN_2_ARMS_AXIS_H+0.1, 100, false );
+
+    //-- Create the arms:
+    Ear arm(2*HORN_2_ARMS_AXIS_R, 0, HORN_2_ARMS_ARM_DIST, HORN_2_ARMS_ARM_R, HORN_2_ARMS_TOP_H);
+
+    Component arms = arm;
+
+    for (int i = 1; i < 2; i++)
+        arms = arms + arm.rotatedCopy(0,0, 360/2*i);
+
+    arms.translate(0,0, HORN_2_ARMS_AXIS_H);
+
+    //-- Add the upper cylinder:
+    Component top_cyl = Cylinder::create(HORN_2_ARMS_TOP_R, HORN_2_ARMS_TOP_H, 100, false)
+                                 .translate(0,0,HORN_2_ARMS_AXIS_H);
 
     //-- Add up all parts:
-    Component result = axis;
+    Component result = axis + arms + top_cyl;
 
     return result;
 }
 
-/*
+
 //-- Servo horn with 4 arms implementation:
 //-------------------------------------------
 Servo_Horn_4_arms::Servo_Horn_4_arms(double tolerance)
@@ -136,7 +152,27 @@ Servo_Horn_4_arms::Servo_Horn_4_arms(double tolerance)
 
 Component Servo_Horn_4_arms::build()
 {
-    //-- Steps
+    //-- Construct axis:
+    Component axis = Cylinder::create(HORN_4_ARMS_AXIS_R, HORN_4_ARMS_AXIS_H+0.1, 100, false );
+
+    //-- Create the arms:
+    Ear arm(2*HORN_4_ARMS_AXIS_R, HORN_4_ARMS_ARM_SHIFT, HORN_4_ARMS_ARM_DIST, HORN_4_ARMS_ARM_R, HORN_4_ARMS_TOP_H);
+
+    Component arms = arm;
+
+    for (int i = 1; i < 4; i++)
+        arms = arms + arm.rotatedCopy(0,0, 360/4*i);
+
+    arms.translate(0,0, HORN_4_ARMS_AXIS_H);
+
+    //-- Add the upper cylinder:
+    Component top_cyl = Cylinder::create(HORN_4_ARMS_TOP_R, HORN_4_ARMS_TOP_H, 100, false)
+                                 .translate(0,0,HORN_4_ARMS_AXIS_H);
+
+    //-- Add up all parts:
+    Component result = axis + arms + top_cyl;
+
+    return result;
 }
 
 
@@ -151,6 +187,27 @@ Servo_Horn_6_arms::Servo_Horn_6_arms(double tolerance)
 
 Component Servo_Horn_6_arms::build()
 {
-    //-- Steps
+
+    //-- Construct axis:
+    Component axis = Cylinder::create(HORN_6_ARMS_AXIS_R, HORN_6_ARMS_AXIS_H+0.1, 100, false );
+
+    //-- Create the arms:
+    Ear arm(2*HORN_6_ARMS_AXIS_R, 0, HORN_6_ARMS_ARM_DIST, HORN_6_ARMS_ARM_R, HORN_6_ARMS_TOP_H);
+
+    Component arms = arm;
+
+    for (int i = 1; i < 6; i++)
+        arms = arms + arm.rotatedCopy(0,0, 360/6*i);
+
+    arms.translate(0,0, HORN_6_ARMS_AXIS_H);
+
+    //-- Add the upper cylinder:
+    Component top_cyl = Cylinder::create(HORN_6_ARMS_TOP_R, HORN_6_ARMS_TOP_H, 100, false)
+                                 .translate(0,0,HORN_6_ARMS_AXIS_H);
+
+    //-- Add up all parts:
+    Component result = axis + arms + top_cyl;
+
+    return result;
 }
-*/
+

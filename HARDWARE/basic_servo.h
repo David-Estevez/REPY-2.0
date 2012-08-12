@@ -120,7 +120,7 @@ private:
 #define HORN_4_ARMS_TOP_R 13.5/2.0
 
 #define HORN_4_ARMS_ARM_R 4.5/2.0
-#define HORN_4_ARMS_ARM_SHIFT 2.5
+#define HORN_4_ARMS_ARM_SHIFT 7
 #define HORN_4_ARMS_ARM_DIST 18-4.5/2.0
 
 class Servo_Horn_4_arms: public AbstractPart
@@ -135,15 +135,6 @@ protected:
 private:
         //-- Parameters:
         double _tol;
-
-        /*
-        int _num_arms;
-        double _axis_h;
-        double _axis_r;
-        double _top_h;
-        double _top_r;
-        double _arm_r;
-        double _arm_dist;*/
 
 };
 
@@ -170,16 +161,6 @@ protected:
 private:
         //-- Parameters:
         double _tol;
-
-        /*
-        int _num_arms;
-        double _axis_h;
-        double _axis_r;
-        double _top_h;
-        double _top_r;
-        double _arm_r;
-        double _arm_dist;*/
-
 };
 
 #endif // SERVO_HORNS_CLASS

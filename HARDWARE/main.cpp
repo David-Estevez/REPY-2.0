@@ -154,10 +154,12 @@ int main()
         }
     }
 
-    if (true) //-- Render 2 arms horn
+    if (true) //-- Render arms horn
     {
         //-- Render horn
-        Servo_Horn_2_arms horn();
+        //Servo_Horn_2_arms horn;
+        //Servo_Horn_4_arms horn;
+        Servo_Horn_6_arms horn;
 
         //-- Printing the upper part
         IndentWriter writer_horn;
@@ -182,6 +184,7 @@ int main()
             cerr << "Error, cannot open the file" << endl;
         }
     }
+
 
     return 0;
 
