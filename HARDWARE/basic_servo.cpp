@@ -13,6 +13,7 @@
 #include "basic_servo.h"
 
 //-- Basic servo implementations:
+//=============================================================================================
 Basic_servo::Basic_servo(bool screw, double screw_length, double tol):AbstractPart()
 {
     _screw = screw;
@@ -56,7 +57,15 @@ Component Basic_servo::build()
 
 }
 
-//-- Servo rounded horn implementations:
+
+
+
+//-- Servo horns implementations:
+//=============================================================================================
+
+
+//-- Servo rounded horn implementatio:
+//------------------------------------------
 Servo_Horn_rounded::Servo_Horn_rounded(double cutted_part, double tolerance)
 {
     //-- Assign values
@@ -93,3 +102,55 @@ Component Servo_Horn_rounded::build()
 
     return result;
 }
+
+
+//-- Servo horn with 2 arms implementation:
+//--------------------------------------------
+Servo_Horn_2_arms::Servo_Horn_2_arms(double tolerance)
+{
+    _tol = tolerance;
+
+    rebuild();
+}
+
+Component Servo_Horn_2_arms::build()
+{
+   //-- Construct axis:
+    Component axis = Cylinder::create();
+
+    //-- Add up all parts:
+    Component result = axis;
+
+    return result;
+}
+
+/*
+//-- Servo horn with 4 arms implementation:
+//-------------------------------------------
+Servo_Horn_4_arms::Servo_Horn_4_arms(double tolerance)
+{
+    _tol = tolerance;
+
+    rebuild();
+}
+
+Component Servo_Horn_4_arms::build()
+{
+    //-- Steps
+}
+
+
+//-- Servo horn with 6 arms implementation:
+//-------------------------------------------
+Servo_Horn_6_arms::Servo_Horn_6_arms(double tolerance)
+{
+    _tol = tolerance;
+
+    rebuild();
+}
+
+Component Servo_Horn_6_arms::build()
+{
+    //-- Steps
+}
+*/

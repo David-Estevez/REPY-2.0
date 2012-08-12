@@ -26,7 +26,7 @@ using namespace std;
 int main()
 {
     //-- Variables for choosing what to output
-    bool render_lower = false;
+    bool render_lower = true;
     bool render_upper = true;
     bool render_assembly = true;
 
@@ -125,7 +125,7 @@ int main()
         }
     }
 
-    if (true)
+    if (false) //-- Render rounded horn
     {
         //-- Render horn
         Servo_Horn_rounded horn(25/2.0-2.5);
@@ -153,6 +153,36 @@ int main()
             cerr << "Error, cannot open the file" << endl;
         }
     }
+
+    if (true) //-- Render 2 arms horn
+    {
+        //-- Render horn
+        Servo_Horn_2_arms horn();
+
+        //-- Printing the upper part
+        IndentWriter writer_horn;
+        writer_horn << horn;
+        //cout << writer_horn << endl << endl;
+
+        ofstream file_horn("REPY-2.0_horn.scad");
+        if (file_horn)
+        {
+            file_horn << "//-------------------------------------------------------------------------" << endl;
+            file_horn << "//-- REPY-2.0_horn.scad" << endl;
+            file_horn << "//-------------------------------------------------------------------------" << endl;
+            file_horn << "//--This file has been generated automatically according to your data."<< endl;
+            file_horn << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+            file_horn << "//--------------------------------------------------------------------------" << endl << endl;
+            file_horn << writer_horn;
+            file_horn.close();
+            cout << "Horn part saved succesfully." << endl;
+        }
+        else
+        {
+            cerr << "Error, cannot open the file" << endl;
+        }
+    }
+
     return 0;
 
 }

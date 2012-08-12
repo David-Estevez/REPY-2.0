@@ -12,6 +12,11 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
+
+
+//-- Basic Servo definitions:
+//=============================================================================
+
 #ifndef BASIC_SERVO_H
 #define BASIC_SERVO_H
 
@@ -53,6 +58,9 @@ private:
 
 
 
+//-- Servo horn definitions
+//=========================================================================
+
 #ifndef SERVO_HORNS_CLASS
 #define SERVO_HORNS_CLASS
 
@@ -77,11 +85,101 @@ private:
     double _cutted_part; //-- Value for the distance between the center and the cut of the horn
 };
 
-/*class Servo_Horm_arms: public AbstractPart
+
+//-- Definition of 2 arms servo horm dimensions:
+#define HORN_2_ARMS_AXIS_H 3
+#define HORN_2_ARMS_AXIS_R 9/2.0
+
+#define HORN_2_ARMS_TOP_H 2
+#define HORN_2_ARMS_TOP_R 12.5/2
+
+#define HORN_2_ARMS_ARM_R 5/2.0
+#define HORN_2_ARMS_ARM_DIST 19-5/2.0
+
+class Servo_Horn_2_arms: public AbstractPart
+{
+public:
+    //--Constructor:
+    Servo_Horn_2_arms( double tolerance = 0);
+
+protected:
+    virtual Component build();
+
+private:
+    //-- Parameters:
+    double _tol;
+
+};
+
+
+//-- Definition of 4 arms servo horm dimensions:
+#define HORN_4_ARMS_AXIS_H 3
+#define HORN_4_ARMS_AXIS_R 9/2.0
+
+#define HORN_4_ARMS_TOP_H 3
+#define HORN_4_ARMS_TOP_R 13.5/2.0
+
+#define HORN_4_ARMS_ARM_R 4.5/2.0
+#define HORN_4_ARMS_ARM_SHIFT 2.5
+#define HORN_4_ARMS_ARM_DIST 18-4.5/2.0
+
+class Servo_Horn_4_arms: public AbstractPart
 {
 public:
     //--Constructor
-    Servo_Horm_arms( int num_arms, );
-};*/
+    Servo_Horn_4_arms( double tolerance = 0);
+
+protected:
+    virtual Component build();
+
+private:
+        //-- Parameters:
+        double _tol;
+
+        /*
+        int _num_arms;
+        double _axis_h;
+        double _axis_r;
+        double _top_h;
+        double _top_r;
+        double _arm_r;
+        double _arm_dist;*/
+
+};
+
+
+//-- Definition of 6 arms servo horm dimensions:
+#define HORN_6_ARMS_AXIS_H 3.5
+#define HORN_6_ARMS_AXIS_R 9/2.0
+
+#define HORN_6_ARMS_TOP_H 2
+#define HORN_6_ARMS_TOP_R 15/2.0
+
+#define HORN_6_ARMS_ARM_R 5/2.0
+#define HORN_6_ARMS_ARM_DIST (31.5-5)/2.0
+
+class Servo_Horn_6_arms: public AbstractPart
+{
+public:
+    //--Constructor
+    Servo_Horn_6_arms( double tolerance = 0);
+
+protected:
+    virtual Component build();
+
+private:
+        //-- Parameters:
+        double _tol;
+
+        /*
+        int _num_arms;
+        double _axis_h;
+        double _axis_r;
+        double _top_h;
+        double _top_r;
+        double _arm_r;
+        double _arm_dist;*/
+
+};
 
 #endif // SERVO_HORNS_CLASS
