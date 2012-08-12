@@ -157,9 +157,7 @@ int main()
     if (true) //-- Render arms horn
     {
         //-- Render horn
-        //Servo_Horn_2_arms horn;
-        //Servo_Horn_4_arms horn;
-        Servo_Horn_6_arms horn;
+        Servo_Horn_arms horn(4);
 
         //-- Printing the upper part
         IndentWriter writer_horn;

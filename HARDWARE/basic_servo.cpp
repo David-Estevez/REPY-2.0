@@ -65,7 +65,7 @@ Component Basic_servo::build()
 //=============================================================================================
 
 
-//-- Servo rounded horn implementatio:
+//-- Servo rounded horn implementation:
 //------------------------------------------
 Servo_Horn_rounded::Servo_Horn_rounded(double cutted_part, double tolerance)
 {
@@ -105,34 +105,98 @@ Component Servo_Horn_rounded::build()
 }
 
 
-//-- Servo horn with 2 arms implementation:
+//-- Servo horn with arms implementation:
 //--------------------------------------------
-Servo_Horn_2_arms::Servo_Horn_2_arms(double tolerance)
+Servo_Horn_arms::Servo_Horn_arms(int number_arms, double tolerance)
 {
-    _tol = tolerance;
+    //-- Default parameters:
+    n = number_arms; //-- Number of arms
+
+    if (n == 2)
+    {
+        //-- Definitions for 2 arm servo horn
+        _axis_h = HORN_2_ARMS_AXIS_H; //-- Axis height/thickness
+        _axis_r = HORN_2_ARMS_AXIS_R ; //-- Axis radius
+
+        _top_h = HORN_2_ARMS_TOP_H;  //-- Top cylinder height/thickness
+        _top_r = HORN_2_ARMS_TOP_R;  //-- Top cylinder radius
+
+        _arm_r = HORN_2_ARMS_ARM_R;  //-- Radius of the rounded part at the end of arm
+        _arm_shift = HORN_2_ARMS_ARM_SHIFT;
+        _arm_dist = HORN_2_ARMS_ARM_DIST; //-- Distance between center of top cylinder and center of arm cylinder
+    }
+
+    if (n == 4)
+    {
+        //-- Definitions for 4 arm servo horn
+        _axis_h = HORN_4_ARMS_AXIS_H; //-- Axis height/thickness
+        _axis_r = HORN_4_ARMS_AXIS_R ; //-- Axis radius
+
+        _top_h = HORN_4_ARMS_TOP_H;  //-- Top cylinder height/thickness
+        _top_r = HORN_4_ARMS_TOP_R;  //-- Top cylinder radius
+
+        _arm_r = HORN_4_ARMS_ARM_R;  //-- Radius of the rounded part at the end of arm
+        _arm_shift = HORN_4_ARMS_ARM_SHIFT;
+        _arm_dist = HORN_4_ARMS_ARM_DIST; //-- Distance between center of top cylinder and center of arm cylinder
+    }
+
+    if (n == 6)
+    {
+        //-- Definitions for 6 arm servo horn
+        _axis_h = HORN_6_ARMS_AXIS_H; //-- Axis height/thickness
+        _axis_r = HORN_6_ARMS_AXIS_R ; //-- Axis radius
+
+        _top_h = HORN_6_ARMS_TOP_H;  //-- Top cylinder height/thickness
+        _top_r = HORN_6_ARMS_TOP_R;  //-- Top cylinder radius
+
+        _arm_r = HORN_6_ARMS_ARM_R;  //-- Radius of the rounded part at the end of arm
+        _arm_shift = HORN_6_ARMS_ARM_SHIFT;
+        _arm_dist = HORN_6_ARMS_ARM_DIST; //-- Distance between center of top cylinder and center of arm cylinder
+    }
+
+    _tol = tolerance; //-- Tolerance
 
     rebuild();
 }
 
-Component Servo_Horn_2_arms::build()
+Servo_Horn_arms::Servo_Horn_arms(int number_arms, double axis_h, double axis_r, double top_h,
+                                 double top_r, double arm_r, double arm_shift, double arm_dist, double tolerance)
+{
+    //-- User-defined parameters
+    n = number_arms; //-- Number of arms
+
+    _axis_h = axis_h; //-- Axis height/thickness
+    _axis_r = axis_r ; //-- Axis radius
+
+    _top_h = top_h;  //-- Top cylinder height/thickness
+    _top_r = top_r;  //-- Top cylinder radius
+
+    _arm_r = arm_r;  //-- Radius of the rounded part at the end of arm
+    _arm_shift = arm_shift;
+    _arm_dist = arm_dist; //-- Distance between center of top cylinder and center of arm cylinder
+
+    _tol = tolerance; //-- Tolerance
+}
+
+Component Servo_Horn_arms::build()
 {
 
     //-- Construct axis:
-    Component axis = Cylinder::create(HORN_2_ARMS_AXIS_R, HORN_2_ARMS_AXIS_H+0.1, 100, false );
+    Component axis = Cylinder::create(_axis_r, _axis_h + 0.1, 100, false );
 
     //-- Create the arms:
-    Ear arm(2*HORN_2_ARMS_AXIS_R, 0, HORN_2_ARMS_ARM_DIST, HORN_2_ARMS_ARM_R, HORN_2_ARMS_TOP_H);
+    Ear arm(2*_axis_r, 0, _arm_dist, _arm_r, _top_h);
 
     Component arms = arm;
 
-    for (int i = 1; i < 2; i++)
-        arms = arms + arm.rotatedCopy(0,0, 360/2*i);
+    for (int i = 1; i < n; i++)
+        arms = arms + arm.rotatedCopy(0,0, 360/n*i);
 
-    arms.translate(0,0, HORN_2_ARMS_AXIS_H);
+    arms.translate(0,0, _axis_h);
 
     //-- Add the upper cylinder:
-    Component top_cyl = Cylinder::create(HORN_2_ARMS_TOP_R, HORN_2_ARMS_TOP_H, 100, false)
-                                 .translate(0,0,HORN_2_ARMS_AXIS_H);
+    Component top_cyl = Cylinder::create(_top_r, _top_h, 100, false)
+                                 .translate(0, 0, _axis_h);
 
     //-- Add up all parts:
     Component result = axis + arms + top_cyl;
@@ -140,74 +204,4 @@ Component Servo_Horn_2_arms::build()
     return result;
 }
 
-
-//-- Servo horn with 4 arms implementation:
-//-------------------------------------------
-Servo_Horn_4_arms::Servo_Horn_4_arms(double tolerance)
-{
-    _tol = tolerance;
-
-    rebuild();
-}
-
-Component Servo_Horn_4_arms::build()
-{
-    //-- Construct axis:
-    Component axis = Cylinder::create(HORN_4_ARMS_AXIS_R, HORN_4_ARMS_AXIS_H+0.1, 100, false );
-
-    //-- Create the arms:
-    Ear arm(2*HORN_4_ARMS_AXIS_R, HORN_4_ARMS_ARM_SHIFT, HORN_4_ARMS_ARM_DIST, HORN_4_ARMS_ARM_R, HORN_4_ARMS_TOP_H);
-
-    Component arms = arm;
-
-    for (int i = 1; i < 4; i++)
-        arms = arms + arm.rotatedCopy(0,0, 360/4*i);
-
-    arms.translate(0,0, HORN_4_ARMS_AXIS_H);
-
-    //-- Add the upper cylinder:
-    Component top_cyl = Cylinder::create(HORN_4_ARMS_TOP_R, HORN_4_ARMS_TOP_H, 100, false)
-                                 .translate(0,0,HORN_4_ARMS_AXIS_H);
-
-    //-- Add up all parts:
-    Component result = axis + arms + top_cyl;
-
-    return result;
-}
-
-
-//-- Servo horn with 6 arms implementation:
-//-------------------------------------------
-Servo_Horn_6_arms::Servo_Horn_6_arms(double tolerance)
-{
-    _tol = tolerance;
-
-    rebuild();
-}
-
-Component Servo_Horn_6_arms::build()
-{
-
-    //-- Construct axis:
-    Component axis = Cylinder::create(HORN_6_ARMS_AXIS_R, HORN_6_ARMS_AXIS_H+0.1, 100, false );
-
-    //-- Create the arms:
-    Ear arm(2*HORN_6_ARMS_AXIS_R, 0, HORN_6_ARMS_ARM_DIST, HORN_6_ARMS_ARM_R, HORN_6_ARMS_TOP_H);
-
-    Component arms = arm;
-
-    for (int i = 1; i < 6; i++)
-        arms = arms + arm.rotatedCopy(0,0, 360/6*i);
-
-    arms.translate(0,0, HORN_6_ARMS_AXIS_H);
-
-    //-- Add the upper cylinder:
-    Component top_cyl = Cylinder::create(HORN_6_ARMS_TOP_R, HORN_6_ARMS_TOP_H, 100, false)
-                                 .translate(0,0,HORN_6_ARMS_AXIS_H);
-
-    //-- Add up all parts:
-    Component result = axis + arms + top_cyl;
-
-    return result;
-}
 

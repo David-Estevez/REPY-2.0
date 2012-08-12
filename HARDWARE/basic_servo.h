@@ -12,31 +12,13 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-
-
-//-- Basic Servo definitions:
-//=============================================================================
+#include "servo_dimensions.h"
 
 #ifndef BASIC_SERVO_H
 #define BASIC_SERVO_H
 
-//-- Definition of servo dimensions
-#define SERVO_WIDTH 20
-#define SERVO_LENGTH 41
-#define SERVO_HEIGHT 38
-
-#define SERVO_LEG_H 27
-#define SERVO_LEG_Z 4
-#define SERVO_LEG_Y 6.5
-#define SERVO_LEG_X 20
-
-#define SERVO_AXIS_H 6
-#define SERVO_AXIS_Y 30
-#define SERVO_AXIS_R 3
-
-#define SERVO_HOLE_R 2
-#define SERVO_HOLE_X 5
-#define SERVO_HOLE_Y 4
+//-- Basic Servo definitions:
+//=============================================================================
 
 class Basic_servo: public AbstractPart
 {
@@ -53,23 +35,11 @@ private:
    double _screw_length; //-- Screw thickness
 };
 
-#endif // BASIC_SERVO_H
-
-
 
 
 //-- Servo horn definitions
 //=========================================================================
 
-#ifndef SERVO_HORNS_CLASS
-#define SERVO_HORNS_CLASS
-
-//-- Definition of rounded horn dimensions:
-#define ROUNDED_HORN_R_TOP 25/2.0
-#define ROUNDED_HORN_H_TOP 2
-
-#define ROUNDED_HORN_R_AXIS 9/2.0
-#define ROUNDED_HORN_H_AXIS 3
 
 class Servo_Horn_rounded: public AbstractPart
 {
@@ -86,81 +56,34 @@ private:
 };
 
 
-//-- Definition of 2 arms servo horm dimensions:
-#define HORN_2_ARMS_AXIS_H 3
-#define HORN_2_ARMS_AXIS_R 9/2.0
-
-#define HORN_2_ARMS_TOP_H 2
-#define HORN_2_ARMS_TOP_R 12.5/2
-
-#define HORN_2_ARMS_ARM_R 5/2.0
-#define HORN_2_ARMS_ARM_DIST 19-5/2.0
-
-class Servo_Horn_2_arms: public AbstractPart
+class Servo_Horn_arms: public AbstractPart
 {
 public:
     //--Constructor:
-    Servo_Horn_2_arms( double tolerance = 0);
+    Servo_Horn_arms( int number_arms, double tolerance = 0);
+    Servo_Horn_arms( int number_arms, double axis_h, double axis_r, double top_h, double top_r,
+                     double arm_r, double arm_shift, double arm_dist, double tolerance = 0);
 
 protected:
     virtual Component build();
 
 private:
     //-- Parameters:
-    double _tol;
+    int n; //-- Number of arms
+
+    double _axis_h; //-- Axis height/thickness
+    double _axis_r; //-- Axis radius
+
+    double _top_h;  //-- Top cylinder height/thickness
+    double _top_r;  //-- Top cylinder radius
+
+    double _arm_r;  //-- Radius of the rounded part at the end of arm
+    double _arm_shift;
+    double _arm_dist; //-- Distance between center of top cylinder and center of arm cylinder
+
+    double _tol; //-- Tolerance
 
 };
 
 
-//-- Definition of 4 arms servo horm dimensions:
-#define HORN_4_ARMS_AXIS_H 3
-#define HORN_4_ARMS_AXIS_R 9/2.0
-
-#define HORN_4_ARMS_TOP_H 3
-#define HORN_4_ARMS_TOP_R 13.5/2.0
-
-#define HORN_4_ARMS_ARM_R 4.5/2.0
-#define HORN_4_ARMS_ARM_SHIFT 7
-#define HORN_4_ARMS_ARM_DIST 18-4.5/2.0
-
-class Servo_Horn_4_arms: public AbstractPart
-{
-public:
-    //--Constructor
-    Servo_Horn_4_arms( double tolerance = 0);
-
-protected:
-    virtual Component build();
-
-private:
-        //-- Parameters:
-        double _tol;
-
-};
-
-
-//-- Definition of 6 arms servo horm dimensions:
-#define HORN_6_ARMS_AXIS_H 3.5
-#define HORN_6_ARMS_AXIS_R 9/2.0
-
-#define HORN_6_ARMS_TOP_H 2
-#define HORN_6_ARMS_TOP_R 15/2.0
-
-#define HORN_6_ARMS_ARM_R 5/2.0
-#define HORN_6_ARMS_ARM_DIST (31.5-5)/2.0
-
-class Servo_Horn_6_arms: public AbstractPart
-{
-public:
-    //--Constructor
-    Servo_Horn_6_arms( double tolerance = 0);
-
-protected:
-    virtual Component build();
-
-private:
-        //-- Parameters:
-        double _tol;
-};
-
-#endif // SERVO_HORNS_CLASS
+#endif // BASIC_SERVO_H
