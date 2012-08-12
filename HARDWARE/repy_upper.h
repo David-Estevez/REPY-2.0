@@ -52,6 +52,8 @@ public:
     REPY_upper();
     //-- Need to make another constructor for giving it parameters
 
+    void showHorn( bool display_horn);
+
 protected:
     virtual Component build();
 
@@ -66,6 +68,8 @@ private:
     float _thickness_ear01;
     float _thickness_ear02;
 
+    //-- Display or not the servo horn
+    bool _display_horn;
 };
 
 #endif // REPY_UPPER_H

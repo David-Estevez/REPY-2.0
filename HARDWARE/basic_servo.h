@@ -77,4 +77,11 @@ private:
     double _cutted_part; //-- Value for the distance between the center and the cut of the horn
 };
 
+/*class Servo_Horm_arms: public AbstractPart
+{
+public:
+    //--Constructor
+    Servo_Horm_arms( int num_arms, );
+};*/
+
 #endif // SERVO_HORNS_CLASS

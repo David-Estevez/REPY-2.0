@@ -69,7 +69,7 @@ Servo_Horn_rounded::Servo_Horn_rounded(double cutted_part, double tolerance)
 Component Servo_Horn_rounded::build()
 {
     //-- Create axis cylinder
-    Component axis = Cylinder::create(ROUNDED_HORN_R_AXIS+_tol, ROUNDED_HORN_H_AXIS, 100, false);
+    Component axis = Cylinder::create(ROUNDED_HORN_R_AXIS+_tol, ROUNDED_HORN_H_AXIS+0.1, 100, false);
 
     //-- Create top of the horn
     Component top = Cylinder::create(ROUNDED_HORN_R_TOP+_tol, ROUNDED_HORN_H_TOP, 100, false);

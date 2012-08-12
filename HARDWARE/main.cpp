@@ -27,8 +27,8 @@ int main()
 {
     //-- Variables for choosing what to output
     bool render_lower = false;
-    bool render_upper = false;
-    bool render_assembly = false;
+    bool render_upper = true;
+    bool render_assembly = true;
 
     if( render_lower )
     {
@@ -93,11 +93,11 @@ int main()
         REPY_lower lower_part;
 
         lower_part.showServo(true);
+        upper_part.showHorn(true);
 
         Component rotated_upper_part = upper_part.translate(0,0,-(SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2))
                                                  .rotate(0, 180, 0)
                                                  .translate(0,0, (SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2));
-
         //-- Assembly
         Component assembly = rotated_upper_part + lower_part;
 

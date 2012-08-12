@@ -28,6 +28,9 @@ REPY_upper::REPY_upper(): AbstractPart()
     _thickness_ear01 = 4;
     _thickness_ear02 = 4;
 
+    //-- Servo horn not shown by default
+    _display_horn = false;
+
     rebuild();
 }
 
@@ -43,8 +46,28 @@ Component REPY_upper::build()
     Component ear02 = ear01.translatedCopy(0,- ((SIDE_BOARD + 2*_board_safe)/2 - _thickness_ear01), _thickness_base/2);
     ear01.translate(0,(SIDE_BOARD + 2*_board_safe)/2, _thickness_base/2);
 
+    //-- Horn hole
+    Servo_Horn_rounded horn(25/2.0 - 3, 0.1);
+    horn.rotate(-90,0,0)
+        .rotate(0,-90,0)
+            .translate(0, -(ROUNDED_HORN_H_TOP+ROUNDED_HORN_H_AXIS),0)
+        .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 ,SERVO_AXIS_Y+SERVO_LEG_Y+_thickness_base/2);
+
     //-- Add up everything:
-    Component result = base + ear01 + ear02;
+    Component result = base + ear01 + ear02 - horn;
+
+    if (_display_horn)
+    {
+        result = result + horn.color(0,0,0);
+    }
 
     return result;
+}
+
+void REPY_upper::showHorn( bool display_horn)
+{
+    //-- Update the variable _display_horn
+    _display_horn = display_horn;
+
+    rebuild();
 }
