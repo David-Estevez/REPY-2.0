@@ -62,6 +62,7 @@ int main()
     if ( render_upper )
     {
         REPY_upper upper_part;
+        upper_part.hornType(4);
 
         //-- Printing the upper part
         IndentWriter writer_upper;
@@ -94,6 +95,7 @@ int main()
 
         lower_part.showServo(true);
         upper_part.showHorn(true);
+        upper_part.hornType(4);
 
         Component rotated_upper_part = upper_part.translate(0,0,-(SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2))
                                                  .rotate(0, 180, 0)

@@ -17,6 +17,7 @@
 #include <base.h>
 #include <ear.h>
 #include <basic_servo.h>
+#include <servo_dimensions.h>
 
 //-- This parameters depend on the board that we want to use.
 
@@ -53,6 +54,7 @@ public:
     //-- Need to make another constructor for giving it parameters
 
     void showHorn( bool display_horn);
+    void hornType( int type);
 
 protected:
     virtual Component build();
@@ -70,6 +72,7 @@ private:
 
     //-- Display or not the servo horn
     bool _display_horn;
+    int _type; //-- Horn type (see function hornType for further info)
 };
 
 #endif // REPY_UPPER_H

@@ -30,6 +30,7 @@ REPY_upper::REPY_upper(): AbstractPart()
 
     //-- Servo horn not shown by default
     _display_horn = false;
+    _type = 0;
 
     rebuild();
 }
@@ -46,20 +47,63 @@ Component REPY_upper::build()
     Component ear02 = ear01.translatedCopy(0,- ((SIDE_BOARD + 2*_board_safe)/2 - _thickness_ear01), _thickness_base/2);
     ear01.translate(0,(SIDE_BOARD + 2*_board_safe)/2, _thickness_base/2);
 
-    //-- Horn hole
-    Servo_Horn_rounded horn(25/2.0 - 3, 0.1);
-    horn.rotate(-90,0,0)
-        .rotate(0,-90,0)
-            .translate(0, -(ROUNDED_HORN_H_TOP+ROUNDED_HORN_H_AXIS),0)
-        .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 ,SERVO_AXIS_Y+SERVO_LEG_Y+_thickness_base/2);
-
     //-- Add up everything:
-    Component result = base + ear01 + ear02 - horn;
+    Component result = base + ear01 + ear02;
 
-    if (_display_horn)
+    //-- Horn hole
+    if ( _type == 1)
     {
-        result = result + horn.color(0,0,0);
-    }
+        //-- Cutted rounded horn
+        Servo_Horn_rounded horn( ROUNDED_HORN_R_TOP - 3, 0.1);
+        horn.rotate(-90,0,0).rotate(0,90,0)
+            .translate(0, -(ROUNDED_HORN_H_TOP + ROUNDED_HORN_H_AXIS),0)
+            .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+
+        result = result - horn;
+
+        if (_display_horn)
+           result = result + horn.color(0,0,0);
+      }
+
+    if ( _type == 2)
+    {
+        //-- 2 arms horn
+        Servo_Horn_arms horn (2);
+        horn.rotate(-90,0,0)
+            .translate(0, - (HORN_2_ARMS_TOP_H+HORN_2_ARMS_AXIS_H), 0)
+            .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+
+        result = result - horn;
+
+        if (_display_horn)
+            result = result + horn.color(0,0,0);}
+
+     if ( _type == 4)
+     {
+         //-- 4 arms horn
+         Servo_Horn_arms horn (4);
+         horn.rotate(-90,0,0)
+             .translate(0, - (HORN_4_ARMS_TOP_H+HORN_2_ARMS_AXIS_H), 0)
+             .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+
+         result = result - horn;
+
+         if (_display_horn)
+             result = result + horn.color(0,0,0);
+     }
+
+     if ( _type == 6) //-- 6 arms horn
+     {
+        Servo_Horn_arms horn (6);
+        horn.rotate(-90,0,0)
+            .translate(0, - (HORN_6_ARMS_TOP_H+HORN_2_ARMS_AXIS_H), 0)
+            .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+
+        result = result - horn;
+
+        if (_display_horn)
+            result = result + horn.color(0,0,0);
+      }
 
     return result;
 }
@@ -71,3 +115,23 @@ void REPY_upper::showHorn( bool display_horn)
 
     rebuild();
 }
+
+void REPY_upper::hornType(int type)
+{
+    //-- Choose type of horn:
+    //----------------------------
+    //-- 0: don't make horn hole
+    //-- 1: cutted rounded horn
+    //-- 2: two arms horn
+    //-- 4: four arms horn
+    //-- 6: six arms horn
+    //----------------------------
+
+    if (type < 0 || type > 6 || type == 3 || type == 5)
+        _type = 0;
+    else
+        _type = type;
+
+    rebuild();
+}
+
