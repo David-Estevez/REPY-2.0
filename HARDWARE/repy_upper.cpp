@@ -25,8 +25,9 @@ REPY_upper::REPY_upper(): AbstractPart()
 
     //-- Thicknesses
     _thickness_base = 4;
-    _thickness_ear01 = 4;
-    _thickness_ear02 = 4;
+    _thickness_ear01 = 4;               //-- y- (false axis)
+    _thickness_ear02 = 4;               //-- y+ (servo horn)
+    _thickness_ear_lower01 = 4;         //-- Needed for placement of y+ ear
 
     //-- Servo horn not shown by default
     _display_horn = false;
@@ -41,11 +42,16 @@ Component REPY_upper::build()
     Base  base( SIDE_BOARD + 2*_board_safe, _thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
 
     //-- Ears:
-    Ear ear01( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01);
+    Ear ear01( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01); // -y ear
     ear01.add_drill( M3 + 0.1 );
-    ear01.rotate(90, 0, 0);
-    Component ear02 = ear01.translatedCopy(0,- ((SIDE_BOARD + 2*_board_safe)/2 - _thickness_ear01), _thickness_base/2);
-    ear01.translate(0,(SIDE_BOARD + 2*_board_safe)/2, _thickness_base/2);
+    ear01.rotate(90, 0, 180)
+         .translate(0, -(SIDE_BOARD/2 + _board_safe), _thickness_base/2);
+
+    Ear ear02( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02); // +y ear
+    ear02.add_drill( M3 + 0.1 );
+    ear02.rotate(90, 0, 180)
+         .translate(0,-(SIDE_BOARD/2 + _board_safe), _thickness_base/2)
+         .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT, 0 );
 
     //-- Add up everything:
     Component result = base + ear01 + ear02;
@@ -56,13 +62,13 @@ Component REPY_upper::build()
         //-- Cutted rounded horn
         Servo_Horn_rounded horn( ROUNDED_HORN_R_TOP - 3, 0.1);
         horn.rotate(-90,0,0).rotate(0,90,0)
-            .translate(0, -(ROUNDED_HORN_H_TOP + ROUNDED_HORN_H_AXIS),0)
-            .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+            .translate(0, -(SIDE_BOARD/2.0 + _board_safe + 0.1) , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2)
+            .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT, 0 );
 
         result = result - horn;
 
         if (_display_horn)
-           result = result + horn.color(0,0,0);
+           result = result + horn.color(0.25,0.25,0.25);
       }
 
     if ( _type == 2)
@@ -70,8 +76,8 @@ Component REPY_upper::build()
         //-- 2 arms horn
         Servo_Horn_arms horn (2);
         horn.rotate(-90,0,0)
-            .translate(0, - (HORN_2_ARMS_TOP_H+HORN_2_ARMS_AXIS_H), 0)
-            .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+                .translate(0, -(SIDE_BOARD/2.0 + _board_safe + 0.1) , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2)
+                .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT, 0 );
 
         result = result - horn;
 
@@ -83,26 +89,27 @@ Component REPY_upper::build()
          //-- 4 arms horn
          Servo_Horn_arms horn (4);
          horn.rotate(-90,0,0)
-             .translate(0, - (HORN_4_ARMS_TOP_H+HORN_2_ARMS_AXIS_H), 0)
-             .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+                 .translate(0, -(SIDE_BOARD/2.0 + _board_safe + 0.1) , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2)
+                 .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT, 0 );
 
          result = result - horn;
 
          if (_display_horn)
-             result = result + horn.color(0,0,0);
+             result = result + horn.color(0.25,0.25,0.25);
      }
 
-     if ( _type == 6) //-- 6 arms horn
+     if ( _type == 6)
      {
+         //-- 6 arms horn
         Servo_Horn_arms horn (6);
         horn.rotate(-90,0,0)
-            .translate(0, - (HORN_6_ARMS_TOP_H+HORN_2_ARMS_AXIS_H), 0)
-            .translate(0, SIDE_BOARD/2.0 + _board_safe + 0.1 , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2);
+                .translate(0, -(SIDE_BOARD/2.0 + _board_safe + 0.1) , SERVO_AXIS_Y + SERVO_LEG_Y +_thickness_base/2)
+                .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT, 0 );
 
         result = result - horn;
 
         if (_display_horn)
-            result = result + horn.color(0,0,0);
+            result = result + horn.color(0.25,0.25,0.25);
       }
 
     return result;

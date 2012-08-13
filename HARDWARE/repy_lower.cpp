@@ -51,14 +51,14 @@ Component REPY_lower::build()
 
 
     //-- Create first ear
-    Ear ear01(SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01);
+    Ear ear01(SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01); // -y ear (false axis)
     ear01.add_drill( M3 +0.1, M3_HEAD + 0.1, M3_HEAD_H);
     ear01.rotate(90, 0, 0);
     ear01.rotate(0,0,180);
     ear01.translate(0, - ((SIDE_BOARD+2*_board_safe)/2 - _thickness_ear01), _thickness_base/2 -0.2);
 
     //-- Create second ear
-    Ear ear02(SIDE_BOARD, 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02);
+    Ear ear02(SIDE_BOARD, 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02); // +y ear (supports the servo)
     ear02.rotate(90,0,0);
     ear02.translate(0, SERVO_LEG_H + SERVO_LEG_Z/2 - ((SIDE_BOARD+2*_board_safe)/2 - 2 * _thickness_ear01), _thickness_base/2 -0.2);
 

@@ -69,6 +69,7 @@ private:
     float _thickness_base;
     float _thickness_ear01;
     float _thickness_ear02;
+    float _thickness_ear_lower01;
 
     //-- Display or not the servo horn
     bool _display_horn;

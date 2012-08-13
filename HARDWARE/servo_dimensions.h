@@ -4,7 +4,7 @@
 //-- Definition of servo dimensions
 #define SERVO_WIDTH 20
 #define SERVO_LENGTH 41
-#define SERVO_HEIGHT 38
+#define SERVO_HEIGHT 41
 
 #define SERVO_LEG_H 27
 #define SERVO_LEG_Z 4
@@ -22,11 +22,11 @@
 
 
 //-- Definition of rounded horn dimensions:
-#define ROUNDED_HORN_R_TOP 25/2.0
-#define ROUNDED_HORN_H_TOP 2
+#define ROUNDED_HORN_R_TOP 20.5/2.0
+#define ROUNDED_HORN_H_TOP 3
 
 #define ROUNDED_HORN_R_AXIS 9/2.0
-#define ROUNDED_HORN_H_AXIS 3
+#define ROUNDED_HORN_H_AXIS 3.5
 
 //-- Definition of 2 arms servo horm dimensions:
 #define HORN_2_ARMS_AXIS_H 3

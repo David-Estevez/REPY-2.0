@@ -186,7 +186,7 @@ Component Ear::build()
             //-- This is the hole with the shape for the screw head
             Component hole_top = Cylinder::create(_drill_r, _drill_r_big, _screw_head + 0.1, 100, false);
             hole_top.translate(0,0, _thickness - _screw_head);
-            Component hole_down = Cylinder::create(_drill_r, _thickness - _screw_head + 0.1, 100, false);
+            Component hole_down = Cylinder::create(_drill_r, _thickness - _screw_head + 0.2, 100, false);
             hole_down.translate(0,0, -0.1 );
             Component hole = hole_top + hole_down;
             hole.translate(0, _height, 0);
