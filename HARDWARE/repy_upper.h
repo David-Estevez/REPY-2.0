@@ -65,6 +65,12 @@ private:
     //-- Space left around the board to protect it
     float _board_safe;
 
+    //-- Space left around the screws for the cross-shaped hole
+    float _screw_safe;
+
+    //-- Space left around the border for the cross-shaped hole
+    float _border_safe;
+
     //-- Thicknesses
     float _thickness_base;
     float _thickness_ear01;

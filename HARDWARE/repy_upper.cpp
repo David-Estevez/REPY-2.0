@@ -23,6 +23,12 @@ REPY_upper::REPY_upper(): AbstractPart()
     //-- Space left around the board to protect it
     _board_safe = 1.5;
 
+    //-- Space left around the screws for the cross-shaped hole
+    _screw_safe = 5;
+
+    //-- Space left around the border for the cross-shaped hole
+    _border_safe = 7;
+
     //-- Thicknesses
     _thickness_base = 4;
     _thickness_ear01 = 4;               //-- y- (false axis)
@@ -40,6 +46,7 @@ Component REPY_upper::build()
 {
     //-- Base:
     Base  base( SIDE_BOARD + 2*_board_safe, _thickness_base, DRILL_X/2, DRILL_Y/2, DRILL_D/2.0);
+    base.add_cross( DRILL_X - DRILL_D - 2 * _screw_safe , SIDE_BOARD + 2 * _board_safe - 2 * _border_safe  );
 
     //-- Ears:
     Ear ear01( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01); // -y ear
