@@ -4,7 +4,7 @@
 //-- Definition of servo dimensions
 #define SERVO_WIDTH 20
 #define SERVO_LENGTH 41
-#define SERVO_HEIGHT 41
+#define SERVO_HEIGHT 40
 
 #define SERVO_LEG_H 27
 #define SERVO_LEG_Z 4

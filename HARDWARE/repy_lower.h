@@ -1,4 +1,4 @@
-//------------------------------------------------------
+ //------------------------------------------------------
 //-- REPY-2.0
 //------------------------------------------------------
 //-- This is the lower part of a REPY module.
@@ -50,7 +50,6 @@ class REPY_lower: public AbstractPart
 {
 public:
     REPY_lower();
-    //-- Need to make another constructor for giving it parameters
 
     void showServo(bool enable);
 
@@ -67,6 +66,15 @@ private:
     float _thickness_base;
     float _thickness_ear01;
     float _thickness_ear02;
+    float _thickness_upper01; //-- Needed for ear placement
+
+    //-- Base holes:
+    float _dist_border;
+    float _dist_drill;
+
+    //-- Ear parameters
+    float _ear_radius;
+    float _ear_shift;
 
     //-- Other parameters
     //-- Show/don't show the servo on the model

@@ -33,7 +33,7 @@ int main()
     if( render_lower )
     {
         REPY_lower lower_part;
-        lower_part.showServo(false);
+        lower_part.showServo(true);
 
         //-- Printing the lower part
         IndentWriter writer_lower;
