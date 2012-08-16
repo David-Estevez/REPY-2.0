@@ -71,7 +71,8 @@ Component REPY_lower::build()
                       -(SIDE_BOARD/2 + _board_safe) + _thickness_ear01 + _thickness_upper01 + SERVO_LEG_H + SERVO_LEG_Z,
                       -(_thickness_base+0.2)/2);
 
-    Component base_w_holes = base - hole01-hole02.color(255, 0, 0, 0.25);
+    Component base_w_holes = base - hole01 - hole02;
+
 
     //-- Create the servo object to substract
     Basic_servo servo(true, 2 * _thickness_ear01);
@@ -91,6 +92,7 @@ Component REPY_lower::build()
     Ear ear02(SIDE_BOARD, _ear_shift, SERVO_AXIS_Y + SERVO_LEG_Y, _ear_radius, _thickness_ear02); // +y ear (supports the servo)
     ear02.rotate(90,0,0);
     ear02.translate(0, SERVO_LEG_H + /*SERVO_LEG_Z/2*/ - ((SIDE_BOARD+2*_board_safe)/2 -  _thickness_ear01 - _thickness_upper01 ), _thickness_base/2 -0.2);
+
 
     //-- Add up all things
     Component result = base_w_holes + ear01 + ear02 - servo;

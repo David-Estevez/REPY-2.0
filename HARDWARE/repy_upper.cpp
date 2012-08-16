@@ -32,7 +32,7 @@ REPY_upper::REPY_upper(): AbstractPart()
     //-- Thicknesses
     _thickness_base = 4;
     _thickness_ear01 = 4;               //-- y- (false axis)
-    _thickness_ear02 = 4;               //-- y+ (servo horn)
+    _thickness_ear02 = 5;               //-- y+ (servo horn)
     _thickness_ear_lower01 = 4;         //-- Needed for placement of y+ ear
 
     //-- Servo horn not shown by default
