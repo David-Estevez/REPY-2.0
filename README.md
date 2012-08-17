@@ -14,24 +14,49 @@ This work is based on REPY module, by:
 
 More information on: 
 
-* [Thingiverse](http://www.thingiverse.com/thing:13442)
+* [Thingiverse - REPY v1.1](http://www.thingiverse.com/thing:13442)
 
 * http://www.iearobotics.com/wiki/index.php?title=M%C3%B3dulos_REPY-1 (Spanish)
 
+0. Index
+-------------------------------------------------------------------
+ * 1.Introduction
+ * 2.Dependencies
+ * 3.Usage
+ * 4.Version log
 
-Components release
+
+1. Introduction
+--------------------------------------------------------------------
+/* Some text here */
+
+2. Dependencies
+--------------------------------------------------------------------
+For compiling and obtaining the .scad files the Object Oriented Mechanics Library (OOML) for C++ is needed.
+You can download it here:
+	* [OOML](http://iearobotics.com/oomlwiki/doku.php?id=start)
+
+For obtaining the stl files from the .scad files, OpenSCAD is needed.
+You can find it here:
+	* [OpenSCAD](http://www.openscad.org/)
+
+
+3. Usage:
 ---------------------------------------------------------
-Basic components for making the repy module are finished!
-Symmetric printable modules for modular robots can be 
-done with the two basic parts: bases and ears.
+* Edit the file "./HARDWARE/CMakeLists.txt" to include the path to the OOML include directory.
+* Build it using cmake:
 
-Both parts are entirely parametric, so you can make a 
-module that adapts to your needs (e.g. servo size)
+	`mkdir build`
+	`cd build`
+	`cmake ..`
+	`make`
 
+* Execute the program **REPY-2.0**, that will create the openscad files and, optionally, the stl files
+for the REPY-2.0 module.
 
-Usage:
----------------------------------------------------------
+4. Version log
+-----------------------------------------------------------
 
-* Execute the program **HARDWARE**, that will create the openscad files
-for the REPY-2.0
+	* Version **0.9** (prerelease): module finished, but not tested yet.
+
 

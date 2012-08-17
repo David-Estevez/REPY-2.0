@@ -224,19 +224,19 @@ int main()
         //-- Generating stl's:
         system("mkdir stl");
 
-        system( "openscad -o ./stl/REPY-2.0_lower.stl REPY-2.0_lower.scad");
+        system( "openscad -o ./stl/REPY-2.0_lower.stl ./scad/REPY-2.0_lower.scad");
         cout << "REPY-2.0_lower.stl created" << endl;
 
-        system( "openscad -o ./stl/REPY-2.0_upper_rounded_horn.stl  REPY-2.0_upper_rounded_horn.scad ");
+        system( "openscad -o ./stl/REPY-2.0_upper_rounded_horn.stl  ./scad/REPY-2.0_upper_rounded_horn.scad ");
         cout << "REPY-2.0_upper_rounded_horn.stl created" << endl;
 
-        system( "openscad -o ./stl/REPY-2.0_upper_2_arms_horn.stl REPY-2.0_upper_2_arms_horn.scad");
+        system( "openscad -o ./stl/REPY-2.0_upper_2_arms_horn.stl ./scad/REPY-2.0_upper_2_arms_horn.scad");
         cout << "REPY-2.0_upper_2_arms_horn.stl created" << endl;
 
-        system( "openscad -o ./stl/REPY-2.0_upper_4_arms_horn.stl REPY-2.0_upper_4_arms_horn.scad");
+        system( "openscad -o ./stl/REPY-2.0_upper_4_arms_horn.stl ./scad/REPY-2.0_upper_4_arms_horn.scad");
         cout << "REPY-2.0_upper_4_arms_horn.stl created" << endl;
 
-        system( "openscad -o ./stl/REPY-2.0_upper_6_arms_horn.stl REPY-2.0_upper_6_arms_horn.scad");
+        system( "openscad -o ./stl/REPY-2.0_upper_6_arms_horn.stl ./scad/REPY-2.0_upper_6_arms_horn.scad");
         cout << "REPY-2.0_upper_6_arms_horn.stl created" << endl;
     }
 
