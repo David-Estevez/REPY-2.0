@@ -14,10 +14,10 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-#include <base.h>
-#include <ear.h>
-#include <basic_servo.h>
-#include <servo_dimensions.h>
+#include "./base.h"
+#include "./ear.h"
+#include "./basic_servo.h"
+#include "./servo_dimensions.h"
 
 //-- This parameters depend on the board that we want to use.
 

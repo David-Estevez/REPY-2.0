@@ -14,9 +14,9 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-#include <base.h>
-#include <ear.h>
-#include <basic_servo.h>
+#include "./base.h"
+#include "./ear.h"
+#include "./basic_servo.h"
 
 //-- This parameters depend on the board that we want to use.
 
