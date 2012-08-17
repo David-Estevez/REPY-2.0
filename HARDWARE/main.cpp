@@ -95,7 +95,9 @@ int main()
     //-- 2 arms horn:
     //-------------------------------------------------------
     upper_part.hornType(2);
-    writer_upper << upper_part;
+
+    IndentWriter writer_upper_2;
+    writer_upper_2 << upper_part;
 
 
     file_upper.open("./scad/REPY-2.0_upper_2_arms_horn.scad");
@@ -107,7 +109,7 @@ int main()
         file_upper << "//--This file has been generated automatically according to your data."<< endl;
         file_upper << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
         file_upper << "//--------------------------------------------------------------------------" << endl << endl;
-        file_upper << writer_upper;
+        file_upper << writer_upper_2;
         file_upper.close();
         cout <<  "REPY-2.0_upper_2_arms_horn.scad created succesfully." << endl;
     }
@@ -120,7 +122,9 @@ int main()
     //-- 4 arms horn:
     //-------------------------------------------------------
     upper_part.hornType(4);
-    writer_upper << upper_part;
+
+    IndentWriter writer_upper_4;
+    writer_upper_4 << upper_part;
 
 
     file_upper.open("./scad/REPY-2.0_upper_4_arms_horn.scad");
@@ -132,7 +136,7 @@ int main()
         file_upper << "//--This file has been generated automatically according to your data."<< endl;
         file_upper << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
         file_upper << "//--------------------------------------------------------------------------" << endl << endl;
-        file_upper << writer_upper;
+        file_upper << writer_upper_4;
         file_upper.close();
         cout << "REPY-2.0_upper_4_arms_horn.scad created succesfully." << endl;
     }
@@ -147,7 +151,9 @@ int main()
     //--6 arms horn:
     //-------------------------------------------------------
     upper_part.hornType(6);
-    writer_upper << upper_part;
+
+    IndentWriter writer_upper_6;
+    writer_upper_6 << upper_part;
 
 
     file_upper.open("./scad/REPY-2.0_upper_6_arms_horn.scad");
@@ -159,7 +165,7 @@ int main()
         file_upper << "//--This file has been generated automatically according to your data."<< endl;
         file_upper << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
         file_upper << "//--------------------------------------------------------------------------" << endl << endl;
-        file_upper << writer_upper;
+        file_upper << writer_upper_6;
         file_upper.close();
         cout << "REPY-2.0_upper_6_arms_horn.scad created succesfully." << endl;
     }

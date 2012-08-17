@@ -22,24 +22,24 @@
 
 
 //-- Definition of rounded horn dimensions:
-#define ROUNDED_HORN_R_TOP 20.5/2.0
 #define ROUNDED_HORN_H_TOP 3
+#define ROUNDED_HORN_R_TOP 20.5/2.0
 
-#define ROUNDED_HORN_R_AXIS 9/2.0
 #define ROUNDED_HORN_H_AXIS 3.5
+#define ROUNDED_HORN_R_AXIS 9/2.0
 
 //-- Definition of 2 arms servo horm dimensions:
 #define HORN_2_ARMS_AXIS_H 3
 #define HORN_2_ARMS_AXIS_R 9/2.0
 
-#define HORN_2_ARMS_TOP_H 2
+#define HORN_2_ARMS_TOP_H 3
 #define HORN_2_ARMS_TOP_R 12.5/2
 
 #define HORN_2_ARMS_ARM_R 5/2.0
 #define HORN_2_ARMS_ARM_SHIFT 0
 #define HORN_2_ARMS_ARM_DIST 19-5/2.0
 
-//-- Definition of 2 arms servo horm dimensions:
+//-- Definition of 4 arms servo horm dimensions:
 #define HORN_4_ARMS_AXIS_H 3
 #define HORN_4_ARMS_AXIS_R 9/2.0
 
@@ -51,10 +51,10 @@
 #define HORN_4_ARMS_ARM_DIST 18-4.5/2.0
 
 //-- Definition of 6 arms servo horm dimensions:
-#define HORN_6_ARMS_AXIS_H 3.5
+#define HORN_6_ARMS_AXIS_H 3
 #define HORN_6_ARMS_AXIS_R 9/2.0
 
-#define HORN_6_ARMS_TOP_H 2
+#define HORN_6_ARMS_TOP_H 3
 #define HORN_6_ARMS_TOP_R 15/2.0
 
 #define HORN_6_ARMS_ARM_R 5/2.0

@@ -186,7 +186,7 @@ Component Servo_Horn_arms::build()
     Component axis = Cylinder::create(_axis_r, _axis_h + 0.1, 100, false );
 
     //-- Create the arms:
-    Ear arm(2*_axis_r, 0, _arm_dist, _arm_r, _top_h);
+    Ear arm(2*_axis_r, 0, _arm_dist, _arm_r, _top_h + 0.1);
 
     Component arms = arm;
 
@@ -196,7 +196,7 @@ Component Servo_Horn_arms::build()
     arms.translate(0,0, _axis_h);
 
     //-- Add the upper cylinder:
-    Component top_cyl = Cylinder::create(_top_r, _top_h, 100, false)
+    Component top_cyl = Cylinder::create(_top_r, _top_h + 0.1, 100, false)
                                  .translate(0, 0, _axis_h);
 
     //-- Add up all parts:
