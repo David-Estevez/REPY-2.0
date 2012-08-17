@@ -34,11 +34,13 @@ More information on:
 --------------------------------------------------------------------
 For compiling and obtaining the .scad files the Object Oriented Mechanics Library (OOML) for C++ is needed.
 You can download it here:
-	* [OOML](http://iearobotics.com/oomlwiki/doku.php?id=start)
+
+ * [OOML](http://iearobotics.com/oomlwiki/doku.php?id=start)
 
 For obtaining the stl files from the .scad files, OpenSCAD is needed.
 You can find it here:
-	* [OpenSCAD](http://www.openscad.org/)
+
+ * [OpenSCAD](http://www.openscad.org/)
 
 
 3. Usage:
@@ -46,10 +48,10 @@ You can find it here:
 * Edit the file "./HARDWARE/CMakeLists.txt" to include the path to the OOML include directory.
 * Build it using cmake:
 
-	`mkdir build`
-	`cd build`
-	`cmake ..`
-	`make`
+`mkdir build`						<br>
+`cd build` 						<br>
+`cmake ..`						<br>
+`make`							<br>
 
 * Execute the program **REPY-2.0**, that will create the openscad files and, optionally, the stl files
 for the REPY-2.0 module.
@@ -57,6 +59,6 @@ for the REPY-2.0 module.
 4. Version log
 -----------------------------------------------------------
 
-	* Version **0.9** (prerelease): module finished, but not tested yet.
+ * Version **0.9** (pre-release): module finished, but not tested yet.
 
 
