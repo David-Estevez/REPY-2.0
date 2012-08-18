@@ -49,19 +49,20 @@ Component REPY_upper::build()
     base.add_cross( DRILL_X - DRILL_D - 2 * _screw_safe , SIDE_BOARD + 2 * _board_safe - 2 * _border_safe  );
 
     //-- Ears:
-    Ear ear01( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01); // -y ear
+    //-- (Note: ears are displaced +0.1mm in the y axis to make the design exportable to a stl file)
+    Ear ear01( SIDE_BOARD + 2* _board_safe , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear01); // -y ear (false axis)
     ear01.add_drill( M3 + 0.1 );
     ear01.rotate(90, 0, 180)
-         .translate(0, -(SIDE_BOARD/2 + _board_safe), _thickness_base/2);
+         .translate(0, -(SIDE_BOARD/2 + _board_safe)+ 0.1, _thickness_base/2);
 
-    Ear ear02( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02); // +y ear
+    Ear ear02( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02); // +y ear (servo horn)
     ear02.add_drill( M3 + 0.1 );
     ear02.rotate(90, 0, 180)
          .translate(0,-(SIDE_BOARD/2 + _board_safe), _thickness_base/2)
-         .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT, 0 );
+         .translate(0, _thickness_ear01 + _thickness_ear_lower01 + SERVO_HEIGHT + 0.1, 0 );
 
     //-- Add up everything:
-    Component result = base + ear01 + ear02;
+    Component result = base + ear01  + ear02;
 
     //-- Horn hole
     if ( _type == 1)
