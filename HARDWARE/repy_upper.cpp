@@ -55,7 +55,7 @@ Component REPY_upper::build()
     ear01.rotate(90, 0, 180)
          .translate(0, -(SIDE_BOARD/2 + _board_safe)+ 0.1, _thickness_base/2);
 
-    Ear ear02( SIDE_BOARD , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02); // +y ear (servo horn)
+    Ear ear02( SIDE_BOARD + 2* _board_safe , 12, SERVO_AXIS_Y + SERVO_LEG_Y, 38/2, _thickness_ear02); // +y ear (servo horn)
     ear02.add_drill( M3 + 0.1 );
     ear02.rotate(90, 0, 180)
          .translate(0,-(SIDE_BOARD/2 + _board_safe), _thickness_base/2)
