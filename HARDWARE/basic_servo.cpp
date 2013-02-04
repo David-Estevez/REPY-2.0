@@ -15,6 +15,34 @@
 
 //-- Basic servo implementations:
 //=============================================================================================
+double Basic_Servo::get_width()	{   return width; }
+double Basic_Servo::get_length(){   return length;}
+double Basic_Servo::get_height(){   return height;}
+
+
+//-- Leg dimensions:
+double Basic_Servo::get_leg_h()	{   return leg_h; }
+double Basic_Servo::get_leg_x() {   return leg_x; }
+double Basic_Servo::get_leg_y()	{   return leg_y; }
+double Basic_Servo::get_leg_z() {   return leg_z; }
+
+//-- Leg holes
+int Basic_Servo::get_num_holes() {  return num_holes;}
+double Basic_Servo::get_hole_r() {  return hole_r;}
+double Basic_Servo::get_hole_x() {  return hole_x;}
+double Basic_Servo::get_hole_y() {  return hole_y;}
+
+//-- Axis dimensions:
+double Basic_Servo::get_axis_h() {  return axis_h;}
+double Basic_Servo::get_axis_r() {  return axis_r;}
+double Basic_Servo::get_axis_y() {  return axis_y;}
+
+//-- Horn
+bool Basic_Servo::horn_shown()	{   return display_horn; }
+Component Basic_Servo::get_horn()   {	return horn( horn_legs); }
+
+
+/*
 Basic_servo::Basic_servo(bool screw, double screw_length, double tol):AbstractPart()
 {
     _screw = screw;
@@ -206,3 +234,4 @@ Component Servo_Horn_arms::build()
 }
 
 
+*/
