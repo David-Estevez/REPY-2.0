@@ -164,20 +164,42 @@ Servo_Horn::Servo_Horn( int num_arms)
 	arm_dist = (31.5 - 5) / 2.0;
 	break;
     }
-}
-
-/*
-//-- Servo rounded horn implementation:
-//------------------------------------------
-Servo_Horn_rounded::Servo_Horn_rounded(double cutted_part, double tolerance)
-{
-    //-- Assign values
-    _cutted_part = cutted_part;
-    _tol = tolerance;
-
     rebuild();
 }
 
+Component Servo_Horn::build()
+{
+    //-- Create axis cylinder
+      cout << "I'm running here.";
+    Component horn = Cylinder::create(r_axis, h_axis +0.1, 100, false);
+
+    if (num_arms == 0) //-- Rounded horn
+    {
+	Component top = Cylinder::create( r_top, h_top, 100, false);
+	top = top.translate(0, 0, h_axis);
+	horn = horn + top;
+
+	//! \todo Here I should substract the cutted part if needed
+    }
+    else //-- Horn with arms:
+    {
+	//-- Create a single arm:
+	Component base = Cube::create( 2*r_axis, 0.001, h_top+0.1);
+	Component top_cyl = Cylinder::create( arm_r, h_top+0.1, 100, true);
+	top_cyl = top_cyl.translate( 0, arm_dist, 0);
+
+	Component arm = base.color( 1, 0, 0) & top_cyl.color(1,0,0);
+	arm = arm.translate(0, 0, (h_top+0.1) /2);
+	horn = horn + arm;
+    }
+
+
+    return horn;
+}
+
+//-- Servo rounded horn implementation:
+//------------------------------------------
+/*
 Component Servo_Horn_rounded::build()
 {
     //-- Create axis cylinder
@@ -207,79 +229,6 @@ Component Servo_Horn_rounded::build()
 }
 
 
-//-- Servo horn with arms implementation:
-//--------------------------------------------
-Servo_Horn_arms::Servo_Horn_arms(int number_arms, double tolerance)
-{
-    //-- Default parameters:
-    n = number_arms; //-- Number of arms
-
-    if (n == 2)
-    {
-        //-- Definitions for 2 arm servo horn
-        _axis_h = HORN_2_ARMS_AXIS_H; //-- Axis height/thickness
-        _axis_r = HORN_2_ARMS_AXIS_R ; //-- Axis radius
-
-        _top_h = HORN_2_ARMS_TOP_H;  //-- Top cylinder height/thickness
-        _top_r = HORN_2_ARMS_TOP_R;  //-- Top cylinder radius
-
-        _arm_r = HORN_2_ARMS_ARM_R;  //-- Radius of the rounded part at the end of arm
-        _arm_shift = HORN_2_ARMS_ARM_SHIFT;
-        _arm_dist = HORN_2_ARMS_ARM_DIST; //-- Distance between center of top cylinder and center of arm cylinder
-    }
-
-    if (n == 4)
-    {
-        //-- Definitions for 4 arm servo horn
-        _axis_h = HORN_4_ARMS_AXIS_H; //-- Axis height/thickness
-        _axis_r = HORN_4_ARMS_AXIS_R ; //-- Axis radius
-
-        _top_h = HORN_4_ARMS_TOP_H;  //-- Top cylinder height/thickness
-        _top_r = HORN_4_ARMS_TOP_R;  //-- Top cylinder radius
-
-        _arm_r = HORN_4_ARMS_ARM_R;  //-- Radius of the rounded part at the end of arm
-        _arm_shift = HORN_4_ARMS_ARM_SHIFT;
-        _arm_dist = HORN_4_ARMS_ARM_DIST; //-- Distance between center of top cylinder and center of arm cylinder
-    }
-
-    if (n == 6)
-    {
-        //-- Definitions for 6 arm servo horn
-        _axis_h = HORN_6_ARMS_AXIS_H; //-- Axis height/thickness
-        _axis_r = HORN_6_ARMS_AXIS_R ; //-- Axis radius
-
-        _top_h = HORN_6_ARMS_TOP_H;  //-- Top cylinder height/thickness
-        _top_r = HORN_6_ARMS_TOP_R;  //-- Top cylinder radius
-
-        _arm_r = HORN_6_ARMS_ARM_R;  //-- Radius of the rounded part at the end of arm
-        _arm_shift = HORN_6_ARMS_ARM_SHIFT;
-        _arm_dist = HORN_6_ARMS_ARM_DIST; //-- Distance between center of top cylinder and center of arm cylinder
-    }
-
-    _tol = tolerance; //-- Tolerance
-
-    rebuild();
-}
-
-Servo_Horn_arms::Servo_Horn_arms(int number_arms, double axis_h, double axis_r, double top_h,
-                                 double top_r, double arm_r, double arm_shift, double arm_dist, double tolerance)
-{
-    //-- User-defined parameters
-    n = number_arms; //-- Number of arms
-
-    _axis_h = axis_h; //-- Axis height/thickness
-    _axis_r = axis_r ; //-- Axis radius
-
-    _top_h = top_h;  //-- Top cylinder height/thickness
-    _top_r = top_r;  //-- Top cylinder radius
-
-    _arm_r = arm_r;  //-- Radius of the rounded part at the end of arm
-    _arm_shift = arm_shift;
-    _arm_dist = arm_dist; //-- Distance between center of top cylinder and center of arm cylinder
-
-    _tol = tolerance; //-- Tolerance
-}
-
 Component Servo_Horn_arms::build()
 {
 
@@ -305,6 +254,5 @@ Component Servo_Horn_arms::build()
 
     return result;
 }
-
 
 */

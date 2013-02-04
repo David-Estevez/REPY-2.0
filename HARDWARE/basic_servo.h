@@ -27,12 +27,18 @@ public:
     double get_length();
     double get_height();
 
-
     //-- Leg dimensions:
     double get_leg_h();
     double get_leg_x();
     double get_leg_y();
     double get_leg_z();
+
+
+    //-- Leg holes
+    int get_num_holes();
+    double get_hole_r();
+    double get_hole_x();
+    double get_hole_y();
 
     //-- Axis dimensions:
     double get_axis_h();

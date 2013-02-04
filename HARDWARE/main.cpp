@@ -19,20 +19,48 @@
 #include "./ear.h"
 #include "./base.h"
 #include "./basic_servo.h"
-#include "./repy_lower.h"
-#include "./repy_upper.h"
+//#include "./repy_lower.h"
+//#include "./repy_upper.h"
 
 using namespace std;
 
 int main()
 {
-    //-- This file will generate all the .scad files for all the parts when executed:
+    cout << "Testing horn component...";
+
+    Servo_Horn myHorn(2);
+
+    //-- Printing the upper part
+    IndentWriter writer;
+    writer << myHorn;
+
+    ofstream file("./scad/REPY-2.0_test_horn.scad");
+    if (file)
+    {
+	file << "//-------------------------------------------------------------------------" << endl;
+	file << "//-- REPY-2.0_assembly.scad" << endl;
+	file << "//-------------------------------------------------------------------------" << endl;
+	file << "//--This file has been generated automatically according to your data."<< endl;
+	file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
+	file << "//--------------------------------------------------------------------------" << endl << endl;
+	file << writer;
+	file.close();
+	//cout << "REPY-2.0_assembly.scad created succesfully." << endl;
+    }
+    else
+    {
+	cerr << "Error, cannot open the file" << endl;
+    }
+    cout << "[ok]";
+    cout << writer << endl << endl;
+
+ /*   //-- This file will generate all the .scad files for all the parts when executed:
 
     system( "mkdir scad");
 
     //-- Lower part:
     //--------------------------------------------------------------------------------------------------------------------
-    REPY_lower lower_part;
+    REPY_lower lower_part;   Component horn = axis;
     lower_part.showServo(false);
 
     //-- Printing the lower part
@@ -183,9 +211,9 @@ int main()
     upper_part.showHorn(true);
     upper_part.hornType(6);
 
-    Component rotated_upper_part = upper_part.translate(0,0,-(SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2))
-            .rotate(0, 180, 0)
-            .translate(0,0, (SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*/4/2));
+    Component rotated_upper_part = upper_part.translate(0,0,-(SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*//* 4/2))
+	    .rotate(0, 180, 0)
+	    .translate(0,0, (SERVO_AXIS_Y+SERVO_LEG_Y+/*thickness_base*//*4/2));
     //-- Assembly
     Component assembly = rotated_upper_part + lower_part;
 
@@ -241,6 +269,6 @@ int main()
     }
 
     return 0;
-
+*/
 }
 

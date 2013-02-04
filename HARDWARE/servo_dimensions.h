@@ -24,7 +24,6 @@
 //-- Definition of rounded horn dimensions:
 #define ROUNDED_HORN_H_TOP 3
 #define ROUNDED_HORN_R_TOP 20.5/2.0
-
 #define ROUNDED_HORN_H_AXIS 3.5
 #define ROUNDED_HORN_R_AXIS 9/2.0
 
