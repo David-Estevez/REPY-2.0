@@ -11,8 +11,6 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-#include "servo_dimensions.h"
-
 #ifndef BASIC_SERVO_H
 #define BASIC_SERVO_H
 
@@ -88,6 +86,8 @@ public:
 	/* Data interface?? */
 
     Servo_Horn( int num_arms);
+    void set_tolerance( double tol);
+    void cut_horn( double cut); //-- Cut is the diameter minus the cutted part
 
 protected:
     virtual Component build();
@@ -97,6 +97,8 @@ private:
     double h_top, r_top;
     double h_axis, r_axis;
     double arm_r, arm_shift, arm_dist;
+    double tol;
+    double cut; //-- For cutting the round horn.
 };
 
 #endif // BASIC_SERVO_H

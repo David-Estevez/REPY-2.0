@@ -114,6 +114,8 @@ Component Basic_servo::build()
 Servo_Horn::Servo_Horn( int num_arms)
 {
     this->num_arms = num_arms;
+    tol = 0;
+    cut = 0;
 
     //-- Set parameters depending on the number of arms of the servo horn.
     //-- For fake futaba:
@@ -167,92 +169,66 @@ Servo_Horn::Servo_Horn( int num_arms)
     rebuild();
 }
 
+void Servo_Horn::set_tolerance(double tol)
+{
+    this->tol = tol;
+    rebuild();
+}
+
+void Servo_Horn::cut_horn(double cut)
+{
+    this->cut = cut;
+    rebuild();
+}
+
 Component Servo_Horn::build()
 {
     //-- Create axis cylinder
-      cout << "I'm running here.";
-    Component horn = Cylinder::create(r_axis, h_axis +0.1, 100, false);
+    Component horn = Cylinder::create(r_axis+tol, h_axis +0.1, 100, false);
 
     if (num_arms == 0) //-- Rounded horn
     {
-	Component top = Cylinder::create( r_top, h_top, 100, false);
+	Component top = Cylinder::create( r_top+tol, h_top, 100, false);
 	top = top.translate(0, 0, h_axis);
 	horn = horn + top;
 
 	//! \todo Here I should substract the cutted part if needed
+	if ( cut < r_top )
+	{
+	    //-- Create a cube with the dimensions of the cut
+	    Component to_be_substracted = Cube::create( (r_top+tol)- cut + 0.1, 2*(r_top+tol)+0.2, h_top+0.2, false);
+
+	    //-- Center it on Y:
+	    to_be_substracted = to_be_substracted.translate(0, -(r_top+tol)+0.1, 0);
+
+	    //-- Place it on its place (LOL) and substract it:
+	    horn = horn - to_be_substracted.translate( cut + 0.1 ,0, h_axis-0.1);
+	 }
     }
     else //-- Horn with arms:
     {
 	//-- Create a single arm:
 	Component base = Cube::create( 2*r_axis, 0.001, h_top+0.1);
-	Component top_cyl = Cylinder::create( arm_r, h_top+0.1, 100, true);
-	top_cyl = top_cyl.translate( 0, arm_dist, 0);
+	Component upper_cyl = Cylinder::create( arm_r, h_top+0.1, 100, true);
+	upper_cyl = upper_cyl.translate( 0, arm_dist, 0);
 
-	Component arm = base.color( 1, 0, 0) & top_cyl.color(1,0,0);
+	Component arm = base.color( 1, 0, 0) & upper_cyl.color(1,0,0);
 	arm = arm.translate(0, 0, (h_top+0.1) /2);
-	horn = horn + arm;
+
+	//-- Create the orher arms by rotation:
+	Component arms = arm;
+	for ( int i = 1; i < num_arms; i++)
+	    arms = arms + arm.rotatedCopy(0,0, 360/num_arms*i);
+	arms = arms.translate( 0, 0, h_axis);
+
+	//-- Add the top cylinder:
+	Component top_cyl = Cylinder::create( r_top, h_top + 0.1, 100, false)
+			    .translate(0,0, h_axis);
+
+	//-- Sum up all the parts:
+	horn = horn + arms + top_cyl;
     }
 
 
     return horn;
 }
-
-//-- Servo rounded horn implementation:
-//------------------------------------------
-/*
-Component Servo_Horn_rounded::build()
-{
-    //-- Create axis cylinder
-    Component axis = Cylinder::create(ROUNDED_HORN_R_AXIS+_tol, ROUNDED_HORN_H_AXIS+0.1, 100, false);
-
-    //-- Create top of the horn
-    Component top = Cylinder::create(ROUNDED_HORN_R_TOP+_tol, ROUNDED_HORN_H_TOP, 100, false);
-    top = top.translate(0, 0, ROUNDED_HORN_H_AXIS);
-
-    //-- Add them:
-    Component result = axis + top;
-
-    //-- Substract the cut if necessary:
-    if (_cutted_part != ROUNDED_HORN_R_TOP )
-    {
-        //-- Create a cube with the dimensions of the cut
-        Component cut = Cube::create( (ROUNDED_HORN_R_TOP+_tol)- _cutted_part + 0.1, 2*(ROUNDED_HORN_R_TOP+_tol)+0.2, ROUNDED_HORN_H_TOP+0.2, false);
-
-        //-- Center it on X:
-        cut = cut.translate(0, -(ROUNDED_HORN_R_TOP+_tol)+0.1, 0);
-
-        //-- Place it on its place (LOL) and substract it:
-        result = result - cut.translate(_cutted_part + 0.1 ,0, ROUNDED_HORN_H_AXIS-0.1);
-    }
-
-    return result;
-}
-
-
-Component Servo_Horn_arms::build()
-{
-
-    //-- Construct axis:
-    Component axis = Cylinder::create(_axis_r, _axis_h + 0.1, 100, false );
-
-    //-- Create the arms:
-    Ear arm(2*_axis_r, 0, _arm_dist, _arm_r, _top_h + 0.1);
-
-    Component arms = arm;
-
-    for (int i = 1; i < n; i++)
-        arms = arms + arm.rotatedCopy(0,0, 360/n*i);
-
-    arms.translate(0,0, _axis_h);
-
-    //-- Add the upper cylinder:
-    Component top_cyl = Cylinder::create(_top_r, _top_h + 0.1, 100, false)
-                                 .translate(0, 0, _axis_h);
-
-    //-- Add up all parts:
-    Component result = axis + arms + top_cyl;
-
-    return result;
-}
-
-*/

@@ -28,7 +28,8 @@ int main()
 {
     cout << "Testing horn component...";
 
-    Servo_Horn myHorn(2);
+    Servo_Horn myHorn(0);
+    myHorn.cut_horn(8);
 
     //-- Printing the upper part
     IndentWriter writer;
@@ -52,7 +53,7 @@ int main()
 	cerr << "Error, cannot open the file" << endl;
     }
     cout << "[ok]";
-    cout << writer << endl << endl;
+    //cout << writer << endl << endl;
 
  /*   //-- This file will generate all the .scad files for all the parts when executed:
 
