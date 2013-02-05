@@ -55,7 +55,6 @@ protected:
     Basic_Servo();
     virtual Component build() = 0;
 
-private:
     //-- Servo characteristics:
     //---------------------------------------
     //-- Main dimensions:

@@ -16,9 +16,11 @@
 //-- Default
 Basic_Servo::Basic_Servo()
 {
-    //-- Default horn configuration
+    //-- Default horn configuration ( rounded, not shown)
     horn_arms = 0;
     display_horn = false;
+
+    rebuild();
 }
 
 //-- Basic servo implementations:
@@ -55,6 +57,8 @@ void Basic_Servo::set_horn(int arms, bool visibility)
 {
     horn_arms = arms;
     display_horn = visibility;
+
+    rebuild();
 }
 
 
@@ -67,10 +71,10 @@ Basic_servo::Basic_servo(bool screw, double screw_length, double tol):AbstractPa
     rebuild();
 }
 
-Component Basic_servo::build()
+Component Basic_Servo::build()
 {
     //-- Create body
-    Component body = Cube::create( SERVO_WIDTH, SERVO_LENGTH, SERVO_HEIGHT, false);
+    Component body = Cube::create( width, length, height, false);
     body.translate(- SERVO_WIDTH / 2, 0, 0);
 
     //-- Create axis
@@ -101,10 +105,8 @@ Component Basic_servo::build()
 
     return servo;
 
-}
+}*/
 
-
-*/
 
 //-- Servo horns implementations:
 //=============================================================================================
@@ -192,7 +194,6 @@ Component Servo_Horn::build()
 	top = top.translate(0, 0, h_axis);
 	horn = horn + top;
 
-	//! \todo Here I should substract the cutted part if needed
 	if ( cut < r_top )
 	{
 	    //-- Create a cube with the dimensions of the cut
@@ -229,6 +230,8 @@ Component Servo_Horn::build()
 	horn = horn + arms + top_cyl;
     }
 
+    //-- Set link on the end of the axis cylinder, to attach to the servo:
+    horn.addLink( RefSys( 0,0, h_axis));
 
     return horn;
 }
