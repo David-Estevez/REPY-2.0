@@ -18,7 +18,7 @@
 
 #include "./ear.h"
 #include "./base.h"
-#include "./basic_servo.h"
+#include "./fakefutaba3003sservo.h"
 //#include "./repy_lower.h"
 //#include "./repy_upper.h"
 
@@ -26,20 +26,20 @@ using namespace std;
 
 int main()
 {
-    cout << "Testing horn component...";
+    cout << "Testing servo component...";
 
-    Servo_Horn myHorn(0);
-    myHorn.cut_horn(8);
+    FakeFutaba3003sServo myServo;
+    myServo.set_horn( 2, true);
 
     //-- Printing the upper part
     IndentWriter writer;
-    writer << myHorn;
+    writer << myServo;
 
-    ofstream file("./scad/REPY-2.0_test_horn.scad");
+    ofstream file("./scad/REPY-2.0_test_servo.scad");
     if (file)
     {
 	file << "//-------------------------------------------------------------------------" << endl;
-	file << "//-- REPY-2.0_assembly.scad" << endl;
+	file << "//-- REPY-2.0_servo.scad" << endl;
 	file << "//-------------------------------------------------------------------------" << endl;
 	file << "//--This file has been generated automatically according to your data."<< endl;
 	file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;

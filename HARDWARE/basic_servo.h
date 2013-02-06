@@ -49,7 +49,7 @@ public:
 
     //-- Servo configuration:
     //-----------------------------------------------------------------
-    void set_horn( int arms, bool visibility);
+    void set_horn( int arms, bool visibility = true);
 
 protected:
     Basic_Servo();
@@ -69,6 +69,7 @@ protected:
 
     //-- Screws
     // (I think here I should put the reference to the holes of the drills)
+    double screw_length;
 
     //-- Axis dimensions:
     double axis_h, axis_r, axis_y;
