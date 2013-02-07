@@ -69,7 +69,6 @@ protected:
 
     //-- Screws
     // (I think here I should put the reference to the holes of the drills)
-    double screw_length;
 
     //-- Axis dimensions:
     double axis_h, axis_r, axis_y;
@@ -83,8 +82,6 @@ protected:
 class Servo_Horn: public AbstractPart
 {
 public:
-	/* Data interface?? */
-
     Servo_Horn( int num_arms);
     void set_tolerance( double tol);
     void cut_horn( double cut); //-- Cut is the diameter minus the cutted part

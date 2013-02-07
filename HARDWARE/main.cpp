@@ -18,7 +18,8 @@
 
 #include "./ear.h"
 #include "./base.h"
-#include "./fakefutaba3003sservo.h"
+#include "fakefutaba3003sservo.h"
+#include "skymegaboard.h"
 //#include "./repy_lower.h"
 //#include "./repy_upper.h"
 
@@ -26,20 +27,23 @@ using namespace std;
 
 int main()
 {
-    cout << "Testing servo component...";
+    cout << "Testing skymega component...";
 
-    FakeFutaba3003sServo myServo;
-    myServo.set_horn( 2, true);
+    SkyMegaBoard myTest;
+    Component screw = Cylinder( 3/2.0, 20, 100, false).color(0.5, 0.5, 0.5, 0.5);
+
+    for (int i = 0; i < 2; i++)
+	myTest.attach( i, screw);
 
     //-- Printing the upper part
     IndentWriter writer;
-    writer << myServo;
+    writer << myTest;
 
-    ofstream file("./scad/REPY-2.0_test_servo.scad");
+    ofstream file("./scad/REPY-2.0_test_skymega.scad");
     if (file)
     {
 	file << "//-------------------------------------------------------------------------" << endl;
-	file << "//-- REPY-2.0_servo.scad" << endl;
+	file << "//-- REPY-2.0_skymega.scad" << endl;
 	file << "//-------------------------------------------------------------------------" << endl;
 	file << "//--This file has been generated automatically according to your data."<< endl;
 	file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;
@@ -52,7 +56,7 @@ int main()
     {
 	cerr << "Error, cannot open the file" << endl;
     }
-    cout << "[ok]";
+    cout << "[ok]\n";
     //cout << writer << endl << endl;
 
  /*   //-- This file will generate all the .scad files for all the parts when executed:

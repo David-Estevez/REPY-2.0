@@ -13,7 +13,7 @@
 #include "basic_servo.h"
 #include "ear.h"
 
-//-- Default
+//-- Default constructor
 Basic_Servo::Basic_Servo()
 {
     //-- Default horn configuration ( rounded, not shown)
@@ -21,7 +21,7 @@ Basic_Servo::Basic_Servo()
     display_horn = false;
 }
 
-//-- Basic servo implementations:
+//-- Basic servo data interface:
 //=============================================================================================
 double Basic_Servo::get_width()	{   return width; }
 double Basic_Servo::get_length(){   return length;}

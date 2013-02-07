@@ -18,8 +18,6 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): Basic_Servo()
     hole_r = 2;
     hole_x = 5;
     hole_y = 4;
-    //-- Screw length:
-    screw_length = 20;
 
     //-- Axis dimensions:
     axis_h = 6;
@@ -57,11 +55,11 @@ Component FakeFutaba3003sServo::build()
     //-- Composing the servo:
     Component servo = body + axis + leg_top + leg_bottom - holes;
 
-    //-- Paint it black:
-   // servo.color( 0.2, 0.2, 0.2);
-
     //-- Add a link for the horn:
     servo.addLink( RefSys( 0, axis_y, height + axis_h));
+
+    //-- Paint it black:
+    servo.color( 0.2, 0.2, 0.2);
 
     //-- Attach the horn:
     if ( display_horn)
@@ -71,6 +69,5 @@ Component FakeFutaba3003sServo::build()
 	servo.attach( 0, horn, 2 );
     }
 
-
-    return servo; //-- Dummy cube
+    return servo;
 }
