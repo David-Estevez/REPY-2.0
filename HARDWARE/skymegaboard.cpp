@@ -40,14 +40,14 @@ Component SkyMegaBoard::build()
     //-- Add some links:
     //-- 4 for the upper side drills:
     skymega.addLink( RefSys(  drill_x/2.0,  drill_y/2.0, thickness/2.0));
-    skymega.addLink( RefSys( -drill_x/2.0, 0,0));// drill_y/2.0, thickness/2.0));
+    skymega.addLink( RefSys( -drill_x/2.0,  drill_y/2.0, thickness/2.0));
     skymega.addLink( RefSys(  drill_x/2.0, -drill_y/2.0, thickness/2.0));
     skymega.addLink( RefSys( -drill_x/2.0, -drill_y/2.0, thickness/2.0));
 
     //-- 4 for the lower side drills (looking downwards):
     skymega.addLink( RefSys(  drill_x/2.0,  drill_y/2.0, -thickness/2.0).relRotate(180,0,0));
     skymega.addLink( RefSys( -drill_x/2.0,  drill_y/2.0, -thickness/2.0).relRotate(180,0,0));
-    skymega.addLink( RefSys(  drill_x/2.0, -drill_y/2.0, -thickness/2.0).relRotateEulerZXZ(0,0,180));
+    skymega.addLink( RefSys(  drill_x/2.0, -drill_y/2.0, -thickness/2.0).relRotate(180,0,0));
     skymega.addLink( RefSys( -drill_x/2.0, -drill_y/2.0, -thickness/2.0).relRotate(180,0,0));
 
     //-- Put some color:

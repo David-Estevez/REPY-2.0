@@ -30,14 +30,14 @@ int main()
     cout << "Testing skymega component...";
 
     SkyMegaBoard myTest;
-    Component screw = Cylinder( 3/2.0, 20, 100, false).color(0.5, 0.5, 0.5, 0.5);
+    Component screw = Cylinder( 3/2.0, 20, 100, false).color(0.5, 0.5, 0.5, 0.7);
 
     for (int i = 0; i < 2; i++)
 	myTest.attach( i, screw);
 
     //-- Printing the upper part
     IndentWriter writer;
-    writer << myTest;
+    writer << myTest << LinksView( myTest);
 
     ofstream file("./scad/REPY-2.0_test_skymega.scad");
     if (file)
