@@ -13,6 +13,7 @@
 #include <ooml/components.h>
 
 #include "basic_servo.h"
+#include "skymegaboard.h"
 
 #ifndef REPY_MODULE_H
 #define REPY_MODULE_H
@@ -20,7 +21,7 @@
 class REPY_module : public AbstractPart
 {
 public:
-    REPY_module(const Basic_Servo& servo);
+    REPY_module(Basic_Servo& servo,  SkyMegaBoard& skymega);
 
 protected:
     virtual Component build();
@@ -29,8 +30,26 @@ private:
     Component lower_part();
     Component upper_part();
 
-
+    //-- Needed components that define the module:
     Basic_Servo * servo;
+    SkyMegaBoard * skymega;
+
+    //-- Needed dimensions
+    //--------------------------------------------
+    //-- General:
+    double board_safe;
+
+    //-- Lower part:
+    double lower_base_thickness;
+    double lower_front_ear_thickness;
+    double lower_back_ear_thickness;
+
+    //-- Upper part:
+    double upper_base_thickness;
+    double upper_front_ear_thickness;
+    double upper_front_ear_thickness;
+
+
 
     //-- Visibility flags:
     bool show_servo;

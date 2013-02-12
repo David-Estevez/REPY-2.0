@@ -20,6 +20,7 @@
 #include "./base.h"
 #include "fakefutaba3003sservo.h"
 #include "skymegaboard.h"
+#include "repy_module.h"
 //#include "./repy_lower.h"
 //#include "./repy_upper.h"
 
@@ -27,23 +28,22 @@ using namespace std;
 
 int main()
 {
-    cout << "Testing skymega component...";
+    cout << "Testing lower part of REPY component...";
 
-    SkyMegaBoard myTest;
-    Component screw = Cylinder( 3/2.0, 20, 100, false).color(0.5, 0.5, 0.5, 0.7);
+    SkyMegaBoard myBoard;
+    FakeFutaba3003sServo myServo;
+    REPY_module myTest( myServo, myBoard);
 
-    for (int i = 0; i < 2; i++)
-	myTest.attach( i, screw);
 
     //-- Printing the upper part
     IndentWriter writer;
     writer << myTest << LinksView( myTest);
 
-    ofstream file("./scad/REPY-2.0_test_skymega.scad");
+    ofstream file("./scad/REPY-2.0_test_new_repy.scad");
     if (file)
     {
 	file << "//-------------------------------------------------------------------------" << endl;
-	file << "//-- REPY-2.0_skymega.scad" << endl;
+	file << "//-- REPY-2.0_test.scad" << endl;
 	file << "//-------------------------------------------------------------------------" << endl;
 	file << "//--This file has been generated automatically according to your data."<< endl;
 	file << "//--For more info, visit: http://iearobotics.com/oomlwiki/"<< endl;

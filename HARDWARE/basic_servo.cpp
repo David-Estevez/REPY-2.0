@@ -7,11 +7,7 @@
 //-- Author: David Estevez (DEF)
 //------------------------------------------------------
 
-#include <ooml/core.h>
-#include <ooml/components.h>
-
 #include "basic_servo.h"
-#include "ear.h"
 
 //-- Default constructor
 Basic_Servo::Basic_Servo()
@@ -184,6 +180,6 @@ Component Servo_Horn::build()
     //-- Set link on the end of the axis cylinder, to attach to the servo:
     horn.addLink( RefSys( 0,0, h_axis));
 
-    cout << horn.links()->size();
+
     return horn;
 }

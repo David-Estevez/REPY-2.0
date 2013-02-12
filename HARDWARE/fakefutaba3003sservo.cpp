@@ -58,6 +58,12 @@ Component FakeFutaba3003sServo::build()
     //-- Add a link for the horn:
     servo.addLink( RefSys( 0, axis_y, height + axis_h));
 
+    //-- Add several links for the screws:
+    servo.addLink(( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0)));
+    servo.addLink(( RefSys( -hole_x, length + hole_y, leg_h + leg_z/2.0)));
+    servo.addLink(( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0)));
+    servo.addLink(( RefSys( -hole_x,         -hole_y, leg_h + leg_z/2.0)));
+
     //-- Paint it black:
     servo.color( 0.2, 0.2, 0.2);
 
