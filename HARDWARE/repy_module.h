@@ -29,6 +29,7 @@ protected:
 private:
     Component lower_part();
     Component upper_part();
+    Component make_ear( double base, double height, double thickness, double shift, double radius);
 
     //-- Needed components that define the module:
     Basic_Servo * servo;
@@ -38,16 +39,19 @@ private:
     //--------------------------------------------
     //-- General:
     double board_safe;
+    double side;
 
     //-- Lower part:
     double lower_base_thickness;
     double lower_front_ear_thickness;
     double lower_back_ear_thickness;
+    double lower_ear_shift;
+    double lower_ear_radius;
 
     //-- Upper part:
     double upper_base_thickness;
     double upper_front_ear_thickness;
-    double upper_front_ear_thickness;
+    double upper_back_ear_thickness;
 
 
 
