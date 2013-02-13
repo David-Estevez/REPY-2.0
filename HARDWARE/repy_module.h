@@ -52,8 +52,8 @@ private:
     double upper_base_thickness;
     double upper_front_ear_thickness;
     double upper_back_ear_thickness;
-
-
+    double upper_ear_shift;
+    double upper_ear_radius;
 
     //-- Visibility flags:
     bool show_servo;
