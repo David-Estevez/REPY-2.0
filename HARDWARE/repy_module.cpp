@@ -59,11 +59,16 @@ Component REPY_module::lower_part()
     //-- Make ears:
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), lower_front_ear_thickness,
 				    lower_ear_shift, lower_ear_radius);
-    front_ear.rotate( 90, 0, 0).translate( 0, 0, lower_base_thickness/2);
+    front_ear.rotate( 90, 0, 0).translate( 0, 0, lower_base_thickness/2.0);
+
+	Component back_ear = make_ear( side, servo->get_axis_y() + servo->get_leg_y(),lower_back_ear_thickness,
+					lower_back_ear_thickness, lower_ear_radius);
+	back_ear.rotate(90, 0, 0).translate( 0, 0, lower_base_thickness/2.0);
+	back_ear.translate(0, -side/2.0 + lower_back_ear_thickness/2.0 + upper_back_ear_thickness , 0);
 
 
     //-- Result:
-    Component lower = front_ear + base + *servo;
+    Component lower = front_ear + back_ear + base + *servo;
     return lower;
 
 }
