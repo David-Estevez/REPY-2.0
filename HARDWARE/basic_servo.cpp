@@ -179,7 +179,8 @@ Component Servo_Horn::build()
 
     //-- Set link on the end of the axis cylinder, to attach to the servo:
     horn.addLink( RefSys( 0,0, h_axis));
-
+    //! -- \todo Change this when OOML is fix:
+    horn.relTranslate(0,0,-h_axis);
 
     return horn;
 }

@@ -25,11 +25,28 @@ REPY_module::REPY_module(Basic_Servo& servo,  SkyMegaBoard& skymega)
     upper_ear_radius = 38/2.0;
 
     //-- Default flags:
-    show_servo = true;
+    show_servo = false;
     show_assembly = true;
     show_lower = true;
     show_upper = true;
 
+    //-- Place servo:
+    this->servo->set_horn( 2);
+    this->servo->rotate(90, 0 , 180);
+    this->servo->translate(0, 0, this->servo->get_leg_y() + lower_base_thickness);
+    this->servo->translate( 0, -side/2.0 + upper_back_ear_thickness + lower_back_ear_thickness, 0);
+
+    //-- Make fake axis screw:
+    fake_axis = Cylinder( 3/2.0, lower_back_ear_thickness + upper_back_ear_thickness + 0.1, 100, false)
+	      + Cylinder( 6/2.0, 2, 100, false).relTranslate( 0, 0, lower_back_ear_thickness + upper_back_ear_thickness + 0.1);
+    fake_axis.color( 0.5, 0.5, 0.5);
+
+    //! \todo Change this to something that uses links:
+    //--
+    fake_axis.relTranslate( 0 , 0, -lower_back_ear_thickness - upper_back_ear_thickness -0.1)
+	     .rotate(90,0,0)
+	     .translate(0,0, servo.get_axis_y() + servo.get_leg_y())
+	     .relTranslate( 0, 0, side/2.0);
     rebuild();
 }
 
@@ -49,7 +66,7 @@ Component REPY_module::build()
 	else
 	    result = lower;
 
-    return result;
+    return result - fake_axis;
 }
 
 Component REPY_module::lower_part()
@@ -71,12 +88,6 @@ Component REPY_module::lower_part()
     //-- Make base:
     base = (base - base_drill01 - base_drill02 - base_drill03 - base_drill04).translate(0, 0, lower_base_thickness/2.0);
 
-    //-- Place servo:
-    servo->set_horn( 2);
-    servo->rotate(90, 0 , 180);
-    servo->translate(0, 0, servo->get_leg_y() + lower_base_thickness);
-    servo->translate( 0, -side/2.0 + upper_back_ear_thickness + lower_back_ear_thickness, 0);
-
     //-- Make ears:
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), lower_front_ear_thickness,
 				    lower_ear_shift, lower_ear_radius);
@@ -95,6 +106,7 @@ Component REPY_module::lower_part()
 	front_ear = front_ear - Cylinder( servo->get_hole_r(), servo->get_leg_z() + lower_front_ear_thickness + 0.2 , 100, false)
 					.moveToLink(*servo, i).relTranslate(0, 0, -servo->get_leg_z()/2.0 - lower_front_ear_thickness - 0.1);
     }
+
 
     //-- Result:
     Component lower = front_ear + back_ear + base - *servo;
@@ -135,7 +147,7 @@ Component REPY_module::upper_part()
     back_ear.translate( 0, (-side + upper_back_ear_thickness)/2.0, 0);
 
 
-    Component upper = base + front_ear + back_ear;
+    Component upper = base + front_ear + back_ear - *servo;
     return upper;
 }
 

@@ -34,6 +34,7 @@ private:
     //-- Needed components that define the module:
     Basic_Servo * servo;
     SkyMegaBoard * skymega;
+    Component fake_axis;
 
     //-- Needed dimensions
     //--------------------------------------------
