@@ -23,15 +23,17 @@ REPY_module::REPY_module(Basic_Servo& servo,  SkyMegaBoard& skymega)
     upper_back_ear_thickness = 4;
     upper_ear_shift = 12;
     upper_ear_radius = 38/2.0;
+    upper_screw_safe = 5;
+    upper_border_safe = 7;
 
     //-- Default flags:
-    show_servo = false;
+    show_servo = true;
     show_assembly = true;
     show_lower = true;
     show_upper = true;
 
     //-- Place servo:
-    this->servo->set_horn( 2);
+    this->servo->set_horn( 4);
     this->servo->rotate(90, 0 , 180);
     this->servo->translate(0, 0, this->servo->get_leg_y() + lower_base_thickness);
     this->servo->translate( 0, -side/2.0 + upper_back_ear_thickness + lower_back_ear_thickness, 0);
@@ -57,7 +59,7 @@ Component REPY_module::build()
     Component result;
 
     if ( show_assembly )
-	result = lower + upper.mirroredCopy(0, 0, 1).translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness);
+	result = lower + upper.rotate(0,180,0).translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness);
     else
 	if ( show_lower && show_upper)
 	    result = lower.translate( - side/2.0 - 2, 0, 0) + upper.translate( side/2.0 + 2, 0, 0);
@@ -146,8 +148,16 @@ Component REPY_module::upper_part()
     back_ear.relRotate( 90, 0 , 0);
     back_ear.translate( 0, (-side + upper_back_ear_thickness)/2.0, 0);
 
+    //-- Make a cross-shaped hole for the wiring, etc:
+    Component cross = Cube( skymega->getDrillY() - 2* upper_screw_safe  - skymega->getDrillDiam(),
+			    side-2*upper_border_safe,
+			    upper_base_thickness+0.2)
+		    + Cube( side-2*upper_border_safe,
+			    skymega->getDrillX() - 2* upper_screw_safe - skymega->getDrillDiam(),
+			    upper_base_thickness+0.2);
+    cross.translate( 0, 0, upper_base_thickness/2.0);
 
-    Component upper = base + front_ear + back_ear - *servo;
+    Component upper = base - cross + front_ear + back_ear - *servo ;
     return upper;
 }
 

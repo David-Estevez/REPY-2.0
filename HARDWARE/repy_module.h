@@ -48,6 +48,8 @@ private:
     double lower_back_ear_thickness;
     double lower_ear_shift;
     double lower_ear_radius;
+    double lower_screw_safe;
+    double lower_border_safe;
 
     //-- Upper part:
     double upper_base_thickness;
@@ -55,6 +57,8 @@ private:
     double upper_back_ear_thickness;
     double upper_ear_shift;
     double upper_ear_radius;
+    double upper_screw_safe;
+    double upper_border_safe;
 
     //-- Visibility flags:
     bool show_servo;
