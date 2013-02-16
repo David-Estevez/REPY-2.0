@@ -31,7 +31,6 @@ public:
     double get_leg_y();
     double get_leg_z();
 
-
     //-- Leg holes
     int get_num_holes();
     double get_hole_r();
@@ -53,6 +52,7 @@ public:
 
 protected:
     Basic_Servo();
+
     virtual Component build() = 0;
 
     //-- Servo characteristics:
@@ -67,13 +67,11 @@ protected:
     int num_holes;
     double  hole_r, hole_x, hole_y;
 
-    //-- Screws
-    // (I think here I should put the reference to the holes of the drills)
-
     //-- Axis dimensions:
     double axis_h, axis_r, axis_y;
 
     //-- Horn
+    Component horn;
     bool display_horn;
     int horn_arms;
 

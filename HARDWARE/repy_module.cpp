@@ -16,6 +16,9 @@ REPY_module::REPY_module(Basic_Servo& servo,  SkyMegaBoard& skymega)
     lower_back_ear_thickness = 4;
     lower_ear_shift = 12;
     lower_ear_radius = 38/2.0;
+    lower_screw_safe = 5;
+    lower_border_safe = 7;
+
 
     //-- Upper part:
     upper_base_thickness = 4;
@@ -27,7 +30,7 @@ REPY_module::REPY_module(Basic_Servo& servo,  SkyMegaBoard& skymega)
     upper_border_safe = 7;
 
     //-- Default flags:
-    show_servo = true;
+    show_servo = false;
     show_assembly = true;
     show_lower = true;
     show_upper = true;
@@ -59,7 +62,7 @@ Component REPY_module::build()
     Component result;
 
     if ( show_assembly )
-	result = lower + upper.rotate(0,180,0).translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness);
+	result = lower + upper.rotate(0,180,0).translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness) ;
     else
 	if ( show_lower && show_upper)
 	    result = lower.translate( - side/2.0 - 2, 0, 0) + upper.translate( side/2.0 + 2, 0, 0);
@@ -68,7 +71,8 @@ Component REPY_module::build()
 	else
 	    result = lower;
 
-    return result - fake_axis;
+    //! \todo change this
+   return result + fake_axis;
 }
 
 Component REPY_module::lower_part()
@@ -86,9 +90,11 @@ Component REPY_module::lower_part()
     Component base_drill04 = base_drill.translatedCopy( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
 
     //-- Here should go the code for the apertures on the lower part, for wiring, etc --//
+    Component wiring_hole = Cube( side - 2*lower_border_safe, 2, lower_base_thickness+0.1);
 
     //-- Make base:
-    base = (base - base_drill01 - base_drill02 - base_drill03 - base_drill04).translate(0, 0, lower_base_thickness/2.0);
+    base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - wiring_hole;
+    base.translate(0, 0, lower_base_thickness/2.0);
 
     //-- Make ears:
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), lower_front_ear_thickness,
@@ -103,18 +109,24 @@ Component REPY_module::lower_part()
     back_ear.translate(0, -side/2.0 + lower_back_ear_thickness/2.0 + upper_back_ear_thickness , 0);
 
     //-- Make drills:
-    for (int i = 1; i < 4; i++)
-    {
-	front_ear = front_ear - Cylinder( servo->get_hole_r(), servo->get_leg_z() + lower_front_ear_thickness + 0.2 , 100, false)
+    Component ear_drills[4];
+    for (int i = 1; i <5 ; i++)
+	ear_drills[i-1] =  Cylinder( servo->get_hole_r(), servo->get_leg_z() + lower_front_ear_thickness + 0.2 , 100, false)
 					.moveToLink(*servo, i).relTranslate(0, 0, -servo->get_leg_z()/2.0 - lower_front_ear_thickness - 0.1);
-    }
 
+    front_ear = front_ear - (ear_drills[0] & ear_drills[1]) - ear_drills[2] - ear_drills[3];
 
     //-- Result:
     Component lower = front_ear + back_ear + base - *servo;
 
     if (show_servo)
 	lower = lower + *servo;
+
+    //-- Add links to the holes of the base:
+    lower.addLink( RefSys(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
+    lower.addLink( RefSys( -skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
+    lower.addLink( RefSys(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
+    lower.addLink( RefSys( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
 
     return lower;
 
@@ -132,10 +144,17 @@ Component REPY_module::upper_part()
     Component base_drill03 = base_drill.translatedCopy(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
     Component base_drill04 = base_drill.translatedCopy( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
 
-    //-- Here should go the code for the apertures on the upper part, for wiring, etc --//
+    //-- Make a cross-shaped hole for the wiring, etc:
+    Component cross = Cube( skymega->getDrillY() - 2* upper_screw_safe  - skymega->getDrillDiam(),
+			    side-2*upper_border_safe,
+			    upper_base_thickness+0.2)
+		    + Cube( side-2*upper_border_safe,
+			    skymega->getDrillX() - 2* upper_screw_safe - skymega->getDrillDiam(),
+			    upper_base_thickness+0.2);
 
     //-- Make base:
-    base = (base - base_drill01 - base_drill02 - base_drill03 - base_drill04).translate(0, 0, lower_base_thickness/2.0);
+    base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - cross;
+    base.translate(0, 0, lower_base_thickness/2.0);
 
     //-- Make ears:
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), upper_front_ear_thickness,
@@ -148,16 +167,15 @@ Component REPY_module::upper_part()
     back_ear.relRotate( 90, 0 , 0);
     back_ear.translate( 0, (-side + upper_back_ear_thickness)/2.0, 0);
 
-    //-- Make a cross-shaped hole for the wiring, etc:
-    Component cross = Cube( skymega->getDrillY() - 2* upper_screw_safe  - skymega->getDrillDiam(),
-			    side-2*upper_border_safe,
-			    upper_base_thickness+0.2)
-		    + Cube( side-2*upper_border_safe,
-			    skymega->getDrillX() - 2* upper_screw_safe - skymega->getDrillDiam(),
-			    upper_base_thickness+0.2);
-    cross.translate( 0, 0, upper_base_thickness/2.0);
+    //-- Construct upper part:
+    Component upper = base + front_ear + back_ear - *servo ;
 
-    Component upper = base - cross + front_ear + back_ear - *servo ;
+    //-- Add links to the holes of the base:
+    upper.addLink( RefSys(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
+    upper.addLink( RefSys( -skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
+    upper.addLink( RefSys(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
+    upper.addLink( RefSys( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
+
     return upper;
 }
 

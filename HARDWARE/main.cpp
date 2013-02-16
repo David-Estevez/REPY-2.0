@@ -29,9 +29,11 @@ using namespace std;
 int main()
 {
     cout << "Testing lower part of REPY component...";
-
+    cout << endl << "[+] Making board... ";
     SkyMegaBoard myBoard;
+    cout << "[ok]\n[+] Making servo... ";
     FakeFutaba3003sServo myServo;
+    cout << "[ok]\n[+] Making test module... ";
     REPY_module myTest( myServo, myBoard);
 
 
