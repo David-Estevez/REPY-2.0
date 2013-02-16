@@ -1,66 +1,8 @@
-//------------------------------------------------------
-//-- Basic servo
-//------------------------------------------------------
-//-- A parametric simple servo
-//-- It is used for creating the module.
-//------------------------------------------------------
-//-- Author: David Estevez (DEF)
-//------------------------------------------------------
-
-#include "basic_servo.h"
-
-//-- Default constructor
-Basic_Servo::Basic_Servo()
-{
-    //-- Default horn configuration ( rounded, not shown)
-    horn_arms = 0;
-    display_horn = false;
-}
-
-//-- Basic servo data interface:
-//=============================================================================================
-double Basic_Servo::get_width()	{   return width; }
-double Basic_Servo::get_length(){   return length;}
-double Basic_Servo::get_height(){   return height;}
-
-
-//-- Leg dimensions:
-double Basic_Servo::get_leg_h()	{   return leg_h; }
-double Basic_Servo::get_leg_x() {   return leg_x; }
-double Basic_Servo::get_leg_y()	{   return leg_y; }
-double Basic_Servo::get_leg_z() {   return leg_z; }
-
-//-- Leg holes
-int Basic_Servo::get_num_holes() {  return num_holes;}
-double Basic_Servo::get_hole_r() {  return hole_r;}
-double Basic_Servo::get_hole_x() {  return hole_x;}
-double Basic_Servo::get_hole_y() {  return hole_y;}
-
-//-- Axis dimensions:
-double Basic_Servo::get_axis_h() {  return axis_h;}
-double Basic_Servo::get_axis_r() {  return axis_r;}
-double Basic_Servo::get_axis_y() {  return axis_y;}
-
-//-- Horn
-bool Basic_Servo::horn_shown()	{   return display_horn; }
-Component Basic_Servo::get_horn()   {	return Servo_Horn( horn_arms); } //-- Not actually true, as it has to be placed.
-
-//-- Servo configuration:
-//----------------------------------------------------------------------------------------
-void Basic_Servo::set_horn(int arms, bool visibility)
-{
-    horn_arms = arms;
-    display_horn = visibility;
-
-    rebuild();
-}
-
-//-- Servo horns implementations:
-//=============================================================================================
+#include "servohorn.h"
 
 //-- Constructor:
 //-----------------------------------------
-Servo_Horn::Servo_Horn( int num_arms)
+ServoHorn::ServoHorn( int num_arms)
 {
     this->num_arms = num_arms;
     tol = 0;
@@ -118,19 +60,19 @@ Servo_Horn::Servo_Horn( int num_arms)
     rebuild();
 }
 
-void Servo_Horn::set_tolerance(double tol)
+void ServoHorn::set_tolerance(double tol)
 {
     this->tol = tol;
     rebuild();
 }
 
-void Servo_Horn::cut_horn(double cut)
+void ServoHorn::cut_horn(double cut)
 {
     this->cut = cut;
     rebuild();
 }
 
-Component Servo_Horn::build()
+Component ServoHorn::build()
 {
     //-- Create axis cylinder
     Component horn = Cylinder::create(r_axis+tol, h_axis +0.1, 100, false);

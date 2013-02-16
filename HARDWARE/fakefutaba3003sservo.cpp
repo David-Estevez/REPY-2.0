@@ -1,6 +1,6 @@
 #include "fakefutaba3003sservo.h"
 
-FakeFutaba3003sServo::FakeFutaba3003sServo(): Basic_Servo()
+FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
 {
     //-- Main dimensions:
     width = 20;
@@ -70,9 +70,10 @@ Component FakeFutaba3003sServo::build()
     //-- Attach the horn:
     if ( display_horn)
     {
-	Component horn = Servo_Horn( horn_arms);
-	horn.color( 0.2, 0.2, 0.2, 0.3);
-	servo.attach( 0, horn, 2 );
+	//! \todo Change this
+	Component horn = ServoHorn( 0);
+	//horn.color( 0.2, 0.2, 0.2, 0.3);
+	//servo.attach( 0, horn, 2 );
     }
 
     return servo;

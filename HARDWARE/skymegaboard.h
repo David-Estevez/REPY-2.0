@@ -9,11 +9,11 @@
 //-- Juan Gonzalez-Gomez (Obijuan)
 //------------------------------------------------------
 
-#include <ooml/core.h>
-#include <ooml/components.h>
-
 #ifndef SKYMEGABOARD_H
 #define SKYMEGABOARD_H
+
+#include <ooml/core.h>
+#include <ooml/components.h>
 
 class SkyMegaBoard : public AbstractPart
 {

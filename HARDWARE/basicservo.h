@@ -8,14 +8,15 @@
 //-- Author: David Estevez (DEF)
 //------------------------------------------------------
 
-#include <ooml/core.h>
-#include <ooml/components.h>
-
 #ifndef BASIC_SERVO_H
 #define BASIC_SERVO_H
 
+#include <ooml/core.h>
+#include <ooml/components.h>
 
-class Basic_Servo: public AbstractPart
+#include "servohorn.h"
+
+class BasicServo: public AbstractPart
 {
 public:
     //-- Object dimensions interface:
@@ -51,7 +52,7 @@ public:
     void set_horn( int arms, bool visibility = true);
 
 protected:
-    Basic_Servo();
+    BasicServo();
 
     virtual Component build() = 0;
 
@@ -72,28 +73,9 @@ protected:
 
     //-- Horn
     Component horn;
+
     bool display_horn;
-    int horn_arms;
-
 };
 
-class Servo_Horn: public AbstractPart
-{
-public:
-    Servo_Horn( int num_arms);
-    void set_tolerance( double tol);
-    void cut_horn( double cut); //-- Cut is the diameter minus the cutted part
-
-protected:
-    virtual Component build();
-
-private:
-    int num_arms;
-    double h_top, r_top;
-    double h_axis, r_axis;
-    double arm_r, arm_shift, arm_dist;
-    double tol;
-    double cut; //-- For cutting the round horn.
-};
 
 #endif // BASIC_SERVO_H

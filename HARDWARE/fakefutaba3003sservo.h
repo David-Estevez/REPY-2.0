@@ -1,9 +1,9 @@
 #ifndef FAKEFUTABA3003SSERVO_H
 #define FAKEFUTABA3003SSERVO_H
 
-#include "basic_servo.h"
+#include "basicservo.h"
 
-class FakeFutaba3003sServo : public Basic_Servo
+class FakeFutaba3003sServo : public BasicServo
 {
 public:
     FakeFutaba3003sServo();
