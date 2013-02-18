@@ -2,6 +2,8 @@
 
 FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
 {
+    //-- Servo body dimensions:
+    //---------------------------------------------------------------------------------
     //-- Main dimensions:
     width = 20;
     length = 41;
@@ -23,6 +25,72 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     axis_h = 6;
     axis_r = 3;
     axis_y = 30;
+
+
+    //-- Horn dimensions:
+    //----------------------------------------------------------------------------------
+    set_horn( 0 );
+
+    rebuild();
+}
+
+void FakeFutaba3003sServo::set_horn( int arms, bool visibility)
+{
+    horn_num_arms = arms;
+    display_horn = visibility;
+
+    horn_tol = 0;
+    horn_cut = 0;
+
+    //-- Set parameters depending on the number of arms of the servo horn.
+    //-- For fake futaba:
+    switch( horn_num_arms )
+    {
+    case 0: default:
+	//-- Rounded horn:
+	horn_h_top = 3;
+	horn_r_top = 20.5 / 2.0;
+	horn_h_axis = 3.5;
+	horn_r_axis = 9 / 2.0;
+	//-- Not needed for rounded horn:
+	horn_arm_r = 0;
+	horn_arm_shift = 0;
+	horn_arm_dist = 0;
+	break;
+
+    case 2:
+	//-- 2-arms horn:
+	horn_h_top = 3;
+	horn_r_top = 12.5 / 2.0;
+	horn_h_axis = 3;
+	horn_r_axis = 9 / 2.0;
+	horn_arm_r = 5 / 2.0;
+	horn_arm_shift = 0;
+	horn_arm_dist = 19 - 5 / 2.0;
+	break;
+
+    case 4:
+	//-- 4-arms horn:
+	horn_h_top = 3;
+	horn_r_top = 13.5 / 2.0;
+	horn_h_axis = 3;
+	horn_r_axis = 9 / 2.0;
+	horn_arm_r = 4.5 / 2.0;
+	horn_arm_shift = 7;
+	horn_arm_dist = 18 - 4.5 / 2.0;
+	break;
+
+    case 6:
+	//-- 6-arms horn:
+	horn_h_top = 3;
+	horn_r_top = 15 / 2.0;
+	horn_h_axis = 3;
+	horn_r_axis = 9 / 2.0;
+	horn_arm_r = 5 / 2.0;
+	horn_arm_shift = 0;
+	horn_arm_dist = (31.5 - 5) / 2.0;
+	break;
+    }
 
     rebuild();
 }
@@ -71,9 +139,9 @@ Component FakeFutaba3003sServo::build()
     if ( display_horn)
     {
 	//! \todo Change this
-	Component horn = ServoHorn( 0);
-	//horn.color( 0.2, 0.2, 0.2, 0.3);
-	//servo.attach( 0, horn, 2 );
+	horn = make_horn();
+	horn.color( 0.2, 0.2, 0.2, 0.3);
+	servo.attach( 0, horn, 2 );
     }
 
     return servo;

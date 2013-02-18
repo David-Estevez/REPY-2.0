@@ -1,6 +1,6 @@
 #include "repy_module.h"
 
-REPY_module::REPY_module(Basic_Servo& servo,  SkyMegaBoard& skymega)
+REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
 {
     this->servo = &servo;
     this->skymega = &skymega;

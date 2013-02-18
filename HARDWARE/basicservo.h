@@ -43,18 +43,34 @@ public:
     double get_axis_r();
     double get_axis_y();
 
-    //-- Horn
+    //-- Horn positioning:
+    double get_horn_dist_axis();
+
+    //-- Horn dimensions:
+    double get_horn_num_arms();
+    double get_horn_h_top();
+    double get_horn_r_top();
+    double get_horn_h_axis();
+    double get_horn_r_axis();
+    double get_horn_arm_r();
+    double get_horn_arm_shift();
+    double get_horn_tol();
+    double get_horn_cut();
+
+    //-- Horn (others:)
     bool horn_shown();
     Component get_horn();
 
     //-- Servo configuration:
     //-----------------------------------------------------------------
-    void set_horn( int arms, bool visibility = true);
+    virtual void set_horn( int arms, bool visibility = true) = 0;
 
 protected:
     BasicServo();
 
     virtual Component build() = 0;
+
+    virtual Component make_horn();
 
     //-- Servo characteristics:
     //---------------------------------------
@@ -71,10 +87,20 @@ protected:
     //-- Axis dimensions:
     double axis_h, axis_r, axis_y;
 
-    //-- Horn
-    Component horn;
+    //-- Horn positioning:
+    double horn_dist_axis;
 
+    //-- Horn characteristics:
+    //----------------------------------------
+    Component horn;
     bool display_horn;
+
+    int horn_num_arms;
+    double horn_h_top, horn_r_top;
+    double horn_h_axis, horn_r_axis;
+    double horn_arm_r, horn_arm_shift, horn_arm_dist;
+    double horn_tol;
+    double horn_cut; //-- For cutting the round horn.
 };
 
 

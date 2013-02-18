@@ -10,6 +10,8 @@ public:
 
 protected:
     virtual Component build();
+
+    void set_horn( int arms, bool visibility = true);
 };
 
 #endif // FAKEFUTABA3003SSERVO_H
