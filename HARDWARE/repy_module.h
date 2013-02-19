@@ -41,7 +41,6 @@ private:
     //--------------------------------------------
     //-- General:
     double board_safe;
-    double side;
 
     //-- Lower part:
     double lower_base_thickness;
@@ -67,6 +66,9 @@ private:
     bool show_lower;	//-- (show lower part)
     bool show_upper;	//-- (show upper part)
 
+    //-- Dimensions calculated automatically by the software:
+    double side;
+    double central_part;
 };
 
 #endif // REPY_MODULE_H
