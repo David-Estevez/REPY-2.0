@@ -16,11 +16,6 @@
 #include <iostream>
 #include <fstream>
 
-//#include "./ear.h"
-//#include "./base.h"
-//#include "./repy_lower.h"
-//#include "./repy_upper.h"
-
 #include "fakefutaba3003sservo.h"
 #include "skymegaboard.h"
 #include "repy_module.h"

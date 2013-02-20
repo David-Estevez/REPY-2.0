@@ -7,7 +7,7 @@ REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
 
     //-- Default dimensions:
     //-- General:
-    board_safe = 15 ;// (test value) 1.5;
+    board_safe = 1.5;
 
     //-- Lower part:
     lower_base_thickness = 4;
@@ -34,41 +34,42 @@ REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
     show_lower = true;
     show_upper = true;
 
-    //-- Calculate other useful dimensions:
-    //-------------------------------------------------------------------------------------------
-    //--Total side:
-    side = skymega.getSide() + 2* board_safe;
-
-    //-- Calculate the dimensions of the central part (not to be confused with central park):
-    central_part = ( servo.get_height() + lower_back_ear_thickness + upper_back_ear_thickness) +
-		   ( upper_front_ear_thickness) +
-		   ( servo.get_horn_dist_axis() - servo.get_horn_h_axis() );
-
-    //-- Place servo:
-    this->servo->set_horn( 6);
-    this->servo->rotate(90, 0 , 180);
-    this->servo->translate(0, 0, this->servo->get_leg_y() + lower_base_thickness);
-    this->servo->translate( 0, -central_part/2.0 + upper_back_ear_thickness + lower_back_ear_thickness, 0);
-
-    //-- Make fake axis screw:
-    fake_axis = Cylinder( 3/2.0, lower_back_ear_thickness + upper_back_ear_thickness + 0.1, 100, false)
-	      + Cylinder( 6/2.0, 2, 100, false).relTranslate( 0, 0, lower_back_ear_thickness + upper_back_ear_thickness + 0.1);
-    fake_axis.color( 0.5, 0.5, 0.5);
-
-    //! \todo Change this to something that uses links:
-    //--
-    fake_axis.relTranslate( 0 , 0, -lower_back_ear_thickness - upper_back_ear_thickness -0.1)
-	     .rotate(90,0,0)
-	     .translate(0,0, servo.get_axis_y() + servo.get_leg_y())
-	     .relTranslate( 0, 0, side/2.0);
-
-
-
     rebuild();
 }
 
 Component REPY_module::build()
 {
+
+    //-- Choose horn:
+    this->servo->set_horn( 4);
+
+    //-- Calculate other useful dimensions:
+    //-------------------------------------------------------------------------------------------
+    //--Total side:
+    side = skymega->getSide() + 2* board_safe;
+
+    //-- Calculate the dimensions of the central part (not to be confused with central park):
+    central_part = ( servo->get_height() + lower_back_ear_thickness + upper_back_ear_thickness) +
+		   ( upper_front_ear_thickness) +
+		   ( servo->get_horn_dist_axis() - servo->get_horn_h_axis() );
+
+    //-- Place servo:
+    servo->rotate(90, 0 , 180);
+    servo->translate(0, 0, servo->get_leg_y() + lower_base_thickness);
+    servo->translate( 0, -central_part/2.0 + upper_back_ear_thickness + lower_back_ear_thickness, 0);
+
+    //-- Make fake axis screw:
+    fake_axis =  Cylinder( 6/2.0, 2 + 0.2 , 100, false)
+	      + Cylinder( 3/2.0, lower_back_ear_thickness + upper_back_ear_thickness - 2 + 0.1, 100, false).relTranslate( 0, 0, 2 + 0.1);
+    fake_axis.color( 0.5, 0.5, 0.5);
+
+    //! \todo Change this to something that uses links:
+    //--
+    fake_axis.moveToLink( *servo, 0);
+    fake_axis.translate( 0 , upper_front_ear_thickness - servo->get_horn_h_axis() -central_part -0.1, 0);
+
+    //--Compose the module:
+    //-------------------------------------------------------------------------------------------
     Component lower = lower_part();
     Component upper = upper_part();
     Component result;
@@ -84,7 +85,7 @@ Component REPY_module::build()
 	    result = lower;
 
     //! \todo change this
-   return result + fake_axis;
+   return result;
 }
 
 Component REPY_module::lower_part()
@@ -108,10 +109,6 @@ Component REPY_module::lower_part()
     base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - wiring_hole;
     base.translate(0, 0, lower_base_thickness/2.0);
 
-
-    std::cout << "\n\tDistance is :" << central_part;
-    std::cout << "\n\tTotal side is: " << side << std::endl;
-
     //-- Make ears:
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), lower_front_ear_thickness,
 				    lower_ear_shift, lower_ear_radius);
@@ -133,7 +130,7 @@ Component REPY_module::lower_part()
     front_ear = front_ear - (ear_drills[0] & ear_drills[1]) - ear_drills[2] - ear_drills[3];
 
     //-- Result:
-    Component lower = front_ear + back_ear + base - *servo;
+    Component lower = front_ear + back_ear + base - *servo - fake_axis;
 
     if (show_servo)
 	lower = lower + *servo;
@@ -176,7 +173,7 @@ Component REPY_module::upper_part()
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), upper_front_ear_thickness,
 				    upper_ear_shift, upper_ear_radius);
     front_ear.relRotate( 90, 0 , 0);
-    front_ear.translate(0, (central_part - upper_front_ear_thickness)/2.0, 0);
+    front_ear.translate(0, (central_part - upper_front_ear_thickness )/2.0, 0);
 
     Component back_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), upper_back_ear_thickness,
 				    upper_ear_shift, upper_ear_radius);
@@ -184,7 +181,7 @@ Component REPY_module::upper_part()
     back_ear.translate( 0, (-central_part + upper_back_ear_thickness)/2.0, 0);
 
     //-- Construct upper part:
-    Component upper = base + front_ear + back_ear - *servo ;
+    Component upper = base + front_ear + back_ear - *servo - fake_axis;
 
     //-- Add links to the holes of the base:
     upper.addLink( RefSys(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));

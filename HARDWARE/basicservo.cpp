@@ -69,7 +69,8 @@ double BasicServo::get_horn_cut()	{   return horn_cut;	    }
 Component BasicServo::make_horn()
 {
     //-- Create axis cylinder
-    horn = Cylinder::create(horn_r_axis + horn_tol, horn_h_axis +0.1, 100, false);
+    horn = Cylinder::create(horn_r_axis + horn_tol, horn_h_axis +0.2, 100, false);
+    horn.translate(0,0,-0.1);
 
     if (horn_num_arms == 0) //-- Rounded horn
     {
