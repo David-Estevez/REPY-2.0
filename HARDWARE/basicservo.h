@@ -14,7 +14,6 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-#include "servohorn.h"
 
 class BasicServo: public AbstractPart
 {
