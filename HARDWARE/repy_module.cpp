@@ -94,7 +94,7 @@ Component REPY_module::lower_part()
     //--=======================================================================================================
     //-- Base:
     //------------------------------------------------------------------------------------------------------
-    Component base = Cube( side, side, lower_base_thickness);
+    Component base = RoundedTablet( side, side, lower_base_thickness, board_safe);
 
     //-- Drills of the base:
     //------------------------------------------------------------------------------------------------------
@@ -118,11 +118,14 @@ Component REPY_module::lower_part()
     double wiring_hole_leg_thickness = ( side/2.0 - lower_border_safe )
 				     - ( -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() );
 
-    Component wiring_hole = Cube( side - 2*lower_border_safe, wiring_hole_x_thickness, lower_base_thickness+0.1)    //-- Hole under the servo body, part along X axis
+			    //-- Hole under the servo body, part along X axis
+    Component wiring_hole = RoundedTablet( side - 2*lower_border_safe, wiring_hole_x_thickness, lower_base_thickness+0.1, lower_border_safe / 2.5)
 			    .translate(0, -wiring_hole_x_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
-			  + Cube( skymega->getDrillX() - skymega->getDrillDiam() - 2*lower_screw_safe, wiring_hole_y_thickness, lower_base_thickness+0.1 )  //-- Hole under the servo body, part along y axis
+			    //-- Hole under the servo body, part along y axis
+			  + RoundedTablet( skymega->getDrillX() - skymega->getDrillDiam() - 2*lower_screw_safe, wiring_hole_y_thickness, lower_base_thickness+0.1, lower_border_safe/2.5 )
 			    .translate(0,  -wiring_hole_y_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
-			  + Cube( skymega->getDrillX() - skymega->getDrillDiam() - lower_screw_safe*2, wiring_hole_leg_thickness, lower_base_thickness + 0.1)
+			    //-- Hole under the servo leg
+			  + RoundedTablet( skymega->getDrillX() - skymega->getDrillDiam() - lower_screw_safe*2, wiring_hole_leg_thickness, lower_base_thickness + 0.1, lower_border_safe/3.0)
 			    .translate(0, wiring_hole_leg_thickness/2.0 + ( -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() ), 0);
     //-- Make base:
     //-----------------------------------------------------------------------------------------------------------
@@ -179,7 +182,7 @@ Component REPY_module::lower_part()
 Component REPY_module::upper_part()
 {
     //-- Base:
-    Component base = Cube( side, side, upper_base_thickness);
+    Component base = RoundedTablet( side, side, upper_base_thickness, board_safe);
 
     //-- Drills of the base:
     Component base_drill = Cylinder( skymega->getDrillDiam()/2.0, upper_base_thickness + 0.2);
@@ -189,12 +192,14 @@ Component REPY_module::upper_part()
     Component base_drill04 = base_drill.translatedCopy( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
 
     //-- Make a cross-shaped hole for the wiring, etc:
-    Component cross = Cube( skymega->getDrillY() - 2* upper_screw_safe  - skymega->getDrillDiam(),
+    Component cross = RoundedTablet( skymega->getDrillY() - 2* upper_screw_safe  - skymega->getDrillDiam(),
 			    side-2*upper_border_safe,
-			    upper_base_thickness+0.2)
-		    + Cube( side-2*upper_border_safe,
+			    upper_base_thickness+0.2,
+			    upper_border_safe /2.5)
+		    + RoundedTablet( side-2*upper_border_safe,
 			    skymega->getDrillX() - 2* upper_screw_safe - skymega->getDrillDiam(),
-			    upper_base_thickness+0.2);
+			    upper_base_thickness+0.2,
+			    upper_border_safe /2.5 );
 
     //-- Make base:
     base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - cross;
