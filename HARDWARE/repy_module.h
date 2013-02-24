@@ -35,7 +35,7 @@ private:
     //-- Needed components that define the module:
     BasicServo * servo;
     SkyMegaBoard * skymega;
-    Component fake_axis;
+    Component fake_axis, fake_axis_with_tol;
 
     //-- Needed dimensions
     //--------------------------------------------
@@ -59,6 +59,12 @@ private:
     double upper_ear_radius;
     double upper_screw_safe;
     double upper_border_safe;
+
+    //-- Tolerances:
+    double body_servo_x_tol;	//-- Clearance to insert the servo, x axis
+    double body_servo_y_tol;	//-- Clearance to insert the servo, y axis
+    double ear_clearance_tol;	//-- Clearance between touching ears
+    double fake_axis_tol;	//-- Clearance for the fake axis
 
     //-- Visibility flags:
     bool show_servo;

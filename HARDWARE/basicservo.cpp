@@ -44,6 +44,10 @@ double BasicServo::get_axis_y() {  return axis_y;   }
 //-- Horn positioning dimensions:
 double BasicServo::get_horn_dist_axis()	{   return horn_dist_axis;  }
 
+//-- Tolerances:
+double BasicServo::get_width_tol() {	return width_tol;   }
+double BasicServo::get_length_tol(){	return length_tol;  }
+double BasicServo::get_height_tol(){	return height_tol;  }
 
 //-- Horn data interface:
 //============================================================================================
@@ -61,10 +65,19 @@ double BasicServo::get_horn_arm_shift() {   return horn_arm_shift;  }
 double BasicServo::get_horn_tol()	{   return horn_tol;	    }
 double BasicServo::get_horn_cut()	{   return horn_cut;	    }
 
+//-- Configuring servo:
+//============================================================================================
+void BasicServo::set_tolerances(double width_tol, double length_tol, double height_tol)
+{
+    this->width_tol = width_tol;
+    this->length_tol = length_tol;
+    this->height_tol = height_tol;
 
+    rebuild();
+}
 
 //-- Servo horn:
-//---------------------------------------------------------------------------------------------
+//============================================================================================
 
 Component BasicServo::make_horn()
 {

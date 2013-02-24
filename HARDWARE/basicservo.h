@@ -45,6 +45,11 @@ public:
     //-- Horn positioning:
     double get_horn_dist_axis();
 
+    //-- Tolerances:
+    double get_width_tol();
+    double get_length_tol();
+    double get_height_tol();
+
     //-- Horn dimensions:
     double get_horn_num_arms();
     double get_horn_h_top();
@@ -62,7 +67,8 @@ public:
 
     //-- Servo configuration:
     //-----------------------------------------------------------------
-    virtual void set_horn( int arms, bool visibility = true) = 0;
+    virtual void set_horn( int arms, bool visibility = true, double cut = 0) = 0;
+    void set_tolerances( double width_tol, double length_tol, double height_tol );
 
 protected:
     BasicServo();
@@ -88,6 +94,11 @@ protected:
 
     //-- Horn positioning:
     double horn_dist_axis;
+
+    //-- Tolerances:
+    double width_tol;
+    double length_tol;
+    double height_tol;
 
     //-- Horn characteristics:
     //----------------------------------------

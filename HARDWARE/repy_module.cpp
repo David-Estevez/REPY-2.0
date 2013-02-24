@@ -15,23 +15,29 @@ REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
     lower_back_ear_thickness = 4;
     lower_ear_shift = 12;
     lower_ear_radius = 38/2.0;
-    lower_screw_safe = 5;
+    lower_screw_safe = 4;
     lower_border_safe = 7;
 
 
     //-- Upper part:
     upper_base_thickness = 4;
-    upper_front_ear_thickness = 4;
+    upper_front_ear_thickness = 5.5;
     upper_back_ear_thickness = 4;
     upper_ear_shift = 12;
     upper_ear_radius = 38/2.0;
     upper_screw_safe = 5;
     upper_border_safe = 7;
 
+    //-- Tolerances:
+    body_servo_x_tol = 0.5;
+    body_servo_y_tol = 1;
+    ear_clearance_tol = 0.5;
+    fake_axis_tol = 1;
+
     //-- Default flags:
     show_servo = true;
-    show_assembly = true;
-    show_lower = true;
+    show_assembly = false;
+    show_lower = false;
     show_upper = true;
 
     rebuild();
@@ -39,9 +45,13 @@ REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
 
 Component REPY_module::build()
 {
-
     //-- Choose horn:
-    this->servo->set_horn( 4);
+    //-------------------------------------------------------------------------------------------
+    servo->set_horn( 0, true, 20.5/2.0 - 3);
+
+    //-- Set servo tolerances:
+    //-------------------------------------------------------------------------------------------
+    servo->set_tolerances( body_servo_x_tol, body_servo_y_tol, 0);
 
     //-- Calculate other useful dimensions:
     //-------------------------------------------------------------------------------------------
@@ -49,24 +59,36 @@ Component REPY_module::build()
     side = skymega->getSide() + 2* board_safe;
 
     //-- Calculate the dimensions of the central part (not to be confused with central park):
-    central_part = ( servo->get_height() + lower_back_ear_thickness + upper_back_ear_thickness) +
+    central_part = ( servo->get_height() + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness) +
 		   ( upper_front_ear_thickness) +
 		   ( servo->get_horn_dist_axis() - servo->get_horn_h_axis() );
 
     //-- Place servo:
+    //--------------------------------------------------------------------------------------------
     servo->rotate(90, 0 , 180);
     servo->translate(0, 0, servo->get_leg_y() + lower_base_thickness);
-    servo->translate( 0, -central_part/2.0 + upper_back_ear_thickness + lower_back_ear_thickness, 0);
+    servo->translate( 0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness, 0);
 
-    //-- Make fake axis screw:
+    //-- Fake axis:
+    //-------------------------------------------------------------------------------------------
+    //-- Make fake axis screw, for the upper part:
     fake_axis =  Cylinder( 6/2.0, 2 + 0.2 , 100, false)
-	      + Cylinder( 3/2.0, lower_back_ear_thickness + upper_back_ear_thickness - 2 + 0.1, 100, false).relTranslate( 0, 0, 2 + 0.1);
+	      + Cylinder( 3/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 100, false).relTranslate( 0, 0, 2 + 0.1);
     fake_axis.color( 0.5, 0.5, 0.5);
 
     //! \todo Change this to something that uses links:
-    //--
     fake_axis.moveToLink( *servo, 0);
     fake_axis.translate( 0 , upper_front_ear_thickness - servo->get_horn_h_axis() -central_part -0.1, 0);
+
+
+    //-- Make fake axis screw with the clearance, for the lower part:
+    fake_axis_with_tol =  Cylinder( 6 /2.0, 2 + 0.2 , 100, false)
+	      + Cylinder( 3 /2.0 + fake_axis_tol, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 100, false).relTranslate( 0, 0, 2 + 0.1);
+    fake_axis_with_tol.color( 0.5, 0.5, 0.5);
+
+    //! \todo Change this to something that uses links:
+    fake_axis_with_tol.moveToLink( *servo, 0);
+    fake_axis_with_tol.translate( 0 , upper_front_ear_thickness - servo->get_horn_h_axis() -central_part -0.1, 0);
 
     //--Compose the module:
     //-------------------------------------------------------------------------------------------
@@ -84,7 +106,6 @@ Component REPY_module::build()
 	else
 	    result = lower;
 
-    //! \todo change this
    return result;
 }
 
@@ -107,26 +128,26 @@ Component REPY_module::lower_part()
     //-- Aperture on the lower base for wiring, etc
     //-------------------------------------------------------------------------------------------------------
     //-- Wiring_hole_x_thickness: 'y' component of the hole under the servo body along the x axis
-    double wiring_hole_x_thickness = (-central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness)
+    double wiring_hole_x_thickness = (-central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness)
 				   + (  skymega->getDrillY()/2.0 - skymega->getDrillDiam()/2.0 - lower_screw_safe);
 
     //-- Wiring_hole_y_thickness: 'y' component of the hole under the servo body along the y axis
-    double wiring_hole_y_thickness = (-central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness)
-				   + ( central_part/2.0 - lower_back_ear_thickness - upper_back_ear_thickness);
+    double wiring_hole_y_thickness = (-central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness)
+				   + ( central_part/2.0 - lower_back_ear_thickness - ear_clearance_tol - upper_back_ear_thickness);
 
     //-- Wiring_hole_leg_thickness: 'y' component of the hole under the servo leg
     double wiring_hole_leg_thickness = ( side/2.0 - lower_border_safe )
-				     - ( -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() );
+				     - ( -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() );
 
 			    //-- Hole under the servo body, part along X axis
     Component wiring_hole = RoundedTablet( side - 2*lower_border_safe, wiring_hole_x_thickness, lower_base_thickness+0.1, lower_border_safe / 2.5)
-			    .translate(0, -wiring_hole_x_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
+			    .translate(0, -wiring_hole_x_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
 			    //-- Hole under the servo body, part along y axis
 			  + RoundedTablet( skymega->getDrillX() - skymega->getDrillDiam() - 2*lower_screw_safe, wiring_hole_y_thickness, lower_base_thickness+0.1, lower_border_safe/2.5 )
-			    .translate(0,  -wiring_hole_y_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
+			    .translate(0,  -wiring_hole_y_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
 			    //-- Hole under the servo leg
 			  + RoundedTablet( skymega->getDrillX() - skymega->getDrillDiam() - lower_screw_safe*2, wiring_hole_leg_thickness, lower_base_thickness + 0.1, lower_border_safe/3.0)
-			    .translate(0, wiring_hole_leg_thickness/2.0 + ( -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() ), 0);
+			    .translate(0, wiring_hole_leg_thickness/2.0 + ( -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() ), 0);
     //-- Make base:
     //-----------------------------------------------------------------------------------------------------------
     base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - wiring_hole;
@@ -142,14 +163,14 @@ Component REPY_module::lower_part()
 				    lower_ear_shift, lower_ear_radius);
     front_ear.rotate( 90, 0, 0).translate( 0, 0, lower_base_thickness);
     front_ear.translate(0, -lower_front_ear_thickness/2.0 , 0);
-    front_ear.translate(0, -central_part/2.0 + lower_back_ear_thickness + upper_back_ear_thickness + servo->get_leg_h() , 0);
+    front_ear.translate(0, -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() , 0);
 
     //-- Back ear:
     //-----------------------------------------------------------------------------------------------------------
     Component back_ear = make_ear( side, servo->get_axis_y() + servo->get_leg_y(),lower_back_ear_thickness,
 				   lower_ear_shift, lower_ear_radius);
     back_ear.rotate(90, 0, 0).translate( 0, 0, lower_base_thickness);
-    back_ear.translate(0, -central_part/2.0 + lower_back_ear_thickness/2.0 + upper_back_ear_thickness , 0);
+    back_ear.translate(0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness/2.0  , 0);
 
     //-- Make front ear drills:
     //------------------------------------------------------------------------------------------------------------
@@ -163,7 +184,7 @@ Component REPY_module::lower_part()
 
     //-- Result:
     //--===========================================================================================================
-    Component lower = front_ear + back_ear + base - *servo - fake_axis;
+    Component lower = front_ear + back_ear + base - *servo - fake_axis_with_tol;
 
     if (show_servo)
 	lower = lower + *servo;

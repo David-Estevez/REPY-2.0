@@ -35,7 +35,7 @@ int main()
 
     //-- Printing the upper part
     IndentWriter writer;
-    writer << myTest << LinksView( myTest);
+    writer << myTest;
 
     ofstream file("./scad/REPY-2.0_test_new_repy.scad");
     if (file)

@@ -5,9 +5,9 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     //-- Servo body dimensions:
     //---------------------------------------------------------------------------------
     //-- Main dimensions:
-    width = 20;
+    width = 20.5;
     length = 41;
-    height = 40;
+    height = 39.5;
 
     //-- Leg dimensions:
     leg_h = 27;
@@ -29,6 +29,10 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     //-- Horn placement:
     horn_dist_axis = 4;
 
+    //-- Tolerances:
+    width_tol = 0;
+    length_tol = 0;
+    height_tol = 0;
 
     //-- Horn dimensions:
     //----------------------------------------------------------------------------------
@@ -37,13 +41,13 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     rebuild();
 }
 
-void FakeFutaba3003sServo::set_horn( int arms, bool visibility)
+void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
 {
     horn_num_arms = arms;
     display_horn = visibility;
+    horn_cut = cut;
 
     horn_tol = 0;
-    horn_cut = 0;
 
     //-- Set parameters depending on the number of arms of the servo horn.
     //-- For fake futaba:
@@ -101,7 +105,7 @@ void FakeFutaba3003sServo::set_horn( int arms, bool visibility)
 Component FakeFutaba3003sServo::build()
 {
     //-- Create body
-    Component body = Cube::create( width, length, height, false);
+    Component body = Cube::create( width + width_tol, length + length_tol, height + height_tol, false);
     body.translate( -width/2, 0,0);
 
     //-- Create axis
@@ -144,7 +148,9 @@ Component FakeFutaba3003sServo::build()
 	//! \todo Change this
 	horn = make_horn();
 	horn.color( 0.2, 0.2, 0.2);
+	horn.relRotate(0,0,-90); //-- Temporal fix
 	servo.attach( 0, horn, 2 );
+
     }
 
     return servo;
