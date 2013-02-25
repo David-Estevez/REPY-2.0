@@ -76,28 +76,97 @@ void BasicServo::set_tolerances(double width_tol, double length_tol, double heig
     rebuild();
 }
 
+
+//-- Building the basic servo:
+//============================================================================================
+Component BasicServo::build()
+{
+    //-- Create body
+    Component body = Cube::create( width + width_tol, length + length_tol, height + height_tol, false);
+    body.translate( -width/2, 0,0);
+
+    //-- Create axis
+    Component axis = Cylinder::create( axis_r, axis_h, 20, true);
+    axis.translate( 0, axis_y, height + axis_h / 2);
+
+    //-- Create legs
+    Component leg_top = Cube::create( leg_x, leg_y, leg_z, false);
+    leg_top.translate( -leg_x/2, length, leg_h);
+
+    Component leg_bottom = leg_top.translatedCopy( 0, -( length + leg_y), 0);
+
+
+    //-- Create holes:
+    Component holes;
+    Component hole_base = Cylinder( hole_r, leg_z + 0.2, 20, true);
+
+    if (num_holes == 4) //-- 4 holes, 2 on each leg
+    {
+
+	Component hole01 = hole_base.translatedCopy(  hole_x, length + hole_y, leg_h + leg_z/2.0);
+	Component hole02 = hole_base.translatedCopy( -hole_x, length + hole_y, leg_h + leg_z/2.0);
+	Component hole03 = hole_base.translatedCopy(  hole_x,         -hole_y, leg_h + leg_z/2.0);
+	Component hole04 = hole_base.translatedCopy( -hole_x,         -hole_y, leg_h + leg_z/2.0);
+	holes = hole01 + hole02 + hole03 + hole04;
+    }
+    else if (num_holes == 2) //-- 2 holes, 1 on each leg
+    {
+	Component hole01 = hole_base.translatedCopy( hole_x, length + hole_y, leg_h + leg_z/2.0);
+	Component hole02 = hole_base.translatedCopy( hole_x,	     -hole_y ,leg_h + leg_z/2.0);
+	holes = hole01 + hole02;
+    }
+
+    //-- Composing the servo:
+    Component servo = body + axis + leg_top + leg_bottom - holes;
+
+    //-- Add a link for the horn:
+    servo.addLink( RefSys( 0, axis_y, height + horn_dist_axis));
+
+    //-- Add several links for the screws:
+    servo.addLink( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0));
+    servo.addLink( RefSys( -hole_x, length + hole_y, leg_h + leg_z/2.0));
+    servo.addLink( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0));
+    servo.addLink( RefSys( -hole_x,         -hole_y, leg_h + leg_z/2.0));
+
+    //-- Paint it black:
+    servo.color( 0.2, 0.2, 0.2);
+
+    //-- Attach the horn:
+    if ( display_horn)
+    {
+	//! \todo Change this
+	horn = make_horn();
+	horn.color( 0.2, 0.2, 0.2);
+	horn.relRotate(0,0,-90); //-- Temporal fix
+	servo.attach( 0, horn, 2 );
+
+    }
+
+    return servo;
+}
+
 //-- Servo horn:
 //============================================================================================
 
 Component BasicServo::make_horn()
 {
     //-- Create axis cylinder
-    horn = Cylinder::create(horn_r_axis + horn_tol, horn_h_axis +0.2, 100, false);
+    horn = Cylinder(horn_r_axis + horn_tol, horn_h_axis +0.2, 100, false);
     horn.translate(0,0,-0.1);
 
     if (horn_num_arms == 0) //-- Rounded horn
     {
-	Component top = Cylinder::create( horn_r_top + horn_tol, horn_h_top, 100, false);
+	Component top = Cylinder( horn_r_top + horn_tol, horn_h_top, 100, false);
 	top.translate(0, 0, horn_h_axis);
 	horn = horn + top;
 
 	if ( horn_cut < horn_r_top )
 	{
 	    //-- Create a cube with the dimensions of the cut
-	    Component to_be_substracted = Cube::create( (horn_r_top + horn_tol)- horn_cut + 0.1,
-							2*(horn_r_top + horn_tol)+0.2,
-							horn_h_top+0.2,
-							false);
+	    Component to_be_substracted = Cube( (horn_r_top + horn_tol)- horn_cut + 0.1,
+						 2*(horn_r_top + horn_tol)+0.2,
+						 horn_h_top+0.2,
+						 false);
 
 	    //-- Center it on Y:
 	    to_be_substracted.translate(0, -(horn_r_top + horn_tol)+0.1, 0);
@@ -109,8 +178,8 @@ Component BasicServo::make_horn()
     else //-- Horn with arms:
     {
 	//-- Create a single arm:
-	Component base = Cube::create( 2*horn_r_axis, 0.001, horn_h_top+0.1);
-	Component upper_cyl = Cylinder::create( horn_arm_r,horn_h_top+0.1, 100, true);
+	Component base = Cube( 2*horn_r_axis, 0.001, horn_h_top+0.1);
+	Component upper_cyl = Cylinder( horn_arm_r,horn_h_top+0.1, 100, true);
 	upper_cyl = upper_cyl.translate( 0, horn_arm_dist, 0);
 
 	Component arm = base & upper_cyl;
@@ -123,7 +192,7 @@ Component BasicServo::make_horn()
 	arms.translate( 0, 0, horn_h_axis);
 
 	//-- Add the top cylinder:
-	Component top_cyl = Cylinder::create( horn_r_top, horn_h_top + 0.1, 100, false)
+	Component top_cyl = Cylinder( horn_r_top, horn_h_top + 0.1, 100, false)
 			    .translate(0,0, horn_h_axis);
 
 	//-- Sum up all the parts:
@@ -137,3 +206,4 @@ Component BasicServo::make_horn()
 
     return horn;
 }
+

@@ -73,7 +73,7 @@ public:
 protected:
     BasicServo();
 
-    virtual Component build() = 0;
+    virtual Component build();
 
     virtual Component make_horn();
 

@@ -1,28 +1,28 @@
-#include "fakefutaba3003sservo.h"
+#include "futaba3003sservo.h"
 
-FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
+Futaba3003sServo::Futaba3003sServo(): BasicServo()
 {
     //-- Servo body dimensions:
     //---------------------------------------------------------------------------------
     //-- Main dimensions:
-    width = 20.5;
-    length = 41;
-    height = 39.5;
+    width = 20.;
+    length = 40.5;
+    height = 37.5;
 
     //-- Leg dimensions:
     leg_h = 27;
     leg_x = 20;
-    leg_y = 6.5;
+    leg_y = 7.5;
     leg_z = 4;
 
     //-- Leg holes
     num_holes = 4;
-    hole_r = 2;
+    hole_r = 4.5/2.0;
     hole_x = 5;
-    hole_y = 4;
+    hole_y = 3;
 
     //-- Axis dimensions:
-    axis_h = 4;
+    axis_h = 4.5;
     axis_r = 3;
     axis_y = 30;
 
@@ -41,7 +41,7 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     rebuild();
 }
 
-void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
+void Futaba3003sServo::set_horn( int arms, bool visibility, double cut)
 {
     horn_num_arms = arms;
     display_horn = visibility;
@@ -101,4 +101,3 @@ void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
 
     rebuild();
 }
-

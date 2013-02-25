@@ -32,11 +32,11 @@ REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
     body_servo_x_tol = 0.5;
     body_servo_y_tol = 1;
     ear_clearance_tol = 0.5;
-    fake_axis_tol = 1;
+    fake_axis_tol = 0.5;
 
     //-- Default flags:
     show_servo = true;
-    show_assembly = false;
+    show_assembly =  true;
     show_lower = false;
     show_upper = true;
 
