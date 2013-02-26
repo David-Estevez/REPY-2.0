@@ -36,9 +36,9 @@ REPY_module::REPY_module(BasicServo& servo,  SkyMegaBoard& skymega)
 
     //-- Default flags:
     show_servo = true;
-    show_assembly =  true;
-    show_lower = false;
-    show_upper = true;
+    show_assembly =  false;
+    show_lower = true;
+    show_upper = false;
 
     rebuild();
 }

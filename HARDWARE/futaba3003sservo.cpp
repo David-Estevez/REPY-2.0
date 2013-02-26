@@ -53,7 +53,10 @@ void Futaba3003sServo::set_horn( int arms, bool visibility, double cut)
     //-- For fake futaba:
     switch( horn_num_arms )
     {
-    case 0: default:
+    default:
+	horn_num_arms = 0;
+
+    case 0:
 	//-- Rounded horn:
 	horn_h_top = 3;
 	horn_r_top = 20.5 / 2.0;

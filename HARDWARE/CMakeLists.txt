@@ -25,6 +25,6 @@ SET(OOML_LINK_DIR "/usr/lib" CACHE STRING "OOML Libraries Directory")
 INCLUDE_DIRECTORIES(${OOML_INCLUDE_DIR})
 LINK_DIRECTORIES(${OOML_LINK_DIR})
 
-ADD_EXECUTABLE(REPY-2.0 main.cpp basicservo.cpp fakefutaba3003sservo.cpp repy_module.cpp skymegaboard.cpp)
+ADD_EXECUTABLE(REPY-2.0 main.cpp basicservo.cpp fakefutaba3003sservo.cpp futaba3003sservo.cpp towerprosg90servo.cpp repy_module.cpp skymegaboard.cpp)
 TARGET_LINK_LIBRARIES(REPY-2.0 OOMLCore OOMLParts OOMLComponents)
 

@@ -1,33 +1,34 @@
-#include "fakefutaba3003sservo.h"
+#include "towerprosg90servo.h"
 
-FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
+
+TowerProSG90servo::TowerProSG90servo(): BasicServo()
 {
     //-- Servo body dimensions:
     //---------------------------------------------------------------------------------
     //-- Main dimensions:
-    width = 20.5;
-    length = 41;
-    height = 39.5;
+    width = 12.7;
+    length = 22.7;
+    height = 27;
 
     //-- Leg dimensions:
-    leg_h = 27;
-    leg_x = 20;
-    leg_y = 6.5;
-    leg_z = 4;
+    leg_h = 15.7;
+    leg_x = 12;
+    leg_y = 5;
+    leg_z = 2.5;
 
     //-- Leg holes
-    num_holes = 4;
-    hole_r = 2;
-    hole_x = 5;
-    hole_y = 4;
+    num_holes = 2;
+    hole_r = 1.1;
+    hole_x = 6;
+    hole_y = 2.5;
 
     //-- Axis dimensions:
-    axis_h = 4;
-    axis_r = 3;
-    axis_y = 30;
+    axis_h = 2.5;
+    axis_r = 8.7/2.0;
+    axis_y = 17;
 
     //-- Horn placement:
-    horn_dist_axis = 4;
+    horn_dist_axis = 3.5;
 
     //-- Tolerances by default:
     width_tol = 0;
@@ -36,12 +37,12 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
 
     //-- Horn dimensions:
     //----------------------------------------------------------------------------------
-    set_horn( 0 );
+    set_horn( 1 );
 
     rebuild();
 }
 
-void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
+void TowerProSG90servo::set_horn( int arms, bool visibility, double cut)
 {
     horn_num_arms = arms;
     display_horn = visibility;
@@ -54,24 +55,23 @@ void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
     switch( horn_num_arms )
     {
     default:
-	horn_num_arms = 0;
+	horn_num_arms = 1;
 
-    case 0:
-	//-- Rounded horn:
-	horn_h_top = 3;
-	horn_r_top = 20.5 / 2.0;
-	horn_h_axis = 3.5;
-	horn_r_axis = 9 / 2.0;
-	//-- Not needed for rounded horn:
-	horn_arm_r = 0;
+    case 1:
+	//-- 1-arm horn:
+	horn_h_top = 1.7;
+	horn_r_top = 7.2 / 2.0;
+	horn_h_axis = 2.7;
+	horn_r_axis = 7.2 / 2.0;
+	horn_arm_r = 3.6/2.0;
 	horn_arm_shift = 0;
-	horn_arm_dist = 0;
+	horn_arm_dist = 19.6-7.2/2.0-3.6/2.0;
 	break;
 
     case 2:
 	//-- 2-arms horn:
-	horn_h_top = 3;
-	horn_r_top = 12.5 / 2.0;
+	horn_h_top = 1.7;
+	horn_r_top = 7.2 / 2.0;
 	horn_h_axis = 3;
 	horn_r_axis = 9 / 2.0;
 	horn_arm_r = 5 / 2.0;
@@ -81,24 +81,13 @@ void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
 
     case 4:
 	//-- 4-arms horn:
-	horn_h_top = 3;
-	horn_r_top = 13.5 / 2.0;
+	horn_h_top = 1.7;
+	horn_r_top = 8 / 2.0;
 	horn_h_axis = 3;
 	horn_r_axis = 9 / 2.0;
 	horn_arm_r = 4.5 / 2.0;
 	horn_arm_shift = 7;
 	horn_arm_dist = 18 - 4.5 / 2.0;
-	break;
-
-    case 6:
-	//-- 6-arms horn:
-	horn_h_top = 3;
-	horn_r_top = 15 / 2.0;
-	horn_h_axis = 3;
-	horn_r_axis = 9 / 2.0;
-	horn_arm_r = 5 / 2.0;
-	horn_arm_shift = 0;
-	horn_arm_dist = (31.5 - 5) / 2.0;
 	break;
     }
 

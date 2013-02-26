@@ -17,6 +17,7 @@
 #include <fstream>
 
 #include "fakefutaba3003sservo.h"
+#include "towerprosg90servo.h"
 #include "skymegaboard.h"
 #include "repy_module.h"
 
@@ -28,7 +29,7 @@ int main()
     cout << endl << "[+] Making board... ";
     SkyMegaBoard myBoard;
     cout << "[ok]\n[+] Making servo... ";
-    FakeFutaba3003sServo myServo;
+    TowerProSG90servo myServo;
     cout << "[ok]\n[+] Making test module... ";
     REPY_module myTest( myServo, myBoard);
 
