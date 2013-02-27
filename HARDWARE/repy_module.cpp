@@ -5,26 +5,32 @@ REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
     this->servo = &servo;
     this->pcb = &pcb;
 
+    //-- Coeffients relating x and y proportions with respect to a
+    //-- futaba servo:
+    double x_coeff = servo.get_width() /  20.5;
+    double y_coeff = servo.get_length() / 41.0;
+    double z_coeff = servo.get_height() / 39.5;
+
     //-- Default dimensions:
     //-- General:
     board_safe = 1.5;
 
     //-- Lower part:
-    lower_base_thickness = 4;
-    lower_front_ear_thickness = 4;
-    lower_back_ear_thickness = 4;
-    lower_ear_shift = 12;
-    lower_ear_radius = 38/2.0;
+    lower_base_thickness = 4 * z_coeff;
+    lower_front_ear_thickness = 4 * y_coeff;
+    lower_back_ear_thickness = 4 * y_coeff;
+    lower_ear_shift = 12 * z_coeff;
+    lower_ear_radius = 38/2.0 * x_coeff;
     lower_screw_safe = 4;
     lower_border_safe = 7;
 
 
     //-- Upper part:
-    upper_base_thickness = 4;
-    upper_front_ear_thickness = 5.5;
-    upper_back_ear_thickness = 4;
-    upper_ear_shift = 12;
-    upper_ear_radius = 38/2.0;
+    upper_base_thickness = 4 * z_coeff;
+    upper_front_ear_thickness = 5.5 * y_coeff;
+    upper_back_ear_thickness = 4 * y_coeff;
+    upper_ear_shift = 12 * z_coeff;
+    upper_ear_radius = 38/2.0 * x_coeff;
     upper_screw_safe = 5;
     upper_border_safe = 7;
 
@@ -35,8 +41,8 @@ REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
     fake_axis_tol = 0.5;
 
     //-- Default flags:
-    show_servo = true;
-    show_assembly =  true;
+    show_servo = false;
+    show_assembly =  false;
     show_lower = true;
     show_upper = false;
 
@@ -254,7 +260,7 @@ Component REPY_module::upper_part()
     upper.addLink( RefSys(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0));
     upper.addLink( RefSys( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0));
 
-    return upper;
+    return upper - base_drill01 - base_drill02 - base_drill03 - base_drill04; //-- Temporal fix
 }
 
 Component REPY_module::make_ear(double base, double height, double thickness, double shift, double radius)

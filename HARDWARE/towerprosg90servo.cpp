@@ -69,7 +69,7 @@ void TowerProSG90servo::set_horn( int arms, bool visibility, double cut)
     switch( horn_num_arms )
     {
     default:
-	horn_num_arms = 2;
+	horn_num_arms = 1;
 
     case 1:
 	//-- 1-arm horn:

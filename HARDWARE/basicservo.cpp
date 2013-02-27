@@ -144,7 +144,7 @@ Component BasicServo::build()
 	//! \todo Change this
 	horn = make_horn();
 	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
-	horn.relRotate(0,0,-90); //-- Temporal fix
+	horn.relRotate(0,0,180); //-- Temporal fix
 	servo.attach( 0, horn, 2 );
 
     }
