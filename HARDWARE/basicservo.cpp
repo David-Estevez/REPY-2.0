@@ -123,20 +123,27 @@ Component BasicServo::build()
     servo.addLink( RefSys( 0, axis_y, height + horn_dist_axis));
 
     //-- Add several links for the screws:
-    servo.addLink( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0));
-    servo.addLink( RefSys( -hole_x, length + hole_y, leg_h + leg_z/2.0));
-    servo.addLink( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0));
-    servo.addLink( RefSys( -hole_x,         -hole_y, leg_h + leg_z/2.0));
-
+    if (num_holes == 4) //-- 4 holes, 2 on each leg
+    {
+	servo.addLink( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys( -hole_x, length + hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys( -hole_x,         -hole_y, leg_h + leg_z/2.0));
+    }
+    else if (num_holes == 2)
+    {
+	servo.addLink( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0));
+    }
     //-- Paint it black:
-    servo.color( 0.2, 0.2, 0.2);
+    servo.color( servo_color[0], servo_color[1], servo_color[2], servo_color[3]);
 
     //-- Attach the horn:
     if ( display_horn)
     {
 	//! \todo Change this
 	horn = make_horn();
-	horn.color( 0.2, 0.2, 0.2);
+	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
 	horn.relRotate(0,0,-90); //-- Temporal fix
 	servo.attach( 0, horn, 2 );
 

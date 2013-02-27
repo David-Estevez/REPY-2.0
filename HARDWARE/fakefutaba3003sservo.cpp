@@ -34,6 +34,12 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     length_tol = 0;
     height_tol = 0;
 
+    //-- Color (black):
+    servo_color.push_back( 0.5); //-- Red
+    servo_color.push_back( 0.5); //-- Green
+    servo_color.push_back( 0.5); //-- Blue
+    servo_color.push_back( 1.0); //-- Alpha channel
+
     //-- Horn dimensions:
     //----------------------------------------------------------------------------------
     set_horn( 0 );
@@ -43,14 +49,22 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
 
 void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
 {
+    //-- Common settings:
+    //--------------------------------------------------------------------
     horn_num_arms = arms;
     display_horn = visibility;
     horn_cut = cut;
 
     horn_tol = 0;
 
-    //-- Set parameters depending on the number of arms of the servo horn.
-    //-- For fake futaba:
+    //-- Color (black)
+    horn_color.push_back( 0.5); //-- Red
+    horn_color.push_back( 0.5); //-- Green
+    horn_color.push_back( 0.5); //-- Blue
+    horn_color.push_back( 1.0); //-- Alpha channel
+
+    //-- Set parameters depending on the number of arms of the servo horn:
+    //--------------------------------------------------------------------
     switch( horn_num_arms )
     {
     default:

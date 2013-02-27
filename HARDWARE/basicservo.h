@@ -100,6 +100,9 @@ protected:
     double length_tol;
     double height_tol;
 
+    //-- Color:
+    std::vector<double> servo_color;
+
     //-- Horn characteristics:
     //----------------------------------------
     Component horn;
@@ -111,6 +114,8 @@ protected:
     double horn_arm_r, horn_arm_shift, horn_arm_dist;
     double horn_tol;
     double horn_cut; //-- For cutting the round horn.
+
+    std::vector<double> horn_color;
 };
 
 

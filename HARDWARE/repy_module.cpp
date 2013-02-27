@@ -174,13 +174,21 @@ Component REPY_module::lower_part()
 
     //-- Make front ear drills:
     //------------------------------------------------------------------------------------------------------------
-    Component ear_drills[4];
-    for (int i = 1; i <5 ; i++)
+    Component ear_drills[servo->getLinks().size()-2];
+    cout << "Number of links: " << servo->getLinks().size() << endl;
+    for (int i = 1; i < servo->getLinks().size()-1 ; i++)
 	ear_drills[i-1] =  Cylinder( servo->get_hole_r(), servo->get_leg_z() + lower_front_ear_thickness + 0.2 , 100, false)
 					.moveToLink(*servo, i).relTranslate(0, 0, -servo->get_leg_z()/2.0 - lower_front_ear_thickness - 0.1);
 
-    front_ear = front_ear - (ear_drills[0] & ear_drills[1]) - ear_drills[2] - ear_drills[3];
-
+    if ( servo->getLinks().size()-2 == 4)
+    {
+	front_ear = front_ear - (ear_drills[0] & ear_drills[1]) - ear_drills[2] - ear_drills[3];
+    }
+    else
+    {
+	for (int i = 0; i < servo->getLinks().size()-2; i++)
+	    front_ear = front_ear - ear_drills[i];
+    }
 
     //-- Result:
     //--===========================================================================================================
