@@ -22,7 +22,7 @@
 class REPY_module : public AbstractPart
 {
 public:
-    REPY_module(BasicServo& servo,  SkyMegaBoard& skymega);
+    REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb);
 
 protected:
     virtual Component build();
@@ -34,7 +34,7 @@ private:
 
     //-- Needed components that define the module:
     BasicServo * servo;
-    SkyMegaBoard * skymega;
+    BasicSquaredPCB * pcb;
     Component fake_axis, fake_axis_with_tol;
 
     //-- Needed dimensions

@@ -15,29 +15,12 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-class SkyMegaBoard : public AbstractPart
+#include "basicsquaredpcb.h"
+
+class SkyMegaBoard : public BasicSquaredPCB
 {
 public:
     SkyMegaBoard();
-
-    //-- Data interface:
-    //---------------------------
-    double get_thickness();
-    double get_side();
-    double get_drill_diam();
-    double get_drill_x();
-    double get_drill_y();
-
-protected:
-    virtual Component build();
-
-private:
-    //-- Dimensions
-    double thickness;
-    double side;
-    double drill_diam;
-    double drill_x;
-    double drill_y;
 
 };
 

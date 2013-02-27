@@ -27,7 +27,9 @@ int main()
 {
     cout << "Testing lower part of REPY component...";
     cout << endl << "[+] Making board... ";
-    SkyMegaBoard myBoard;
+    //SkyMegaBoard myBoard;
+    BasicSquaredPCB myBoard( 15, 35, 3, 30, 30);
+
     cout << "[ok]\n[+] Making servo... ";
     TowerProSG90servo myServo;
     cout << "[ok]\n[+] Making test module... ";
