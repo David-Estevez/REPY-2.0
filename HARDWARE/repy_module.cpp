@@ -56,7 +56,7 @@ Component REPY_module::build()
     //-- Calculate other useful dimensions:
     //-------------------------------------------------------------------------------------------
     //--Total side:
-    side = skymega->getSide() + 2* board_safe;
+    side = skymega->get_side() + 2* board_safe;
 
     //-- Calculate the dimensions of the central part (not to be confused with central park):
     central_part = ( servo->get_height() + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness) +
@@ -119,17 +119,17 @@ Component REPY_module::lower_part()
 
     //-- Drills of the base:
     //------------------------------------------------------------------------------------------------------
-    Component base_drill = Cylinder( skymega->getDrillDiam()/2.0, lower_base_thickness + 0.2);
-    Component base_drill01 = base_drill.translatedCopy(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0);
-    Component base_drill02 = base_drill.translatedCopy( -skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0);
-    Component base_drill03 = base_drill.translatedCopy(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
-    Component base_drill04 = base_drill.translatedCopy( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
+    Component base_drill = Cylinder( skymega->get_drill_diam()/2.0, lower_base_thickness + 0.2);
+    Component base_drill01 = base_drill.translatedCopy(  skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0);
+    Component base_drill02 = base_drill.translatedCopy( -skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0);
+    Component base_drill03 = base_drill.translatedCopy(  skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0);
+    Component base_drill04 = base_drill.translatedCopy( -skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0);
 
     //-- Aperture on the lower base for wiring, etc
     //-------------------------------------------------------------------------------------------------------
     //-- Wiring_hole_x_thickness: 'y' component of the hole under the servo body along the x axis
     double wiring_hole_x_thickness = (-central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness)
-				   + (  skymega->getDrillY()/2.0 - skymega->getDrillDiam()/2.0 - lower_screw_safe);
+				   + (  skymega->get_drill_y()/2.0 - skymega->get_drill_diam()/2.0 - lower_screw_safe);
 
     //-- Wiring_hole_y_thickness: 'y' component of the hole under the servo body along the y axis
     double wiring_hole_y_thickness = (-central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness)
@@ -143,10 +143,10 @@ Component REPY_module::lower_part()
     Component wiring_hole = RoundedTablet( side - 2*lower_border_safe, wiring_hole_x_thickness, lower_base_thickness+0.1, lower_border_safe / 2.5)
 			    .translate(0, -wiring_hole_x_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
 			    //-- Hole under the servo body, part along y axis
-			  + RoundedTablet( skymega->getDrillX() - skymega->getDrillDiam() - 2*lower_screw_safe, wiring_hole_y_thickness, lower_base_thickness+0.1, lower_border_safe/2.5 )
+			  + RoundedTablet( skymega->get_drill_x() - skymega->get_drill_diam() - 2*lower_screw_safe, wiring_hole_y_thickness, lower_base_thickness+0.1, lower_border_safe/2.5 )
 			    .translate(0,  -wiring_hole_y_thickness/2.0 -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() - lower_front_ear_thickness, 0)
 			    //-- Hole under the servo leg
-			  + RoundedTablet( skymega->getDrillX() - skymega->getDrillDiam() - lower_screw_safe*2, wiring_hole_leg_thickness, lower_base_thickness + 0.1, lower_border_safe/3.0)
+			  + RoundedTablet( skymega->get_drill_x() - skymega->get_drill_diam() - lower_screw_safe*2, wiring_hole_leg_thickness, lower_base_thickness + 0.1, lower_border_safe/3.0)
 			    .translate(0, wiring_hole_leg_thickness/2.0 + ( -central_part/2.0 + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness + servo->get_leg_h() + servo->get_leg_z() ), 0);
     //-- Make base:
     //-----------------------------------------------------------------------------------------------------------
@@ -199,10 +199,10 @@ Component REPY_module::lower_part()
 
     //-- Add links to the holes of the base:
     //-------------------------------------------------------------------------------------------------------------
-    lower.addLink( RefSys(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
-    lower.addLink( RefSys( -skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
-    lower.addLink( RefSys(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
-    lower.addLink( RefSys( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
+    lower.addLink( RefSys(  skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0));
+    lower.addLink( RefSys( -skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0));
+    lower.addLink( RefSys(  skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0));
+    lower.addLink( RefSys( -skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0));
 
     return lower;
 
@@ -214,19 +214,19 @@ Component REPY_module::upper_part()
     Component base = RoundedTablet( side, side, upper_base_thickness, board_safe);
 
     //-- Drills of the base:
-    Component base_drill = Cylinder( skymega->getDrillDiam()/2.0, upper_base_thickness + 0.2);
-    Component base_drill01 = base_drill.translatedCopy(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0);
-    Component base_drill02 = base_drill.translatedCopy( -skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0);
-    Component base_drill03 = base_drill.translatedCopy(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
-    Component base_drill04 = base_drill.translatedCopy( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0);
+    Component base_drill = Cylinder( skymega->get_drill_diam()/2.0, upper_base_thickness + 0.2);
+    Component base_drill01 = base_drill.translatedCopy(  skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0);
+    Component base_drill02 = base_drill.translatedCopy( -skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0);
+    Component base_drill03 = base_drill.translatedCopy(  skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0);
+    Component base_drill04 = base_drill.translatedCopy( -skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0);
 
     //-- Make a cross-shaped hole for the wiring, etc:
-    Component cross = RoundedTablet( skymega->getDrillY() - 2* upper_screw_safe  - skymega->getDrillDiam(),
+    Component cross = RoundedTablet( skymega->get_drill_y() - 2* upper_screw_safe  - skymega->get_drill_diam(),
 			    side-2*upper_border_safe,
 			    upper_base_thickness+0.2,
 			    upper_border_safe /2.5)
 		    + RoundedTablet( side-2*upper_border_safe,
-			    skymega->getDrillX() - 2* upper_screw_safe - skymega->getDrillDiam(),
+			    skymega->get_drill_x() - 2* upper_screw_safe - skymega->get_drill_diam(),
 			    upper_base_thickness+0.2,
 			    upper_border_safe /2.5 );
 
@@ -249,10 +249,10 @@ Component REPY_module::upper_part()
     Component upper = base + front_ear + back_ear - *servo - fake_axis;
 
     //-- Add links to the holes of the base:
-    upper.addLink( RefSys(  skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
-    upper.addLink( RefSys( -skymega->getDrillX()/2.0,  skymega->getDrillY()/2.0, 0));
-    upper.addLink( RefSys(  skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
-    upper.addLink( RefSys( -skymega->getDrillX()/2.0, -skymega->getDrillY()/2.0, 0));
+    upper.addLink( RefSys(  skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0));
+    upper.addLink( RefSys( -skymega->get_drill_x()/2.0,  skymega->get_drill_y()/2.0, 0));
+    upper.addLink( RefSys(  skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0));
+    upper.addLink( RefSys( -skymega->get_drill_x()/2.0, -skymega->get_drill_y()/2.0, 0));
 
     return upper;
 }

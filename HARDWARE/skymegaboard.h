@@ -22,11 +22,11 @@ public:
 
     //-- Data interface:
     //---------------------------
-    double getThickness();
-    double getSide();
-    double getDrillDiam();
-    double getDrillX();
-    double getDrillY();
+    double get_thickness();
+    double get_side();
+    double get_drill_diam();
+    double get_drill_x();
+    double get_drill_y();
 
 protected:
     virtual Component build();

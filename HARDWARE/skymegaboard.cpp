@@ -14,11 +14,11 @@ SkyMegaBoard::SkyMegaBoard()
 }
 
 //-- Data interface:
-double SkyMegaBoard::getThickness() { return thickness; }
-double SkyMegaBoard::getSide()	    { return side; }
-double SkyMegaBoard::getDrillDiam() { return drill_diam; }
-double SkyMegaBoard::getDrillX()    { return drill_x; }
-double SkyMegaBoard::getDrillY()    { return drill_y; }
+double SkyMegaBoard::get_thickness() { return thickness; }
+double SkyMegaBoard::get_side()	    { return side; }
+double SkyMegaBoard::get_drill_diam() { return drill_diam; }
+double SkyMegaBoard::get_drill_x()    { return drill_x; }
+double SkyMegaBoard::get_drill_y()    { return drill_y; }
 
 
 Component SkyMegaBoard::build()
