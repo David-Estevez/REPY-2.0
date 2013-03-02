@@ -1,12 +1,36 @@
-//------------------------------------------------------
+//------------------------------------------------------------------------------
 //-- Basic servo
-//------------------------------------------------------
-//-- A simple servo
-//-- It is used for creating the module.
-//-- New servo component should inherit from this one.
-//------------------------------------------------------
+//------------------------------------------------------------------------------
+//-- This file belongs to the REPY-2.0 module project:
+//--
+//--	· http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0
+//--
+//--
+//-- REPY-2.0 was designed using the 00ML (Object-Oriented Mechanics Library).
+//-- More info about the OOML at:
+//--	· http://iearobotics.com/oomlwiki/doku.php
+//--
+//-- REPY-2.0 concept is deeply based on Juan Gonzalez-Gomez REPY module. More
+//-- info about the original REPY at:
+//--	· http://www.thingiverse.com/thing:13442
+//--	· http://www.iearobotics.com/wiki/index.php?title=M%C3%B3dulos_REPY-1
+//--
+//------------------------------------------------------------------------------
 //-- Author: David Estevez (DEF)
-//------------------------------------------------------
+//--
+//-- Released under the GPL license (more info on LICENSE.txt file)
+//------------------------------------------------------------------------------
+
+/*! \file basicservo.h
+ *  \brief Defines the simplest structure of a servo, and its data interface.
+ *
+ *  To make objects compatible with as much servos as possible, new servos
+ *  should inherit from this 'BasicServo'
+ *
+ * \author David Estévez Fernández ( http://github.com/David-Estevez )
+ * \date Mar 2nd, 2013
+ *
+ */
 
 #ifndef BASIC_SERVO_H
 #define BASIC_SERVO_H

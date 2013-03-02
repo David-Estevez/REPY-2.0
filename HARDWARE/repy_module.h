@@ -1,13 +1,37 @@
-//------------------------------------------------------
-//-- REPY-2.0
-//------------------------------------------------------
-//
-//------------------------------------------------------
+//------------------------------------------------------------------------------
+//-- REPY module
+//------------------------------------------------------------------------------
+//-- This file belongs to the REPY-2.0 module project:
+//--
+//--	· http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0
+//--
+//--
+//-- REPY-2.0 was designed using the 00ML (Object-Oriented Mechanics Library).
+//-- More info about the OOML at:
+//--	· http://iearobotics.com/oomlwiki/doku.php
+//--
+//-- REPY-2.0 concept is deeply based on Juan Gonzalez-Gomez REPY module. More
+//-- info about the original REPY at:
+//--	· http://www.thingiverse.com/thing:13442
+//--	· http://www.iearobotics.com/wiki/index.php?title=M%C3%B3dulos_REPY-1
+//--
+//------------------------------------------------------------------------------
 //-- Author: David Estevez (DEF)
-//------------------------------------------------------
-//-- Based on REPY module, by
-//-- Juan Gonzalez-Gomez (Obijuan)
-//------------------------------------------------------
+//--
+//-- Released under the GPL license (more info on LICENSE.txt file)
+//------------------------------------------------------------------------------
+
+/*! \file repy_module.h
+ *  \brief Mechanic module for modular robots.
+ *
+ *  This module accepts a BasicServo object and a BasicSquaredPCB object and
+ *  generates a REPY module according to their dimensions.
+ *
+ * \author David Estévez Fernández ( http://github.com/David-Estevez )
+ * \date Mar 2nd, 2013
+ *
+ */
+
 
 #ifndef REPY_MODULE_H
 #define REPY_MODULE_H
@@ -16,7 +40,7 @@
 #include <ooml/components.h>
 
 #include "basicservo.h"
-#include "skymegaboard.h"
+#include "basicsquaredpcb.h"
 
 
 class REPY_module : public AbstractPart

@@ -43,8 +43,8 @@ REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
     //-- Default flags:
     show_servo = false;
     show_assembly =  false;
-    show_lower = true;
-    show_upper = false;
+    show_lower = false;
+    show_upper = true;
 
     rebuild();
 }
@@ -67,6 +67,7 @@ Component REPY_module::build()
     //-- Calculate the dimensions of the central part (not to be confused with central park):
     central_part = ( servo->get_height() + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness) +
 		   ( upper_front_ear_thickness) +
+		   //( servo->get_horn_h_top()); //-- For the smaller one.
 		   ( servo->get_horn_dist_axis() - servo->get_horn_h_axis() );
 
     //-- Place servo:
