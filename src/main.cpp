@@ -1,24 +1,48 @@
-//------------------------------------------------------
+//------------------------------------------------------------------------------
 //-- REPY-2.0
-//------------------------------------------------------
-//-- This file generates all the scad and stl files
-//-- for the lower part, the upper part with each kind
-//-- of servo horn and the assembly view.
-//------------------------------------------------------
+//------------------------------------------------------------------------------
+//--
+//-- This file generates all the scad and stl files for the lower part, the
+//-- upper part with each kind of servo horn and the assembly view.
+//--
+//------------------------------------------------------------------------------
+//--
+//-- This file belongs to the REPY-2.0 module project:
+//--
+//--	· http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0
+//--
+//--
+//-- REPY-2.0 was designed using the 00ML (Object-Oriented Mechanics Library).
+//-- More info about the OOML at:
+//--	· http://iearobotics.com/oomlwiki/doku.php
+//--
+//-- REPY-2.0 concept is deeply based on Juan Gonzalez-Gomez REPY module. More
+//-- info about the original REPY at:
+//--	· http://www.thingiverse.com/thing:13442
+//--	· http://www.iearobotics.com/wiki/index.php?title=M%C3%B3dulos_REPY-1
+//--
+//------------------------------------------------------------------------------
 //-- Author: David Estevez (DEF)
-//------------------------------------------------------
-//-- Based on REPY module, by
-//-- Juan Gonzalez-Gomez (Obijuan)
-//------------------------------------------------------
+//--
+//-- Released under the GPL license (more info on LICENSE.txt file)
+//------------------------------------------------------------------------------
+
+/*! \file main.cpp
+ *  \brief Generate the scad and stl files for the REPY-2.0 module.
+ *
+ * \author David Estévez Fernández ( http://github.com/David-Estevez )
+ * \date Mar 3rd, 2013
+ */
+
 
 #include <ooml/core.h>
 #include <ooml/components.h>
 #include <iostream>
 #include <fstream>
 
-#include "fakefutaba3003sservo.h"
-#include "towerprosg90servo.h"
-#include "skymegaboard.h"
+#include "servos/fakefutaba3003sservo.h"
+#include "servos/towerprosg90servo.h"
+#include "boards/skymegaboard.h"
 #include "repy_module.h"
 
 using namespace std;

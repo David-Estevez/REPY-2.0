@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-//-- Futaba 3003s servo
+//-- Tower Pro SG90 servo
 //------------------------------------------------------------------------------
 //-- This file belongs to the REPY-2.0 module project:
 //--
@@ -21,27 +21,28 @@
 //-- Released under the GPL license (more info on LICENSE.txt file)
 //------------------------------------------------------------------------------
 
-/*! \file futaba3003sservo.h
- *  \brief Futaba 3003s servo.
+/*! \file towerprosg90servo.h
+ *  \brief Tower Pro SG90 servo
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 2nd, 2013
+ * \date Mar 3rd, 2013
  *
+ * \todo Add more horns ( 4-arms horn)
  */
 
-#ifndef FUTABA3003SSERVO_H
-#define FUTABA3003SSERVO_H
+#ifndef TOWERPROSG90SERVO_H
+#define TOWERPROSG90SERVO_H
+
 
 #include "basicservo.h"
 
-class Futaba3003sServo : public BasicServo
+class TowerProSG90servo: public BasicServo
 {
 public:
-    Futaba3003sServo();
+    TowerProSG90servo();
 
 protected:
     virtual void set_horn( int arms, bool visibility = true, double cut = 0);
-
 };
 
-#endif // FUTABA3003SSERVO_H
+#endif // TOWERPROSG90SERVO_H

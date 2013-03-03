@@ -39,8 +39,8 @@
 #include <ooml/core.h>
 #include <ooml/components.h>
 
-#include "basicservo.h"
-#include "basicsquaredpcb.h"
+#include "servos/basicservo.h"
+#include "boards/basicsquaredpcb.h"
 
 
 class REPY_module : public AbstractPart
