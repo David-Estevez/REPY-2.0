@@ -36,12 +36,23 @@
 
 #include "basicservo.h"
 
+/*! \class TowerProSG90servo
+ *  \brief A Tower Pro SG90 servo 3D model
+ *
+ */
 class TowerProSG90servo: public BasicServo
 {
 public:
+    //! \brief Default constructor
     TowerProSG90servo();
 
 protected:
+    /*! \brief Sets the characteristics and dimensions of the horn
+     *
+     *  \param arms Number of arms of the horn
+     *  \param visibility Horn shown or not shown
+     *  \param cut Dimension of the cut of the horn
+     */
     virtual void set_horn( int arms, bool visibility = true, double cut = 0);
 };
 

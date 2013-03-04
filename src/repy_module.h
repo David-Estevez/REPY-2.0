@@ -42,13 +42,28 @@
 #include "servos/basicservo.h"
 #include "boards/basicsquaredpcb.h"
 
-
+/*! \class REPY_module
+ *  \brief Mechanic module for modular robots.
+ *
+ *  This module accepts a BasicServo object and a BasicSquaredPCB object and
+ *  generates a REPY module according to their dimensions.
+ *
+ */
 class REPY_module : public AbstractPart
 {
 public:
+    /*! \brief Constructor
+     *
+     *  Takes a BasicServo and a BasicSquaredPCB and generates the module parameters.
+     *
+     *  \param servo A BasicServo object
+     *  \param pcb A BasicSquaredPCB object
+     */
     REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb);
 
 protected:
+
+    //! \brief Builds the REPY module
     virtual Component build();
 
 private:

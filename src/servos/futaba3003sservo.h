@@ -35,12 +35,22 @@
 
 #include "basicservo.h"
 
+/*! \class Futaba3003sServo
+ *  \brief A Futaba 3003s servo 3D model
+ */
 class Futaba3003sServo : public BasicServo
 {
 public:
+    //! \brief Default constructor
     Futaba3003sServo();
 
 protected:
+    /*! \brief Sets the characteristics and dimensions of the horn
+     *
+     *  \param arms Number of arms of the horn
+     *  \param visibility Horn shown or not shown
+     *  \param cut Dimension of the cut of the horn
+     */
     virtual void set_horn( int arms, bool visibility = true, double cut = 0);
 
 };

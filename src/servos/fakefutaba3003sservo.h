@@ -38,12 +38,26 @@
 
 #include "basicservo.h"
 
+/*! \class FakeFutaba3003sServo
+ *  \brief A chinese clone of the futaba 3003s servo.
+ *
+ *  The dimensions are slightly different from the ones of the original Futaba,
+ *  so an original Futaba is usually compatible with a Futaba clone, but not the
+ *  other way around.
+ */
 class FakeFutaba3003sServo : public BasicServo
 {
 public:
+    //! \brief Default constructor
     FakeFutaba3003sServo();
 
 protected:
+    /*! \brief Sets the characteristics and dimensions of the horn
+     *
+     *  \param arms Number of arms of the horn
+     *  \param visibility Horn shown or not shown
+     *  \param cut Dimension of the cut of the horn
+     */
     virtual void set_horn( int arms, bool visibility = true, double cut = 0);
 };
 

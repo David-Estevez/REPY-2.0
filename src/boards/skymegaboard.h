@@ -39,9 +39,13 @@
 
 #include "basicsquaredpcb.h"
 
+/*! \class SkyMegaBoard
+ *  \brief Simple 3D model of the SkyMega Board
+ */
 class SkyMegaBoard : public BasicSquaredPCB
 {
 public:
+    //! \brief Default constructor
     SkyMegaBoard();
 
 };
