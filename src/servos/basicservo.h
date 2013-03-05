@@ -185,19 +185,68 @@ protected:
     //-- Servo characteristics:
     //------------------------------------------------------------------
     //-- Main dimensions:
+    /*!
+     * \var double width
+     * \brief  wwidth of the body of the servo
+     *
+     * \var double length
+     * \brief  length of the body of the servo
+     *
+     * \var double height
+     * \brief  height of the body of the servo
+     */
     double width, length, height;
 
     //-- Leg dimensions:
+    /*!
+     * \var double leg_h
+     * \brief  Height at which the servo leg is placed
+     *
+     * \var double leg_x
+     * \brief  Dimension of the leg on the X axis
+     *
+     * \var double leg_y
+     * \brief Dimension of the leg on the Y axis
+     *
+     * \var double leg_z
+     * \brief Dimension of the leg on the Z axis
+     */
     double leg_h, leg_x, leg_y, leg_z;
 
     //-- Leg holes
+    /*!
+     * \var int num_holes
+     * \brief Amount of holes of the servo legs.
+     *
+     * \var double hole_r
+     * \brief Radius of the servo leg holes
+     *
+     * \var double hole_x
+     * \brief Offset of the servo leg holes on the X axis
+     *
+     * \var double hole_y
+     * \brief Offset of the servo leg holes on the X axis
+     */
     int num_holes;
     double  hole_r, hole_x, hole_y;
 
     //-- Axis dimensions:
+    /*!
+     * \var double axis_h
+     * \brief Height at which the servo axis is placed
+     *
+     * \var double axis_r
+     * \brief Radius of the servo axis
+     *
+     * \var double axis_y
+     * \brief Position of the servo axis on the Y axis
+     */
     double axis_h, axis_r, axis_y;
 
     //-- Horn positioning:
+    /*! \var double horn_dist_axis
+     *  \brief Distance between the servo body and the horn bigger part
+     */
     double horn_dist_axis;
 
     //-- Tolerances:

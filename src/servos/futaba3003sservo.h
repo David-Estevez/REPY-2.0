@@ -37,6 +37,7 @@
 
 /*! \class Futaba3003sServo
  *  \brief A Futaba 3003s servo 3D model
+ *
  */
 class Futaba3003sServo : public BasicServo
 {

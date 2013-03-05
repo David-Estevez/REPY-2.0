@@ -167,7 +167,7 @@ Component BasicServo::build()
     if ( display_horn)
     {
 	//! \todo Change this
-	horn = make_horn();
+	make_horn();
 	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
 	horn.relRotate(0,0,180); //-- Temporal fix
 	servo.attach( 0, horn, 2 );
@@ -180,7 +180,7 @@ Component BasicServo::build()
 //-- Servo horn:
 //============================================================================================
 
-Component BasicServo::make_horn()
+void BasicServo::make_horn()
 {
     //-- Create axis cylinder
     horn = Cylinder(horn_r_axis + horn_tol, horn_h_axis +0.2, 100, false);
@@ -235,7 +235,5 @@ Component BasicServo::make_horn()
     horn.addLink( RefSys( 0,0, horn_h_axis));
     //! -- \todo Change this when OOML is fixed:
     horn.relTranslate(0,0,-horn_h_axis);
-
-    return horn;
 }
 
