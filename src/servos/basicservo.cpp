@@ -87,6 +87,7 @@ double BasicServo::get_horn_h_axis()	{   return horn_h_axis;	    }
 double BasicServo::get_horn_r_axis()	{   return horn_r_axis;	    }
 double BasicServo::get_horn_arm_r()	{   return horn_arm_r;	    }
 double BasicServo::get_horn_arm_shift() {   return horn_arm_shift;  }
+double BasicServo::get_horn_arm_dist()  {   return horn_arm_dist;   }
 double BasicServo::get_horn_tol()	{   return horn_tol;	    }
 double BasicServo::get_horn_cut()	{   return horn_cut;	    }
 

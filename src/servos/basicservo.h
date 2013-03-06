@@ -140,10 +140,15 @@ public:
     //! \brief Returns the shift of the horn arm
     double get_horn_arm_shift();
 
-    //! \brief Returns the tolerance of the horn
+    /*! \brief Returns the distance between the center of the horn
+     *  and the center of the arm circle
+     */
+    double get_horn_arm_dist();
+
+    //! \brief Returns the clearance for making holes with the horn
     double get_horn_tol();
 
-    //! \brief Returns the dimension of the cut of the horn
+    //! \brief Returns the distance between the cut part and the rounded extreme
     double get_horn_cut();
 
     //-- Horn (others):
@@ -250,26 +255,98 @@ protected:
     double horn_dist_axis;
 
     //-- Tolerances:
+    /*!
+     * \var double width_tol
+     * \brief Clearance of the width of the servo body
+     *
+     * \var double length_tol
+     * \brief Clearance of the length of the servo body
+     *
+     * \var double height_tol
+     * \brief Clearance of the height of the servo body
+     */
     double width_tol;
     double length_tol;
     double height_tol;
 
     //-- Color:
+    /*!
+     * \var std::Vector<double> servo_color
+     * \brief Color of the body of the servo.
+     *
+     * This color should be a vector with 4 values: RGB values +
+     * the alpha channel.
+     *
+     */
     std::vector<double> servo_color;
 
     //-- Horn characteristics:
     //----------------------------------------
+    /*! \var Component horn
+     *  \brief Servo horn
+     */
     Component horn;
+
+    /*! \var bool display_horn
+     *  \brief Stores the state of the horn: shown / not shown
+     */
     bool display_horn;
 
+    /*! \var int horn_num_arms
+     *  \brief Number of arms of the horn
+     */
     int horn_num_arms;
+
+    /*! \var double horn_h_top
+     * \brief Thickness of the upper part of the horn
+     *
+     * \var double horn_r_top
+     * \brief Radius of the upper part of the horn
+     */
     double horn_h_top, horn_r_top;
+
+    /*! \var double horn_h_axis
+     * \brief Thickness of the lower part of the horn
+     *
+     * \var double horn_r_axis
+     * \brief Radius of the lower part of the horn
+     */
     double horn_h_axis, horn_r_axis;
+
+    /*! \var double horn_arm_r
+     * \brief Radius of the extreme of the horn arm
+     *
+     * \var double horn_arm_shift
+     * \brief Shift of the horn arm
+     *
+     * \var double horn_arm_dist
+     * \brief Distance between the center of the horn
+     *	      and the center of the arm circle
+     */
     double horn_arm_r, horn_arm_shift, horn_arm_dist;
+
+    /*! \var double horn_tol
+     *	\brief Clearance for making holes with the horn
+     */
     double horn_tol;
+
+    /*! \var double horn_cut
+     *	\brief Distance between the cut part and the rounded extreme
+     *
+     *	This distance is equal to the diameter of the upper part
+     *	of the horn minus the amount cut
+     */
     double horn_cut; //-- For cutting the round horn.
 
     //-- Horn color:
+    /*!
+     * \var std::Vector<double> horn_color
+     * \brief Color of the servo horn
+     *
+     * This color should be a vector with 4 values: RGB values +
+     * the alpha channel.
+     *
+     */
     std::vector<double> horn_color;
 };
 

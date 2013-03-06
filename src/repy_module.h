@@ -67,11 +67,28 @@ protected:
     virtual Component build();
 
 private:
+    //! \brief Generates the lower part of the module
     Component lower_part();
+
+    //! \brief Generates the upper part of the module
     Component upper_part();
+
+    /*! \brief Generates a 'ear'
+     *
+     *	Each of the lateral parts of the module is a 'ear'. Basically, a
+     *	'ear' is the convex hull of a cylinder and a cube.
+     *
+     *	For more info and explanatory images check module documentation.
+     */
     Component make_ear( double base, double height, double thickness, double shift, double radius);
 
     //-- Needed components that define the module:
+    //--------------------------------------------
+    /*! \var BasicServo * servo
+     *  \brief Pointer that stores the position in memory of a BasicServo
+     *
+     *	This servo is the one that will define the module.
+     */
     BasicServo * servo;
     BasicSquaredPCB * pcb;
     Component fake_axis, fake_axis_with_tol;
