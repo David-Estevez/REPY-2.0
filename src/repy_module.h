@@ -90,15 +90,60 @@ private:
      *	This servo is the one that will define the module.
      */
     BasicServo * servo;
+
+    /*! \var BasicSquaredPCB * pcb
+     *	\brief Pointer that stores the position in memory of a BasicSquaredPCB
+     *
+     *  This PCB is the one that will define the module.
+     */
     BasicSquaredPCB * pcb;
+
+    /*!
+     *  \var Component fake_axis
+     *	\brief Model of the screw that serves as axis for the back part of the servo
+     *
+     *	\var Component fake_axis_with_tol
+     *  \brief Model of the screw that servos as axis for the back part of the servo,
+     *	    with some clearance to allow it to rotate
+     *
+     */
     Component fake_axis, fake_axis_with_tol;
 
+
     //-- Needed dimensions
-    //--------------------------------------------
+    //-------------------------------------------------------------------------------
     //-- General:
+    //---------------------------------------------
+    /*! \var double board_safe
+     *	\brief Space around the PCB to keep it safe
+     */
     double board_safe;
 
     //-- Lower part:
+    //---------------------------------------------
+    /*!
+     * \var double lower_base_thickness
+     * \brief Thickness of the base of the lower part of the module
+     *
+     * \var double lower_front_ear_thickness
+     * \brief Thickness of the front ear of the lower part of the module
+     *
+     * \var double lower_back_ear_thickness
+     * \brief Thickness of the back ear of the lower part of the module
+     *
+     * \var double lower_ear_shift
+     * \brief Distance between the base and the tangent line on the ear
+     *
+     * \var double lower_ear_radius
+     * \brief Radius of the upper rounded part of the ear
+     *
+     * \var double lower_screw_safe
+     * \brief Space around the drills of the base for the screw
+     *
+     * \var double lower_border_safe
+     * \brief Space around the border to keep when making the base holes
+     *
+     */
     double lower_base_thickness;
     double lower_front_ear_thickness;
     double lower_back_ear_thickness;
@@ -108,6 +153,30 @@ private:
     double lower_border_safe;
 
     //-- Upper part:
+    //-----------------------------------------------
+    /*!
+     * \var double upper_base_thickness
+     * \brief Thickness of the base of the upper part of the module
+     *
+     * \var double upper_front_ear_thickness
+     * \brief Thickness of the front ear of the upper part of the module
+     *
+     * \var double upper_back_ear_thickness
+     * \brief Thickness of the back ear of the upper part of the module
+     *
+     * \var double upper_ear_shift
+     * \brief Distance between the base and the tangent line on the ear
+     *
+     * \var double upper_ear_radius
+     * \brief Radius of the upper rounded part of the ear
+     *
+     * \var double upper_screw_safe
+     * \brief Space around the drills of the base for the screw
+     *
+     * \var double upper_border_safe
+     * \brief Space around the border to keep when making the base holes
+     *
+     */
     double upper_base_thickness;
     double upper_front_ear_thickness;
     double upper_back_ear_thickness;
@@ -117,12 +186,14 @@ private:
     double upper_border_safe;
 
     //-- Tolerances:
+    //------------------------------------------------
     double body_servo_x_tol;	//-- Clearance to insert the servo, x axis
     double body_servo_y_tol;	//-- Clearance to insert the servo, y axis
     double ear_clearance_tol;	//-- Clearance between touching ears
     double fake_axis_tol;	//-- Clearance for the fake axis
 
     //-- Visibility flags:
+    //-----------------------------------------------
     bool show_servo;
     bool show_assembly; //-- (show assembly/print)
     bool show_lower;	//-- (show lower part)
