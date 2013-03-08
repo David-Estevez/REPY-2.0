@@ -187,19 +187,58 @@ private:
 
     //-- Tolerances:
     //------------------------------------------------
-    double body_servo_x_tol;	//-- Clearance to insert the servo, x axis
-    double body_servo_y_tol;	//-- Clearance to insert the servo, y axis
-    double ear_clearance_tol;	//-- Clearance between touching ears
-    double fake_axis_tol;	//-- Clearance for the fake axis
+    /*!
+     * \var double body_servo_x_tol
+     * \brief Clearance to insert the servo, x axis
+     *
+     * \var double body_servo_y_tol
+     * \brief Clearance to insert the servo, y axis
+     *
+     * \var double ear_clearance_tol
+     * \brief Clearance between touching ears
+     *
+     * \var double fake_axis_tol
+     * \brief Clearance for the fake axis
+     *
+     */
+    double body_servo_x_tol;
+    double body_servo_y_tol;
+    double ear_clearance_tol;
+    double fake_axis_tol;
 
     //-- Visibility flags:
     //-----------------------------------------------
+    /*!
+     * \var bool show_servo
+     * \brief If true, generates model with servo
+     *
+     * \var bool show_assembly
+     * \brief If true, shows assembly of module, if
+     *	      false, generates print-ready model.
+     *
+     * \var bool show_lower
+     * \brief If true, and if print model is selected,
+     *	      generates the lower part of the module.
+     *
+     * \var bool show_upper
+     * \brief If true, and if print model is selected,
+     *	      genrates the upper part of the module.
+     */
     bool show_servo;
-    bool show_assembly; //-- (show assembly/print)
-    bool show_lower;	//-- (show lower part)
-    bool show_upper;	//-- (show upper part)
+    bool show_assembly;
+    bool show_lower;
+    bool show_upper;
 
     //-- Dimensions calculated automatically by the software:
+    //-------------------------------------------------------
+    /*!
+     * \var double side
+     * \brief Total side of the module (board + safe).
+     *
+     * \var double central_part
+     * \brief Dimension used to center the servo and ears on
+     *	      the module.
+     */
     double side;
     double central_part;
 };
