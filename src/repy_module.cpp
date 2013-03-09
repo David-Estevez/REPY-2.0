@@ -133,8 +133,9 @@ Component REPY_module::build()
 
     //--Compose the module:
     //-------------------------------------------------------------------------------------------
-    Component lower = lower_part();
-    Component upper = upper_part();
+    lower_part(); //-- Refresh lower component
+    upper_part(); //-- Refresh upper component
+
     Component result;
 
     if ( show_assembly )
@@ -216,7 +217,7 @@ Component REPY_module::lower_part()
     //-- Make front ear drills:
     //------------------------------------------------------------------------------------------------------------
     Component ear_drills[servo->getLinks().size()-2];
-    cout << "Number of links: " << servo->getLinks().size() << endl;
+
     for (int i = 1; i < servo->getLinks().size()-1 ; i++)
 	ear_drills[i-1] =  Cylinder( servo->get_hole_r(), servo->get_leg_z() + lower_front_ear_thickness + 0.2 , 100, false)
 					.moveToLink(*servo, i).relTranslate(0, 0, -servo->get_leg_z()/2.0 - lower_front_ear_thickness - 0.1);
@@ -233,7 +234,7 @@ Component REPY_module::lower_part()
 
     //-- Result:
     //--===========================================================================================================
-    Component lower = front_ear + back_ear + base - *servo - fake_axis_with_tol;
+    lower = front_ear + back_ear + base - *servo - fake_axis_with_tol;
 
     if (show_servo)
 	lower = lower + *servo;
@@ -287,7 +288,7 @@ Component REPY_module::upper_part()
     back_ear.translate( 0, (-central_part + upper_back_ear_thickness)/2.0, 0);
 
     //-- Construct upper part:
-    Component upper = base + front_ear + back_ear - *servo - fake_axis;
+    upper = base + front_ear + back_ear - *servo - fake_axis;
 
     //-- Add links to the holes of the base:
     upper.addLink( RefSys(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0));
@@ -307,3 +308,47 @@ Component REPY_module::make_ear(double base, double height, double thickness, do
 
     return square & circle;
 }
+
+
+//-- Data interface
+//-----------------------------------------------------------------------------------------------------------------
+//-- Module components:
+Component REPY_module::get_lower_part()		{   return lower;		}
+Component REPY_module::get_upper_part()		{   return upper;		}
+BasicServo * REPY_module::get_servo()		{   return servo;		}
+BasicSquaredPCB * REPY_module::get_pcb()	{   return pcb;			}
+Component REPY_module::get_fake_axis()		{   return fake_axis;		}
+Component REPY_module::get_fake_axis_with_tol() {   return fake_axis_with_tol;  }
+
+//-- Lower part data:
+double REPY_module::get_lower_base_thickness()	    {	return lower_base_thickness;	 }
+double REPY_module::get_lower_front_ear_thickness() {	return lower_front_ear_thickness;}
+double REPY_module::get_lower_back_ear_thickness()  {	return lower_back_ear_thickness; }
+double REPY_module::get_lower_ear_shift()	    {	return lower_ear_shift;		 }
+double REPY_module::get_lower_ear_radius()	    {	return lower_ear_radius;	 }
+double REPY_module::get_lower_screw_safe()	    {	return lower_screw_safe;	 }
+double REPY_module::get_lower_border_safe()	    {	return lower_border_safe;	 }
+
+//-- Upper part data:
+double REPY_module::get_upper_base_thickness()	    {	return upper_base_thickness;	 }
+double REPY_module::get_upper_front_ear_thickness() {	return upper_front_ear_thickness;}
+double REPY_module::get_upper_back_ear_thickness()  {	return upper_back_ear_thickness; }
+double REPY_module::get_upper_ear_shift()	    {	return upper_ear_shift;		 }
+double REPY_module::get_upper_ear_radius()	    {	return upper_ear_radius;	 }
+double REPY_module::get_upper_screw_safe()	    {	return upper_screw_safe;	 }
+
+//-- Tolerances:
+double REPY_module::get_body_servo_x_tol()  {	return body_servo_x_tol;    }
+double REPY_module::get_body_servo_y_tol()  {	return body_servo_y_tol;    }
+double REPY_module::get_ear_clearance_tol() {	return ear_clearance_tol;   }
+double REPY_module::get_fake_axis_tol()	    {	return fake_axis_tol;	    }
+
+//-- Visibility flags:
+bool REPY_module::get_show_servo()	{   return show_servo;	    }
+bool REPY_module::get_show_assembly()	{   return show_assembly;   }
+bool REPY_module::get_show_lower()	{   return show_lower;	    }
+bool REPY_module::get_show_upper()	{   return show_upper;	    }
+
+//-- Dimensions calculated by the software to build the module:
+double REPY_module::get_side()		{   return side;	    }
+double REPY_module::get_central_part()	{   return central_part;    }

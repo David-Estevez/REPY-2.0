@@ -64,7 +64,7 @@ int main()
     IndentWriter writer;
     writer << myTest;
 
-    ofstream file("./scad/REPY-2.0_test_new_repy.scad");
+    ofstream file("../scad/REPY-2.0_test_new_repy.scad");
     if (file)
     {
 	file << "//-------------------------------------------------------------------------" << endl;

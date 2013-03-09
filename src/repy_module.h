@@ -61,6 +61,115 @@ public:
      */
     REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb);
 
+    //-- Data interface (for reading the module attributes)
+    //--------------------------------------------------------------------------------
+    //-- Module components:
+    //---------------------------------------
+    //! \brief Returns the lower part of the module
+    Component get_lower_part();
+
+    //! \brief Returns the upper part of the module
+    Component get_upper_part();
+
+    //! \brief Returns a pointer to the servo used in the module
+    BasicServo * get_servo();
+
+    //! \brief Returns a pointer to the PCB used in the module
+    BasicSquaredPCB * get_pcb();
+
+    //! \brief Returns the fake axis screw used in the module
+    Component get_fake_axis();
+
+    //! \brief Returns the fake axis screw with the tolerance used in the module
+    Component get_fake_axis_with_tol();
+
+
+    //-- Lower part data:
+    //-------------------------------------
+    //! \brief Returns the thickness of the base of the lower part of the module
+    double get_lower_base_thickness();
+
+    //! \brief Returns the thickness of the front ear of the lower part of the module
+    double get_lower_front_ear_thickness();
+
+    //! \brief Returns the thickness of the back ear of the lower part of the module
+    double get_lower_back_ear_thickness();
+
+    //! \brief Returns the distance between the base and the tangent line on the ear
+    double get_lower_ear_shift();
+
+    //! \brief Returns the radius of the upper rounded part of the ear
+    double get_lower_ear_radius();
+
+    //! \brief Returns the space around the drills of the base for the screw
+    double get_lower_screw_safe();
+
+    //! \brief Returns the space around the border to keep when making the base holes
+    double get_lower_border_safe();
+
+
+    //-- Upper part data:
+    //--------------------------------------
+    //! \brief Returns the thickness of the base of the upper part of the module
+    double get_upper_base_thickness();
+
+    //! \brief Returns the thickness of the front ear of the upper part of the module
+    double get_upper_front_ear_thickness();
+
+    //! \brief Returns the thickness of the back ear of the upper part of the module
+    double get_upper_back_ear_thickness();
+
+    //! \brief Returns the distance between the base and the tangent line on the ear
+    double get_upper_ear_shift();
+
+    //! \brief Returns the radius of the upper rounded part of the ear
+    double get_upper_ear_radius();
+
+    //! \brief Returns the space around the drills of the base for the screw
+    double get_upper_screw_safe();
+
+    //! \brief Returns the space around the border to keep when making the base holes
+    double get_upper_border_safe();
+
+    //-- Tolerances:
+    //--------------------------------------
+    //! \brief Returns the clearance to insert the servo, x axis
+    double get_body_servo_x_tol();
+
+    //! \brief Returns the clearance to insert the servo, y axis
+    double get_body_servo_y_tol();
+
+    //! \brief Returns the clearance between touching ears
+    double get_ear_clearance_tol();
+
+    //! \brief Returns the clearance for the fake axis
+    double get_fake_axis_tol();
+
+
+    //-- Visibility flags:
+    //---------------------------------------
+    //! \brief Returns the visibility of the servo
+    bool get_show_servo();
+
+    //! \brief Returns true if assembly model was selected
+    bool get_show_assembly();
+
+    //! \brief Returns if lower part is show when print model is selected.
+    bool get_show_lower();
+
+    //! \brief Returns if upper part is show when print model is selected.
+    bool get_show_upper();
+
+
+    //-- Dimensions calculated by the software to build the module:
+    //-------------------------------------
+    //! \brief Returns the total side of the module (board + safe).
+    double get_side();
+
+    //! \brief Returns the dimension used to center the servo and ears on the module
+    double get_central_part();
+
+
 protected:
 
     //! \brief Builds the REPY module
@@ -84,6 +193,15 @@ private:
 
     //-- Needed components that define the module:
     //--------------------------------------------
+    /*!
+     *	\var Component lower
+     *	\brief Lower part of the module
+     *
+     *  \var Component upper
+     *	\brief Upper part of the module
+     */
+    Component lower, upper;
+
     /*! \var BasicServo * servo
      *  \brief Pointer that stores the position in memory of a BasicServo
      *
