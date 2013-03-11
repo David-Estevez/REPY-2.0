@@ -67,15 +67,22 @@ public:
     //--------------------------------------------------------------------------------
     /*! \brief Configure how the module will be shown
      *
-     *  Flag description:
-     *  -----------------------------------------------------------
-     *	show_servo => render module with servo
-     *	show_assembly => render module in assembly mode / print mode
-     *	show_lower => show lower part in print mode
-     *	show_upper => show upper part in print mode
+     *	\param show_servo  Render module with servo
+     *	\param show_assembly  Render module in assembly mode / print mode
+     *	\param show_lower Show lower part in print mode
+     *	\param show_upper Show upper part in print mode
      *
      */
     void configRender( bool show_servo = true, bool show_assembly = true, bool show_lower = true, bool show_upper = true );
+
+    /*! \brief Choose the type of horn wanted for the servo
+     *
+     * \param num_arms Number of arms of the servo horn chosen
+     * \param cut_part (Optional) Only used for the rounded horn (0 arms). Specifies an
+     *	     opcional cut on the servo horn.
+     *
+     */
+    void configHorn( int num_arms, int cut_part = 0);
 
 
     //-- Data interface (for reading the module attributes)

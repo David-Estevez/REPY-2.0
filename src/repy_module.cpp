@@ -80,6 +80,9 @@ REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
     show_lower = false;
     show_upper = true;
 
+    //-- Set default horn configuration:
+    this->servo->set_horn( 0, true, 20.5/2.0 - 3);
+
     rebuild();
 }
 
@@ -93,11 +96,18 @@ void REPY_module::configRender(bool show_servo, bool show_assembly, bool show_lo
     rebuild();
 }
 
+void REPY_module::configHorn(int num_arms, int cut_part)
+{
+    servo->set_horn( num_arms, true, cut_part);
+
+    rebuild();
+}
+
 Component REPY_module::build()
 {
     //-- Choose horn:
     //-------------------------------------------------------------------------------------------
-    servo->set_horn( 0, true, 20.5/2.0 - 3);
+
 
     //-- Set servo tolerances:
     //-------------------------------------------------------------------------------------------
