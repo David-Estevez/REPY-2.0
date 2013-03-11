@@ -83,6 +83,16 @@ REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
     rebuild();
 }
 
+void REPY_module::configRender(bool show_servo, bool show_assembly, bool show_lower, bool show_upper)
+{
+    this->show_servo = show_servo;
+    this->show_assembly = show_assembly;
+    this->show_lower = show_lower;
+    this->show_upper = show_upper;
+
+    rebuild();
+}
+
 Component REPY_module::build()
 {
     //-- Choose horn:

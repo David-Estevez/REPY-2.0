@@ -61,6 +61,23 @@ public:
      */
     REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb);
 
+
+
+    //-- Configuring the module:
+    //--------------------------------------------------------------------------------
+    /*! \brief Configure how the module will be shown
+     *
+     *  Flag description:
+     *  -----------------------------------------------------------
+     *	show_servo => render module with servo
+     *	show_assembly => render module in assembly mode / print mode
+     *	show_lower => show lower part in print mode
+     *	show_upper => show upper part in print mode
+     *
+     */
+    void configRender( bool show_servo = true, bool show_assembly = true, bool show_lower = true, bool show_upper = true );
+
+
     //-- Data interface (for reading the module attributes)
     //--------------------------------------------------------------------------------
     //-- Module components:
