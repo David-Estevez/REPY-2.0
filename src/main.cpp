@@ -100,7 +100,7 @@ int main()
     generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_assembly.scad");
     std::cout << "[ok]" << std::endl;
 
-    std::cout << "\t[+] With Futaba 3003s servo... ";
+    std::cout << "\t[+] With Futaba 3003s servo... " ;
     REPY_futaba.configRender( false, false, true, false);
     generate_scad( REPY_futaba, "../scad/REPY_futaba_3003s_lower.scad");
     REPY_futaba.configRender( false, false, false, true);
