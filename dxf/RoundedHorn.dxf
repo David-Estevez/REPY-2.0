@@ -21,13 +21,13 @@ $DIMGAP
  40
 0.625
   9
-$INSUNITS
- 70
-4
-  9
 $DIMEXO
  40
 0.625
+  9
+$INSUNITS
+ 70
+4
   9
 $DIMTXT
  40
@@ -37,17 +37,17 @@ $DIMSTYLE
   2
 Standard
   9
-$PLIMMIN
- 10
-0.0
- 20
-0.0
-  9
 $PLIMMAX
  10
 210.0
  20
 297.0
+  9
+$PLIMMIN
+ 10
+0.0
+ 20
+0.0
   9
 $DIMEXE
  40
@@ -903,7 +903,7 @@ LAYER
 100
 AcDbSymbolTable
  70
-4
+5
   0
 LAYER
   5
@@ -978,6 +978,26 @@ Axis
 0
  62
 4
+  6
+DASHDOT
+370
+0
+390
+F
+  0
+LAYER
+  5
+46
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+Hidden
+ 70
+0
+ 62
+3
   6
 DOT
 370
@@ -1309,56 +1329,6 @@ SECTION
   2
 ENTITIES
   0
-LEADER
-  5
-46
-  8
-Dimensions
- 62
-256
-370
--1
-  6
-ByLayer
-100
-AcDbEntity
-100
-AcDbLeader
-  3
-Standard
- 71
-1
- 72
-0
- 73
-3
- 74
-0
- 75
-0
- 40
-1.0
- 41
-10.0
- 76
-4
- 10
-25.494083400819104
- 20
-18.6531813562899487
- 10
-28.0
- 20
-22.0
- 10
-40.0
- 20
-22.0
- 10
-40.0
- 20
-22.0
-  0
 LINE
   5
 47
@@ -1439,33 +1409,9 @@ ByLayer
  31
 0.0
   0
-CIRCLE
-  5
-4A
-100
-AcDbEntity
-100
-AcDbCircle
-  8
-Axis
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-0.0
- 20
-10.0
- 30
-0.0
- 40
-4.5
-  0
 DIMENSION
   5
-4B
+4A
 100
 AcDbEntity
   8
@@ -1495,7 +1441,7 @@ AcDbDimension
  71
 5
  72
-1
+0
  41
 1.0
  42
@@ -1517,7 +1463,7 @@ AcDbDiametricDimension
   0
 LINE
   5
-4C
+4B
 100
 AcDbEntity
 100
@@ -1540,6 +1486,34 @@ ByLayer
 28.9444444444450397
  21
 14.5
+ 31
+0.0
+  0
+LINE
+  5
+4C
+100
+AcDbEntity
+100
+AcDbLine
+  8
+Horn
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+28.9444444444450397
+ 20
+14.5
+ 30
+0.0
+ 11
+28.9444444444450397
+ 21
+20.25
  31
 0.0
   0
@@ -1561,11 +1535,11 @@ ByLayer
  10
 28.9444444444450397
  20
-14.5
+20.25
  30
 0.0
  11
-28.9444444444450397
+31.9444444444450397
  21
 20.25
  31
@@ -1587,49 +1561,21 @@ Horn
   6
 ByLayer
  10
-28.9444444444450397
+31.9444444444450397
  20
-20.25
+-0.25
  30
 0.0
  11
-31.9444444444450397
+28.9444444444450397
  21
-20.25
+-0.25
  31
 0.0
   0
 LINE
   5
 4F
-100
-AcDbEntity
-100
-AcDbLine
-  8
-Horn
- 62
-256
-370
--1
-  6
-ByLayer
- 10
-31.9444444444450397
- 20
--0.25
- 30
-0.0
- 11
-28.9444444444450397
- 21
--0.25
- 31
-0.0
-  0
-LINE
-  5
-50
 100
 AcDbEntity
 100
@@ -1657,7 +1603,7 @@ ByLayer
   0
 LINE
   5
-51
+50
 100
 AcDbEntity
 100
@@ -1685,7 +1631,7 @@ ByLayer
   0
 LINE
   5
-52
+51
 100
 AcDbEntity
 100
@@ -1713,7 +1659,7 @@ ByLayer
   0
 LINE
   5
-53
+52
 100
 AcDbEntity
 100
@@ -1741,7 +1687,7 @@ ByLayer
   0
 LINE
   5
-54
+53
 100
 AcDbEntity
 100
@@ -1769,7 +1715,7 @@ ByLayer
   0
 LINE
   5
-55
+54
 100
 AcDbEntity
 100
@@ -1797,7 +1743,7 @@ ByLayer
   0
 LINE
   5
-56
+55
 100
 AcDbEntity
 100
@@ -1825,7 +1771,7 @@ ByLayer
   0
 LINE
   5
-57
+56
 100
 AcDbEntity
 100
@@ -1853,7 +1799,7 @@ ByLayer
   0
 DIMENSION
   5
-58
+57
 100
 AcDbEntity
   8
@@ -1883,7 +1829,7 @@ AcDbDimension
  71
 5
  72
-1
+0
  41
 1.0
  42
@@ -1913,7 +1859,7 @@ AcDbRotatedDimension
   0
 DIMENSION
   5
-59
+58
 100
 AcDbEntity
   8
@@ -1943,7 +1889,7 @@ AcDbDimension
  71
 5
  72
-1
+0
  41
 1.0
  42
@@ -1973,7 +1919,7 @@ AcDbRotatedDimension
   0
 DIMENSION
   5
-5A
+59
 100
 AcDbEntity
   8
@@ -2003,7 +1949,7 @@ AcDbDimension
  71
 5
  72
-1
+0
  41
 1.0
  42
@@ -2033,7 +1979,7 @@ AcDbRotatedDimension
   0
 LINE
   5
-5B
+5A
 100
 AcDbEntity
 100
@@ -2061,7 +2007,7 @@ ByLayer
   0
 LINE
   5
-5C
+5B
 100
 AcDbEntity
 100
@@ -2086,6 +2032,30 @@ ByLayer
 7.0
  31
 0.0
+  0
+CIRCLE
+  5
+5C
+100
+AcDbEntity
+100
+AcDbCircle
+  8
+Hidden
+ 62
+256
+370
+-1
+  6
+ByLayer
+ 10
+0.0
+ 20
+10.0
+ 30
+0.0
+ 40
+4.5
   0
 ENDSEC
   0
