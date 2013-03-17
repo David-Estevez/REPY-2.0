@@ -82,14 +82,9 @@ FakeFutaba3003sServo::FakeFutaba3003sServo(): BasicServo()
     rebuild();
 }
 
-void FakeFutaba3003sServo::set_horn( int arms, bool visibility, double cut)
+void FakeFutaba3003sServo::update_horn()
 {
-    //-- Common settings:
-    //--------------------------------------------------------------------
-    horn_num_arms = arms;
-    display_horn = visibility;
-    horn_cut = cut;
-
+    //-- Horn tolerance
     horn_tol = 0;
 
     //-- Color (black)

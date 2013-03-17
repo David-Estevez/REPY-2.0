@@ -93,6 +93,16 @@ double BasicServo::get_horn_cut()	{   return horn_cut;	    }
 
 //-- Configuring servo:
 //============================================================================================
+
+void BasicServo::set_horn(int arms, bool visibility, double cut)
+{
+    horn_num_arms = arms;
+    display_horn = visibility;
+    horn_cut = cut;
+
+    this->update_horn();
+}
+
 void BasicServo::set_tolerances(double width_tol, double length_tol, double height_tol)
 {
     this->width_tol = width_tol;
@@ -193,7 +203,7 @@ void BasicServo::make_horn()
 	top.translate(0, 0, horn_h_axis);
 	horn = horn + top;
 
-	if ( horn_cut < horn_r_top )
+	if ( horn_cut < 2*horn_r_top && horn_cut > 0 )
 	{
 	    //-- Create a cube with the dimensions of the cut
 	    Component to_be_substracted = Cube( (horn_r_top + horn_tol)- horn_cut + 0.1,
@@ -211,7 +221,7 @@ void BasicServo::make_horn()
     else //-- Horn with arms:
     {
 	//-- Create a single arm:
-	Component base = Cube( 2*horn_r_axis, 0.001, horn_h_top+0.1);
+	Component base = Cube( 2*horn_r_axis, horn_arm_shift + 0.001, horn_h_top+0.1);
 	Component upper_cyl = Cylinder( horn_arm_r,horn_h_top+0.1, 100, true);
 	upper_cyl = upper_cyl.translate( 0, horn_arm_dist, 0);
 
