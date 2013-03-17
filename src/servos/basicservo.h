@@ -167,7 +167,8 @@ public:
      *  \param visibility Horn shown or not shown
      *  \param cut Dimension of the cut of the horn
      */
-    virtual void set_horn( int arms, bool visibility = true, double cut = 0) = 0;
+    void set_horn( int arms, bool visibility = true, double cut = 0);
+
 
     /*! \brief Sets main servo body tolerances
      *
@@ -180,6 +181,11 @@ public:
 protected:
     //! \brief Default constructor
     BasicServo();
+
+    /*! \brief Sets the different default dimensions of the horn after a change in
+     *	the horn main characteristics.
+     */
+    virtual void update_horn() = 0;
 
     //! \brief Builds and returns the BasicServo
     virtual Component build();

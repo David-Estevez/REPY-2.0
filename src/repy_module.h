@@ -82,7 +82,7 @@ public:
      *	     opcional cut on the servo horn.
      *
      */
-    void configHorn( int num_arms, int cut_part = 0);
+    void configHorn( int num_arms, int cut_part = 20.5/2.0 - 3);
 
 
     //-- Data interface (for reading the module attributes)

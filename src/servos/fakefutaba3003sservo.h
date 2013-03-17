@@ -52,13 +52,10 @@ public:
     FakeFutaba3003sServo();
 
 protected:
-    /*! \brief Sets the characteristics and dimensions of the horn
-     *
-     *  \param arms Number of arms of the horn
-     *  \param visibility Horn shown or not shown
-     *  \param cut Dimension of the cut of the horn
+    /*! \brief Sets the different default dimensions of the horn after a change in
+     *	the horn main characteristics.
      */
-    virtual void set_horn( int arms, bool visibility = true, double cut = 0);
+    virtual void update_horn();
 };
 
 #endif // FAKEFUTABA3003SSERVO_H
