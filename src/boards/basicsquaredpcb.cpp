@@ -42,6 +42,7 @@ BasicSquaredPCB::BasicSquaredPCB(double thickness, double side, double drill_dia
     this->drill_x = drill_x;
     this->drill_y = drill_y;
 
+    rebuild();
 }
 
 //-- Data interface:
