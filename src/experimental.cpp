@@ -53,13 +53,37 @@ void generate_scad(const Component &thing, const std::string &path);
 
 int main()
 {
+    std::cout << "[+] Generating experimental parts:" << std::endl;
 
+    //Top part
+    //-----------------------------------------------------------------------------------------
+    Component top;
+
+    //-- Servo horn creation and placing:
     TowerProSG90servo servo;
-    servo.set_horn( 4);
+    servo.set_horn( 2);
     Component horn = servo.get_horn();
-    horn.translate( 0, - servo.get_axis_y(), -servo.get_height() - servo.get_horn_dist_axis());
+    horn.translate( 0, - servo.get_axis_y(), -servo.get_height() - servo.get_horn_dist_axis() + servo.get_horn_h_axis()) ;
 
-    generate_scad( horn, "../scad/Experimental_test.scad");
+    //-- Skymega board and top part parameters:
+    SkyMegaBoard pcb;
+    double top_thickness = servo.get_horn_h_axis() + servo.get_horn_h_top();
+    double top_border_safe = 1.5;
+    double top_side = pcb.get_side() + 2*top_border_safe;
+
+    BasicSquaredPCB top_base = BasicSquaredPCB( top_thickness-0.01, top_side, pcb.get_drill_diam(), pcb.get_drill_x(), pcb.get_drill_y());
+			      top_base.translate( 0, 0, (top_thickness - 0.01)/2.0);
+
+    //-- Generate the component
+    top = top_base - horn;
+
+
+    //-- Generate the openSCAD file:
+    std::cout << "\t[+] Generating top part...";
+    generate_scad(top, "../scad/Experimental_test.scad");
+    std::cout << "\t[ok]" << std::endl;
+
+
     return 0;
 }
 
