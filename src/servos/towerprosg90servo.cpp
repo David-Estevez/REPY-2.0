@@ -25,7 +25,7 @@
  *  \brief Tower Pro SG90 servo
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 3rd, 2013
+ * \date Mar 28rd, 2013
  */
 
 #include "towerprosg90servo.h"
@@ -132,11 +132,24 @@ void TowerProSG90servo::update_horn()
 	horn_arm_r = 3.6 / 2.0;
 	horn_arm_shift = 7;
 	horn_arm_dist = 18 - 4.5 / 2.0;
+
+	//-- Extra parameters:
+	horn_arm_r_small = 3.8 / 2.0;
+	horn_arm_dist_small = 16.8 / 2.0 - horn_arm_r_small;
 	break;
     }
 
     rebuild();
 }
+
+
+double TowerProSG90servo::get_gearbox_h()	    { return gearbox_h;		    }
+double TowerProSG90servo::get_gearbox_small_r()	    { return gearbox_small_r;	    }
+double TowerProSG90servo::get_gearbox_small_y()	    { return gearbox_small_y;	    }
+
+double TowerProSG90servo::get_horn_arm_r_small()    { return horn_arm_r_small;	    }
+double TowerProSG90servo::get_horn_arm_dist_small() { return horn_arm_dist_small;   }
+
 
 Component TowerProSG90servo::build()
 {
@@ -219,3 +232,52 @@ Component TowerProSG90servo::build()
     return servo;
 }
 
+void TowerProSG90servo::make_horn()
+{
+    if ( horn_num_arms != 4)
+    {
+	BasicServo::make_horn();
+    }
+    else
+    {
+	//-- Construct 4-arm servo horn
+
+	//-- Create axis cylinder
+	horn = Cylinder(horn_r_axis + horn_tol, horn_h_axis +0.2, 100, false);
+	horn.translate(0,0,-0.1);
+
+	//-- Create a single arm of type 1:
+	Component base_type1 = Cube( 2*horn_r_axis, horn_arm_shift + 0.001, horn_h_top+0.1);
+	Component upper_cyl_type1 = Cylinder( horn_arm_r,horn_h_top+0.1, 100, true);
+	upper_cyl_type1.translate( 0, horn_arm_dist, 0);
+
+	Component arm_type1 = base_type1 & upper_cyl_type1;
+	arm_type1.translate(0, 0, (horn_h_top+0.1) /2);
+
+	//-- Create a single arm of type 2:
+	Component base_type2 = Cube( 2*horn_arm_r_small, 0.001, horn_h_top+0.1);
+	Component upper_cyl_type2 = Cylinder( horn_arm_r_small, horn_h_top + 0.1, 100, true);
+	upper_cyl_type2.translate( 0, horn_arm_dist_small, 0);
+
+	Component arm_type2 = base_type2 & upper_cyl_type2;
+	arm_type2.translate(0, 0, (horn_h_top+0.1) /2);
+	arm_type2.rotate( 0,0, 90);
+
+	Component arms = arm_type1 + arm_type1.rotatedCopy(0,0, 180)
+		       + arm_type2 + arm_type2.rotatedCopy(0,0, 180);
+	arms.translate( 0, 0, horn_h_axis);
+
+
+	//-- Add the top cylinder:
+	Component top_cyl = Cylinder( horn_r_top, horn_h_top + 0.1, 100, false)
+		.translate(0,0, horn_h_axis);
+
+	//-- Sum up all the parts:
+	horn = horn + arms + top_cyl;
+
+	//-- Set link on the end of the axis cylinder, to attach to the servo:
+	horn.addLink( RefSys( 0,0, horn_h_axis));
+	//! -- \todo Change this when OOML is fixed:
+	horn.relTranslate(0,0,-horn_h_axis);
+    }
+}
