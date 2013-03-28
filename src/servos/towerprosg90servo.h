@@ -51,6 +51,9 @@ public:
     double get_gearbox_small_r();
     double get_gearbox_small_y();
 
+    double get_horn_arm_r_small();
+    double get_horn_arm_dist_small();
+
 protected:    
     /*! \brief Sets the different default dimensions of the horn after a change in
      *	the horn main characteristics.
