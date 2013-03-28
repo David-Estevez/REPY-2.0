@@ -51,6 +51,14 @@ protected:
      *	the horn main characteristics.
      */
     virtual void update_horn();
+
+    //-- Reimplement the servo creation function
+    virtual Component build();
+
+    //-- Other needed parameter to improve the aspect of the servo:
+    double gearbox_h;
+    double gearbox_small_r;
+    double gearbox_small_y;
 };
 
 #endif // TOWERPROSG90SERVO_H

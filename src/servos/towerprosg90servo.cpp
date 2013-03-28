@@ -75,6 +75,11 @@ TowerProSG90servo::TowerProSG90servo(): BasicServo()
     //----------------------------------------------------------------------------------
     set_horn( 1 );
 
+    //-- TowerPro SG90 servo specific dimensions:
+    gearbox_h = 4.5;
+    gearbox_small_r = 5 / 2.0;
+    gearbox_small_y = axis_y - 14.5 + gearbox_small_r + width/2.0;
+
     rebuild();
 }
 
@@ -131,5 +136,86 @@ void TowerProSG90servo::update_horn()
     }
 
     rebuild();
+}
+
+Component TowerProSG90servo::build()
+{
+    //-- Create body
+    Component body = Cube( width + width_tol, length + length_tol, height + height_tol - gearbox_h, false);
+    body.translate( -width/2, 0,0);
+
+    Component gearbox_big = Cylinder( (width + width_tol)/2.0, gearbox_h, 100, false);
+    gearbox_big.translate(0, axis_y, height + height_tol - gearbox_h);
+
+    Component gearbox_small = Cylinder( gearbox_small_r, gearbox_h, 100, false);
+    gearbox_small.translate( 0, gearbox_small_y, height + height_tol - gearbox_h);
+
+    body = body + gearbox_big + gearbox_small;
+
+    //-- Create axis
+    Component axis = Cylinder( axis_r, axis_h, 20, true);
+    axis.translate( 0, axis_y, height + axis_h / 2);
+
+    //-- Create legs
+    Component leg_top = Cube( leg_x, leg_y, leg_z, false);
+    leg_top.translate( -leg_x/2, length, leg_h);
+
+    Component leg_bottom = leg_top.translatedCopy( 0, -( length + leg_y), 0);
+
+
+    //-- Create holes:
+    Component holes;
+    Component hole_base = Cylinder( hole_r, leg_z + 0.2, 20, true);
+
+    if (num_holes == 4) //-- 4 holes, 2 on each leg
+    {
+
+	Component hole01 = hole_base.translatedCopy(  hole_x, length + hole_y, leg_h + leg_z/2.0);
+	Component hole02 = hole_base.translatedCopy( -hole_x, length + hole_y, leg_h + leg_z/2.0);
+	Component hole03 = hole_base.translatedCopy(  hole_x,         -hole_y, leg_h + leg_z/2.0);
+	Component hole04 = hole_base.translatedCopy( -hole_x,         -hole_y, leg_h + leg_z/2.0);
+	holes = hole01 + hole02 + hole03 + hole04;
+    }
+    else if (num_holes == 2) //-- 2 holes, 1 on each leg
+    {
+	Component hole01 = hole_base.translatedCopy( hole_x, length + hole_y, leg_h + leg_z/2.0);
+	Component hole02 = hole_base.translatedCopy( hole_x,	     -hole_y ,leg_h + leg_z/2.0);
+	holes = hole01 + hole02;
+    }
+
+    //-- Composing the servo:
+    Component servo = body + axis + leg_top + leg_bottom - holes;
+
+    //-- Add a link for the horn:
+    servo.addLink( RefSys( 0, axis_y, height + horn_dist_axis));
+
+    //-- Add several links for the screws:
+    if (num_holes == 4) //-- 4 holes, 2 on each leg
+    {
+	servo.addLink( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys( -hole_x, length + hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys( -hole_x,         -hole_y, leg_h + leg_z/2.0));
+    }
+    else if (num_holes == 2)
+    {
+	servo.addLink( RefSys(  hole_x, length + hole_y, leg_h + leg_z/2.0));
+	servo.addLink( RefSys(  hole_x,         -hole_y, leg_h + leg_z/2.0));
+    }
+    //-- Paint it black:
+    servo.color( servo_color[0], servo_color[1], servo_color[2], servo_color[3]);
+
+    //-- Attach the horn:
+    if ( display_horn)
+    {
+	//! \todo Change this
+	make_horn();
+	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
+	horn.relRotate(0,0,180); //-- Temporal fix
+	servo.attach( 0, horn, 2 );
+
+    }
+
+    return servo;
 }
 
