@@ -50,18 +50,39 @@
 #include "repy_module.h"
 
 void generate_scad(const Component &thing, const std::string &path);
+Component top_part();
+Component bottom_part();
 
 int main()
 {
     std::cout << "[+] Generating experimental parts:" << std::endl;
 
+    //-- Generate the openSCAD file:
+    std::cout << "\t[+] Generating top part...";
+    Component top = top_part();
+    generate_scad(top, "../scad/Experimental_test.scad");
+    std::cout << "\t[ok]" << std::endl;
+
+
+    //-- Generate the openSCAD file:
+    std::cout << "\t[+] Generating bottom part...";
+    Component bottom = bottom_part();
+    generate_scad( bottom, "../scad/Experimental_test.scad");
+    std::cout << "\t[ok]" << std::endl;
+
+
+    return 0;
+}
+
+Component top_part()
+{
     //Top part
     //-----------------------------------------------------------------------------------------
     Component top;
 
     //-- Servo horn creation and placing:
     TowerProSG90servo servo;
-    servo.set_horn( 2);
+    servo.set_horn( 4);
     Component horn = servo.get_horn();
     horn.translate( 0, - servo.get_axis_y(), -servo.get_height() - servo.get_horn_dist_axis() + servo.get_horn_h_axis()) ;
 
@@ -77,16 +98,44 @@ int main()
     //-- Generate the component
     top = top_base - horn;
 
-
-    //-- Generate the openSCAD file:
-    std::cout << "\t[+] Generating top part...";
-    generate_scad(top, "../scad/Experimental_test.scad");
-    std::cout << "\t[ok]" << std::endl;
-
-
-    return 0;
+    return top;
 }
 
+Component bottom_part()
+{
+    //-- Bottom part
+    //------------------------------------------------------------------------------------------
+    Component bottom;
+
+    //-- Servo creation and placing:
+    TowerProSG90servo servo;
+    servo.set_horn( 4, false);
+    servo.rotate( 0, 180, 0);
+    servo.translate( 0, - servo.get_axis_y(), servo.get_height()- 0.001 );
+
+    //-- Skymega board and bottom part parameters:
+    SkyMegaBoard pcb;
+    double bottom_thickness = servo.get_gearbox_h();
+    double bottom_border_safe = 1.5;
+    double bottom_side = pcb.get_side() + 2*bottom_border_safe;
+    double bottom_servo_safe = 6;
+
+    //-- Actual lower part:
+    BasicSquaredPCB bottom_base = BasicSquaredPCB( bottom_thickness, bottom_side, pcb.get_drill_diam(), pcb.get_drill_x(), pcb.get_drill_y());
+    bottom_base.translate( 0, 0, (bottom_thickness - 0.01)/2.0);
+
+    Component servo_ring = RoundedTablet( servo.get_width() + bottom_servo_safe,
+					  servo.get_length()+ bottom_servo_safe,
+					  servo.get_height()-servo.get_gearbox_h() - (servo.get_leg_h() + servo.get_leg_z() ), bottom_servo_safe / 2.0,
+					  true, true, true, true, 100, false);
+    servo_ring.translate( -(servo.get_width() + bottom_servo_safe )/2.0, -(servo.get_length()+ bottom_servo_safe ) / 2.0, bottom_thickness );
+    servo_ring.translate( 0, - (servo.get_axis_y() - servo.get_length() / 2.0 ), 0);
+
+    //-- Generate the component
+    bottom = bottom_base + servo_ring - servo;
+
+    return bottom;
+}
 
 void generate_scad(const Component& thing, const std::string& path)
 {
