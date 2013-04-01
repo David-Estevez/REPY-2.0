@@ -48,6 +48,7 @@ public:
 
     //-- Added data interface:
     double get_gearbox_h();
+    double get_gearbox_big_r();
     double get_gearbox_small_r();
     double get_gearbox_small_y();
 
@@ -68,6 +69,7 @@ protected:
 
     //-- Other needed parameter to improve the aspect of the servo:
     double gearbox_h;
+    double gearbox_big_r;
     double gearbox_small_r;
     double gearbox_small_y;
 
