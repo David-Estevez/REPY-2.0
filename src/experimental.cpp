@@ -31,7 +31,7 @@
  *  \brief Creates a new accesory for the REPY-2.0 module.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 27th, 2013
+ * \date Apr 1st, 2013
  */
 
 
@@ -113,12 +113,35 @@ Component bottom_part()
     servo.rotate( 0, 180, 0);
     servo.translate( 0, - servo.get_axis_y(), servo.get_height()- 0.001 );
 
-    //-- Skymega board and bottom part parameters:
+    //-- Skymega board
     SkyMegaBoard pcb;
+
+    //-- REPY module creation for obtaining limits:
+    FakeFutaba3003sServo auxServo;
+    auxServo.set_horn(0);
+
+    REPY_module repy( auxServo, pcb);
+    repy.configRender( false, false, true, false);
+
+    //-- Other dimensions:
+    //-- For cross-shaped hole:
+    double dim1 = repy.get_side()-2*repy.get_upper_border_safe();
+    double dim2 = pcb.get_drill_x() - pcb.get_drill_diam() - 2* repy.get_upper_screw_safe();
+    double dim3 = pcb.get_drill_y() - pcb.get_drill_diam() - 2* repy.get_upper_screw_safe();
+
+    //-- Bottom part parameters:
+    double servo_ring_h = servo.get_height()-servo.get_gearbox_h() - (servo.get_leg_h() + servo.get_leg_z() );
+
     double bottom_thickness = servo.get_gearbox_h();
     double bottom_border_safe = 1.5;
     double bottom_side = pcb.get_side() + 2*bottom_border_safe;
     double bottom_servo_safe = 6;
+
+    //-- REPY lower cross-shaped hole:
+    Component cross_hole = RoundedTablet( dim1, dim3, servo_ring_h, 5 )
+			 + RoundedTablet( dim2, dim1, servo_ring_h, 5 );
+    cross_hole.translate(0,0, servo_ring_h / 2.0);
+
 
     //-- Actual lower part:
     BasicSquaredPCB bottom_base = BasicSquaredPCB( bottom_thickness, bottom_side, pcb.get_drill_diam(), pcb.get_drill_x(), pcb.get_drill_y());
@@ -126,10 +149,14 @@ Component bottom_part()
 
     Component servo_ring = RoundedTablet( servo.get_width() + bottom_servo_safe,
 					  servo.get_length()+ bottom_servo_safe,
-					  servo.get_height()-servo.get_gearbox_h() - (servo.get_leg_h() + servo.get_leg_z() ), bottom_servo_safe / 2.0,
+					  servo_ring_h,
+					  bottom_servo_safe / 2.0,
 					  true, true, true, true, 100, false);
-    servo_ring.translate( -(servo.get_width() + bottom_servo_safe )/2.0, -(servo.get_length()+ bottom_servo_safe ) / 2.0, bottom_thickness );
-    servo_ring.translate( 0, - (servo.get_axis_y() - servo.get_length() / 2.0 ), 0);
+
+
+    servo_ring.translate( -(servo.get_width() + bottom_servo_safe )/2.0, -(servo.get_length()+ bottom_servo_safe ) / 2.0  - (servo.get_axis_y() - servo.get_length() / 2.0 ), 0 );
+    servo_ring = servo_ring * cross_hole;
+    servo_ring.translate( 0, 0, bottom_thickness);
 
     //-- Generate the component
     bottom = bottom_base + servo_ring - servo;
