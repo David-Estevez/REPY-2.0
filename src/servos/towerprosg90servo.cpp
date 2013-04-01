@@ -25,7 +25,7 @@
  *  \brief Tower Pro SG90 servo
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 28rd, 2013
+ * \date Apr 1st, 2013
  */
 
 #include "towerprosg90servo.h"
@@ -77,8 +77,9 @@ TowerProSG90servo::TowerProSG90servo(): BasicServo()
 
     //-- TowerPro SG90 servo specific dimensions:
     gearbox_h = 4.5;
+    gearbox_big_r = 11.8 /2.0;
     gearbox_small_r = 5 / 2.0;
-    gearbox_small_y = axis_y - 14.5 + gearbox_small_r + width/2.0;
+    gearbox_small_y = axis_y - 14.5 + gearbox_small_r + gearbox_big_r;
 
     rebuild();
 }
@@ -144,6 +145,7 @@ void TowerProSG90servo::update_horn()
 
 
 double TowerProSG90servo::get_gearbox_h()	    { return gearbox_h;		    }
+double TowerProSG90servo::get_gearbox_big_r()	    { return gearbox_big_r;	    }
 double TowerProSG90servo::get_gearbox_small_r()	    { return gearbox_small_r;	    }
 double TowerProSG90servo::get_gearbox_small_y()	    { return gearbox_small_y;	    }
 
@@ -157,7 +159,7 @@ Component TowerProSG90servo::build()
     Component body = Cube( width + width_tol, length + length_tol, height + height_tol - gearbox_h, false);
     body.translate( -width/2, 0,0);
 
-    Component gearbox_big = Cylinder( (width + width_tol)/2.0, gearbox_h, 100, false);
+    Component gearbox_big = Cylinder( gearbox_big_r + width_tol/2.0, gearbox_h, 100, false);
     gearbox_big.translate(0, axis_y, height + height_tol - gearbox_h);
 
     Component gearbox_small = Cylinder( gearbox_small_r, gearbox_h, 100, false);
