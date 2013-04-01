@@ -356,6 +356,7 @@ double REPY_module::get_upper_back_ear_thickness()  {	return upper_back_ear_thic
 double REPY_module::get_upper_ear_shift()	    {	return upper_ear_shift;		 }
 double REPY_module::get_upper_ear_radius()	    {	return upper_ear_radius;	 }
 double REPY_module::get_upper_screw_safe()	    {	return upper_screw_safe;	 }
+double REPY_module::get_upper_border_safe()	    {	return upper_border_safe;	 }
 
 //-- Tolerances:
 double REPY_module::get_body_servo_x_tol()  {	return body_servo_x_tol;    }

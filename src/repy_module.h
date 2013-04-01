@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 2nd, 2013
+ * \date Apr 1st, 2013
  *
  */
 
