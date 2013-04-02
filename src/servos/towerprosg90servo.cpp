@@ -77,7 +77,7 @@ TowerProSG90servo::TowerProSG90servo(): BasicServo()
 
     //-- TowerPro SG90 servo specific dimensions:
     gearbox_h = 4.5;
-    gearbox_big_r = 11.8 /2.0;
+    gearbox_big_r = 12.7/2.0;//11.8 /2.0;
     gearbox_small_r = 5 / 2.0;
     gearbox_small_y = axis_y - 14.5 + gearbox_small_r + gearbox_big_r;
 

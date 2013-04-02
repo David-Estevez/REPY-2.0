@@ -111,7 +111,7 @@ Component bottom_part()
     TowerProSG90servo servo;
     servo.set_horn( 4, false);
     servo.rotate( 0, 180, 0);
-    servo.translate( 0, - servo.get_axis_y(), servo.get_height()- 0.001 );
+    servo.translate( 0, - servo.get_axis_y(), servo.get_height()- 0.000 );
 
     //-- Skymega board
     SkyMegaBoard pcb;
@@ -158,8 +158,14 @@ Component bottom_part()
     servo_ring = servo_ring * cross_hole;
     servo_ring.translate( 0, 0, bottom_thickness);
 
+    //-- Holes for the screws
+    Component hole1 = Cylinder( servo.get_hole_r(), servo.get_leg_z() *3 ).translate(0, 0, 2*servo.get_leg_z());
+    Component hole2 = Cylinder( servo.get_hole_r(), servo.get_leg_z() *3 ).translate(0, 0, 2*servo.get_leg_z());
+    hole1.moveToLink( servo, 1);
+    hole2.moveToLink( servo, 2);
+
     //-- Generate the component
-    bottom = bottom_base + servo_ring - servo;
+    bottom = bottom_base + servo_ring - servo - hole1 -hole2;
 
     return bottom;
 }
