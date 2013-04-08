@@ -28,7 +28,7 @@
  *  should inherit from this 'BasicServo'
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 2nd, 2013
+ * \date Apr 8th, 2013
  *
  */
 
@@ -159,6 +159,9 @@ public:
     //! \brief Returns the horn as a component
     Component get_horn();
 
+    //! \brief Returns the horn angle
+    double get_horn_angle();
+
     //-- Servo configuration:
     //-----------------------------------------------------------------
     /*! \brief Sets the characteristics and dimensions of the horn
@@ -167,7 +170,7 @@ public:
      *  \param visibility Horn shown or not shown
      *  \param cut Dimension of the cut of the horn
      */
-    void set_horn( int arms, bool visibility = true, double cut = 0);
+    void set_horn( int arms, double angle = 0, bool visibility = true, double cut = 0);
 
 
     /*! \brief Sets main servo body tolerances
@@ -354,6 +357,14 @@ protected:
      *
      */
     std::vector<double> horn_color;
+
+    //-- Horn position:
+    /*!
+     * \var double horn_angle
+     * \brief Angle of the horn
+     *
+     */
+    double horn_angle;
 };
 
 

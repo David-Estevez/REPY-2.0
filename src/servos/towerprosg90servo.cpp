@@ -25,7 +25,7 @@
  *  \brief Tower Pro SG90 servo
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 1st, 2013
+ * \date Apr 8th, 2013
  */
 
 #include "towerprosg90servo.h"
@@ -226,7 +226,7 @@ Component TowerProSG90servo::build()
 	//! \todo Change this
 	make_horn();
 	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
-	horn.relRotate(0,0,180); //-- Temporal fix
+	horn.relRotate(0,0, horn_angle);
 	servo.attach( 0, horn, 2 );
 
     }

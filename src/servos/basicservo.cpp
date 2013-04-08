@@ -28,7 +28,7 @@
  *  should inherit from this 'BasicServo'
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 3rd, 2013
+ * \date Apr 8th, 2013
  *
  */
 
@@ -90,15 +90,17 @@ double BasicServo::get_horn_arm_shift() {   return horn_arm_shift;  }
 double BasicServo::get_horn_arm_dist()  {   return horn_arm_dist;   }
 double BasicServo::get_horn_tol()	{   return horn_tol;	    }
 double BasicServo::get_horn_cut()	{   return horn_cut;	    }
+double BasicServo::get_horn_angle()	{   return horn_angle;	    }
 
 //-- Configuring servo:
 //============================================================================================
 
-void BasicServo::set_horn(int arms, bool visibility, double cut)
+void BasicServo::set_horn(int arms, double angle, bool visibility, double cut)
 {
     horn_num_arms = arms;
     display_horn = visibility;
     horn_cut = cut;
+    horn_angle = angle;
 
     this->update_horn();
 }
@@ -180,7 +182,7 @@ Component BasicServo::build()
 	//! \todo Change this
 	make_horn();
 	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
-	horn.relRotate(0,0,180); //-- Temporal fix
+	horn.relRotate(0,0, horn_angle);
 	servo.attach( 0, horn, 2 );
 
     }

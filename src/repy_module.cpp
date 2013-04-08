@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 3rd, 2013
+ * \date Apr 8th, 2013
  *
  */
 
@@ -81,7 +81,7 @@ REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
     show_upper = true;
 
     //-- Set default horn configuration:
-    this->servo->set_horn( 0, true, 20.5/2.0 - 3);
+    this->servo->set_horn( 0, 90, true, 20.5/2.0 - 3);
 
     rebuild();
 }
@@ -98,7 +98,7 @@ void REPY_module::configRender(bool show_servo, bool show_assembly, bool show_lo
 
 void REPY_module::configHorn(int num_arms, int cut_part)
 {
-    servo->set_horn( num_arms, true, cut_part);
+    servo->set_horn( num_arms, 90, true, cut_part);
 
     rebuild();
 }
