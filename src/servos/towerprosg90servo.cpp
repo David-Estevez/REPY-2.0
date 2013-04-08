@@ -58,7 +58,7 @@ TowerProSG90servo::TowerProSG90servo(): BasicServo()
     axis_y = 17;
 
     //-- Horn placement:
-    horn_dist_axis = 3.5;
+    horn_dist_axis = 2.9;
 
     //-- Tolerances by default:
     width_tol = 0;
@@ -239,6 +239,7 @@ void TowerProSG90servo::make_horn()
     if ( horn_num_arms != 4)
     {
 	BasicServo::make_horn();
+	horn.relRotate(0, 0, 180);
     }
     else
     {

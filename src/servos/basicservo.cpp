@@ -218,6 +218,7 @@ void BasicServo::make_horn()
 
 	    //-- Place it on its place (LOL) and substract it:
 	    horn = horn - to_be_substracted.translate( horn_cut + 0.1 ,0, horn_h_axis-0.1);
+	    horn.relRotate( 0, 0, 90);
 	 }
     }
     else //-- Horn with arms:
