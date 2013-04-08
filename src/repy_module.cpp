@@ -300,12 +300,12 @@ Component REPY_module::upper_part()
     Component front_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), upper_front_ear_thickness,
 				    upper_ear_shift, upper_ear_radius);
     front_ear.relRotate( 90, 0 , 0);
-    front_ear.translate(0, (central_part - upper_front_ear_thickness )/2.0, 0);
+    front_ear.translate(0, (central_part - upper_front_ear_thickness )/2.0, upper_base_thickness);
 
     Component back_ear = make_ear( side, servo->get_axis_y()+servo->get_leg_y(), upper_back_ear_thickness,
 				    upper_ear_shift, upper_ear_radius);
     back_ear.relRotate( 90, 0 , 0);
-    back_ear.translate( 0, (-central_part + upper_back_ear_thickness)/2.0, 0);
+    back_ear.translate( 0, (-central_part + upper_back_ear_thickness)/2.0, upper_back_ear_thickness);
 
     //-- Construct upper part:
     upper = base + front_ear + back_ear - *servo - fake_axis;
