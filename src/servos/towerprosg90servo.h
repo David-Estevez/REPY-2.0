@@ -25,7 +25,7 @@
  *  \brief Tower Pro SG90 servo
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 3rd, 2013
+ * \date Mar 28rd, 2013
  *
  * \todo Add more horns ( 4-arms horn)
  */
@@ -46,11 +46,36 @@ public:
     //! \brief Default constructor
     TowerProSG90servo();
 
+    //-- Added data interface:
+    double get_gearbox_h();
+    double get_gearbox_big_r();
+    double get_gearbox_small_r();
+    double get_gearbox_small_y();
+
+    double get_horn_arm_r_small();
+    double get_horn_arm_dist_small();
+
 protected:    
     /*! \brief Sets the different default dimensions of the horn after a change in
      *	the horn main characteristics.
      */
     virtual void update_horn();
+
+    //-- Reimplement the servo creation function
+    virtual Component build();
+
+    //-- Reimplement the servo horn creation function
+    virtual void make_horn();
+
+    //-- Other needed parameter to improve the aspect of the servo:
+    double gearbox_h;
+    double gearbox_big_r;
+    double gearbox_small_r;
+    double gearbox_small_y;
+
+    //-- New parameters for 4-arms horn
+    double horn_arm_r_small;
+    double horn_arm_dist_small;
 };
 
 #endif // TOWERPROSG90SERVO_H
