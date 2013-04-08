@@ -10,13 +10,15 @@ This work is based on REPY module, by:
 [Juan Gonzalez-Gomez (Obijuan)](http://www.thingiverse.com/Obijuan)
 
 
-<img src="http://www.iearobotics.com/wiki/images/2/2e/Repy1-v1.1-1.jpg" alt="Version 1.1" width="300" /> 
+<img src="http://www.dsquaredrobotics.com/wiki/images/thumb/e/e2/REPY_2_first_prototype_scad.png/800px-REPY_2_first_prototype_scad.png" alt="Version 2.0" width="300" /> 
 
 More information on: 
+* [d-squared:wiki - REPY-2.0](http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0)
 
 * [Thingiverse - REPY v1.1](http://www.thingiverse.com/thing:13442)
 
 * http://www.iearobotics.com/wiki/index.php?title=M%C3%B3dulos_REPY-1 (Spanish)
+
 
 0. Index
 -------------------------------------------------------------------
@@ -59,6 +61,8 @@ for the REPY-2.0 module.
 4. Version log
 -----------------------------------------------------------
 
+ * Version **1.0** (first version): module finished and tested, but needs some fixes.
  * Version **0.9** (pre-release): module finished, but not tested yet.
+ 
 
 
