@@ -181,7 +181,7 @@ Component REPY_module::lower_part()
 
     //-- Drills of the base:
     //------------------------------------------------------------------------------------------------------
-    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, lower_base_thickness + 0.2);
+    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, lower_base_thickness + 0.2, 6, true);
     Component base_drill01 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill02 = base_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill03 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
@@ -276,7 +276,7 @@ Component REPY_module::upper_part()
     Component base = RoundedTablet( side, side, upper_base_thickness, board_safe);
 
     //-- Drills of the base:
-    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_base_thickness + 0.2);
+    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_base_thickness + 0.2, 6, true);
     Component base_drill01 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill02 = base_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill03 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);

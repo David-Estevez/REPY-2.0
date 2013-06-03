@@ -89,49 +89,49 @@ int main()
     //-- Fake Futaba 3003s servo scad files:
     std::cout << "\t[+] With Fake Futaba 3003s servo... ";
     REPY_fake_futaba.configRender( false, false, true, false);
-    generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_lower.scad");
+    generate_scad( REPY_fake_futaba, "../scad/REPY Fake Futaba 3003s/REPY_Fake_Futaba_3003s_lower.scad");
 
     REPY_fake_futaba.configRender( false, false, false, true);
     REPY_fake_futaba.configHorn( 0);
-    generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_upper_rounded_horn.scad");
+    generate_scad( REPY_fake_futaba, "../scad/REPY Fake Futaba 3003s/REPY_Fake_Futaba_3003s_upper_rounded_horn.scad");
     REPY_fake_futaba.configHorn( 2);
-    generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_upper_2_arms_horn.scad");
+    generate_scad( REPY_fake_futaba, "../scad/REPY Fake Futaba 3003s/REPY_Fake_Futaba_3003s_upper_2_arms_horn.scad");
     REPY_fake_futaba.configHorn( 4);
-    generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_upper_4_arms_horn.scad");
+    generate_scad( REPY_fake_futaba, "../scad/REPY Fake Futaba 3003s/REPY_Fake_Futaba_3003s_upper_4_arms_horn.scad");
     REPY_fake_futaba.configHorn( 6);
-    generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_upper_6_arms_horn.scad");
+    generate_scad( REPY_fake_futaba, "../scad/REPY Fake Futaba 3003s/REPY_Fake_Futaba_3003s_upper_6_arms_horn.scad");
 
     REPY_fake_futaba.configRender(true, true);
     REPY_fake_futaba.configHorn( 0);
-    generate_scad( REPY_fake_futaba, "../scad/REPY_Fake_Futaba_3003s_assembly.scad");
+    generate_scad( REPY_fake_futaba, "../scad/REPY Fake Futaba 3003s/REPY_Fake_Futaba_3003s_assembly.scad");
     std::cout << "[ok]" << std::endl;
 
     //-- Futaba 3003s servo scad files: //-- Tested Horn: none
     std::cout << "\t[+] With Futaba 3003s servo... " ;
     REPY_futaba.configRender( false, false, true, false);
-    generate_scad( REPY_futaba, "../scad/REPY_Futaba_3003s_lower.scad");
+    generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_lower.scad");
     REPY_futaba.configRender( false, false, false, true);
-    generate_scad( REPY_futaba, "../scad/REPY_Futaba_3003s_upper.scad");
+    generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_upper.scad");
     REPY_futaba.configRender(true, true);
-    generate_scad( REPY_futaba, "../scad/REPY_Futaba_3003s_assembly.scad");
+    generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_assembly.scad");
     std::cout << "[ok]" << std::endl;
 
     //-- TowerPro SG90 servo scad files: //-- Horn: 1, 2, 4
     std::cout << "\t[+] With Tower Pro SG90 servo... ";
     miniREPY.configRender( false, false, true, false);
-    generate_scad( miniREPY, "../scad/REPY_Tower_Pro_SG90_lower.scad");
+    generate_scad( miniREPY, "../scad/REPY TowerPro sg90/REPY_Tower_Pro_SG90_lower.scad");
 
     miniREPY.configRender( false, false, false, true);
     miniREPY.configHorn(1);
-    generate_scad( miniREPY, "../scad/REPY_Tower_Pro_SG90_upper_1_arm.scad");
+    generate_scad( miniREPY, "../scad/REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_1_arm.scad");
     miniREPY.configHorn(2);
-    generate_scad( miniREPY, "../scad/REPY_Tower_Pro_SG90_upper_2_arms.scad");
+    generate_scad( miniREPY, "../scad/REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_2_arms.scad");
     miniREPY.configHorn(4);
-    generate_scad( miniREPY, "../scad/REPY_Tower_Pro_SG90_upper_4_arms.scad");
+    generate_scad( miniREPY, "../scad/REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_4_arms.scad");
 
     miniREPY.configHorn(1);
     miniREPY.configRender(true, true);
-    generate_scad( miniREPY, "../scad/REPY_Tower_Pro_SG90_assembly.scad");
+    generate_scad( miniREPY, "../scad/REPY TowerPro sg90/REPY_Tower_Pro_SG90_assembly.scad");
     std::cout << "[ok]" << std::endl;
 
  /*
