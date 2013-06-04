@@ -196,10 +196,10 @@ int main()
 	    generate_stl("REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_1_arm");
 
 	    std::cout << "\t\t-> Upper part (2-arm horn)... [3/4]" << std::endl;
-	    generate_stl("REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_2_arm");
+	    generate_stl("REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_2_arms");
 
 	    std::cout << "\t\t-> Upper part (4-arm horn)... [4/4]" << std::endl;
-	    generate_stl("REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_4_arm");
+	    generate_stl("REPY TowerPro sg90/REPY_Tower_Pro_SG90_upper_4_arms");
 	}
     }
 
