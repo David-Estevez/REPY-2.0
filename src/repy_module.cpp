@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 8th, 2013
+ * \date Jun 4th, 2013
  *
  */
 
@@ -134,7 +134,7 @@ Component REPY_module::build()
     //-------------------------------------------------------------------------------------------
     //-- Make fake axis screw, for the upper part:
     fake_axis =  Cylinder( 6/2.0, 2 + 0.2 , 100, false)
-	      + Cylinder( 3/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 100, false).relTranslate( 0, 0, 2 + 0.1);
+	      + Cylinder( 2.9/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 6, false).relTranslate( 0, 0, 2 + 0.1);
     fake_axis.color( 0.5, 0.5, 0.5);
 
     //! \todo Change this to something that uses links:
@@ -181,7 +181,7 @@ Component REPY_module::lower_part()
 
     //-- Drills of the base:
     //------------------------------------------------------------------------------------------------------
-    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, lower_base_thickness + 0.2);
+    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, lower_base_thickness + 0.2, 6, true);
     Component base_drill01 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill02 = base_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill03 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
@@ -276,7 +276,7 @@ Component REPY_module::upper_part()
     Component base = RoundedTablet( side, side, upper_base_thickness, board_safe);
 
     //-- Drills of the base:
-    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_base_thickness + 0.2);
+    Component base_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_base_thickness + 0.2, 6, true);
     Component base_drill01 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill02 = base_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
     Component base_drill03 = base_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
