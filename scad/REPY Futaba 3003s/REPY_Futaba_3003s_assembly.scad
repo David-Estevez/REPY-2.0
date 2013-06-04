@@ -755,7 +755,7 @@ union() {
             cylinder(h=2.200, r1=3.000, r2=3.000, $fn=100, center=false);
             translate(v=[0.000, 0.000, 2.100]) {
             rotate([-180.000,-180.000,-180.000]){
-              cylinder(h=6.502, r1=1.500, r2=1.500, $fn=100, center=false);
+              cylinder(h=6.502, r1=1.450, r2=1.450, $fn=6, center=false);
             } // End rotate
             } // End translate
           } // End union
