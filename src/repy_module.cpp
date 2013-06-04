@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 8th, 2013
+ * \date Jun 4th, 2013
  *
  */
 
@@ -134,7 +134,7 @@ Component REPY_module::build()
     //-------------------------------------------------------------------------------------------
     //-- Make fake axis screw, for the upper part:
     fake_axis =  Cylinder( 6/2.0, 2 + 0.2 , 100, false)
-	      + Cylinder( 3/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 100, false).relTranslate( 0, 0, 2 + 0.1);
+	      + Cylinder( 2.9/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 6, false).relTranslate( 0, 0, 2 + 0.1);
     fake_axis.color( 0.5, 0.5, 0.5);
 
     //! \todo Change this to something that uses links:
