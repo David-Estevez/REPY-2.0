@@ -63,6 +63,9 @@ You can find it here:
         $ cd build
         $ cmake ..
         $ make 
+        $ make install
+
+Notice that for the installation you won't need to be superuser, as it is installed in a directory called 'bin' in the REPY-2.0 folder.
 
 * Execute the program **REPY-2.0**, that will create the openscad files and, optionally, the stl files
 for the REPY-2.0 module.
