@@ -1,3 +1,6 @@
+# Main project declaration
+PROJECT(REPY-2.0)
+
 # Verbose or not verbose
 IF($ENV{VERBOSE})
 	MESSAGE(STATUS "Verbose mode on")

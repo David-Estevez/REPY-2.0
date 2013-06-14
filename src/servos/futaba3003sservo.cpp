@@ -25,7 +25,7 @@
  *  \brief Futaba 3003s servo.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Mar 3rd, 2013
+ * \date Jun 14th, 2013
  *
  * \todo Put the correct dimensions of the horns.
  */
@@ -39,10 +39,10 @@ Futaba3003sServo::Futaba3003sServo(): BasicServo()
     //-- Main dimensions:
     width = 20.;
     length = 40.5;
-    height = 37.5;
+    height = 37.7;
 
     //-- Leg dimensions:
-    leg_h = 27;
+    leg_h = 26.6;
     leg_x = 20;
     leg_y = 7.5;
     leg_z = 4;

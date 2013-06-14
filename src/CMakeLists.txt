@@ -1,6 +1,3 @@
-# Main project declaration
-PROJECT(REPY-2.0)
-
 INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/src/servos" "${PROJECT_SOURCE_DIR}/src/boards")
 ADD_SUBDIRECTORY( boards)
 ADD_SUBDIRECTORY( servos)
