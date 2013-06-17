@@ -31,7 +31,7 @@
  *  \brief Generate the scad and stl files for the REPY-2.0 module.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Jun 4th, 2013
+ * \date Jun 17th, 2013
  */
 
 
@@ -111,7 +111,8 @@ int main()
     REPY_futaba.configRender( false, false, true, false);
     generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_lower.scad");
     REPY_futaba.configRender( false, false, false, true);
-    generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_upper.scad");
+    REPY_futaba.configHorn( 0, 21/2.0 - 3);
+    generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_upper_rounded_horn.scad");
     REPY_futaba.configRender(true, true);
     generate_scad( REPY_futaba, "../scad/REPY Futaba 3003s/REPY_Futaba_3003s_assembly.scad");
     std::cout << "[ok]" << std::endl;
@@ -150,7 +151,7 @@ int main()
 	if (ans[0]  == 'y' || ans[0] == 'Y')
 	{
 	    //-- Generating stl's:
-	    //------------------------------------------------------------------------es--------------
+	    //--------------------------------------------------------------------------------------
 	    std::cout << "[+] Generating stl files..." << std::endl;
 
 
@@ -182,7 +183,7 @@ int main()
 	    generate_stl("REPY Futaba 3003s/REPY_Futaba_3003s_lower");
 
 	    std::cout << "\t\t-> Upper part... [2/2]" << std::endl;
-	    generate_stl("REPY Futaba 3003s/REPY_Futaba_3003s_upper");
+	    generate_stl("REPY Futaba 3003s/REPY_Futaba_3003s_upper_rounded_horn");
 
 
 	    //-- TowerPro sg90

@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------
-//-- REPY_Futaba_3003s_upper.scad
+//-- REPY_Futaba_3003s_upper_rounded_horn.scad
 //-------------------------------------------------------------------------
 //--This file has been generated automatically according to your data.
 //--For more info, visit: http://iearobotics.com/oomlwiki/
@@ -170,7 +170,7 @@ difference() {
         } // End difference
       } // End rotate
       } // End translate
-      translate(v=[0.000, 23.301, 3.818]) {
+      translate(v=[0.000, 23.101, 3.818]) {
       rotate([-90.000,-180.000,-180.000]){
         hull() {
           translate(v=[0.000, 5.727, 0.000]) {
@@ -180,13 +180,13 @@ difference() {
           } // End translate
           translate(v=[0.000, 37.500, 0.000]) {
           rotate([-180.000,-180.000,-180.000]){
-            cylinder(h=5.433, r1=18.537, r2=18.537, $fn=100, center=true);
+            cylinder(h=5.433, r1=19.000, r2=19.000, $fn=100, center=true);
           } // End rotate
           } // End translate
         } // End hull
       } // End rotate
       } // End translate
-      translate(v=[0.000, -24.042, 3.951]) {
+      translate(v=[0.000, -23.842, 3.951]) {
       rotate([-90.000,-180.000,-180.000]){
         hull() {
           translate(v=[0.000, 5.727, 0.000]) {
@@ -196,27 +196,27 @@ difference() {
           } // End translate
           translate(v=[0.000, 37.500, 0.000]) {
           rotate([-180.000,-180.000,-180.000]){
-            cylinder(h=3.951, r1=18.537, r2=18.537, $fn=100, center=true);
+            cylinder(h=3.951, r1=19.000, r2=19.000, $fn=100, center=true);
           } // End rotate
           } // End translate
         } // End hull
       } // End rotate
       } // End translate
     } // End union
-    translate(v=[0.000, -17.615, 11.318]) {
+    translate(v=[0.000, -17.415, 11.318]) {
     rotate([-90.000,-180.000,-0.000]){
       union() {
         color([0.500, 0.500, 0.500, 1.000]) {
           difference() {
             union() {
-              translate(v=[-10.000, 0.000, 0.000]) {
+              translate(v=[-10.250, 0.000, 0.000]) {
               rotate([-180.000,-180.000,-180.000]){
-                cube(size=[20.500, 41.500, 37.700], center=false);
+                cube(size=[21.000, 41.500, 37.700], center=false);
               } // End rotate
               } // End translate
-              translate(v=[0.000, 30.000, 39.950]) {
+              translate(v=[0.000, 30.000, 39.850]) {
               rotate([-180.000,-180.000,-180.000]){
-                cylinder(h=4.500, r1=3.000, r2=3.000, $fn=20, center=true);
+                cylinder(h=4.300, r1=3.000, r2=3.000, $fn=20, center=true);
               } // End rotate
               } // End translate
               translate(v=[-10.000, 40.500, 26.600]) {
@@ -252,27 +252,27 @@ difference() {
             } // End translate
           } // End difference
         } // End color
-        translate(v=[0.000, 30.000, 41.700]) {
+        translate(v=[0.000, 30.000, 41.900]) {
         rotate([-180.000,-180.000,-180.000]){
           color([0.500, 0.500, 0.500, 1.000]) {
-            translate(v=[0.000, 0.000, -3.500]) {
+            translate(v=[0.000, 0.000, -4.100]) {
             rotate([-180.000,-180.000,-90.000]){
               difference() {
                 union() {
                   translate(v=[0.000, 0.000, -0.100]) {
                   rotate([-180.000,-180.000,-180.000]){
-                    cylinder(h=3.700, r1=4.500, r2=4.500, $fn=100, center=false);
+                    cylinder(h=4.300, r1=4.050, r2=4.050, $fn=100, center=false);
                   } // End rotate
                   } // End translate
-                  translate(v=[0.000, 0.000, 3.500]) {
+                  translate(v=[0.000, 0.000, 4.100]) {
                   rotate([-180.000,-180.000,-180.000]){
-                    cylinder(h=3.000, r1=10.250, r2=10.250, $fn=100, center=false);
+                    cylinder(h=2.200, r1=10.500, r2=10.500, $fn=100, center=false);
                   } // End rotate
                   } // End translate
                 } // End union
-                translate(v=[7.350, -10.150, 3.400]) {
+                translate(v=[7.100, -10.400, 4.000]) {
                 rotate([-180.000,-180.000,-180.000]){
-                  cube(size=[3.100, 20.700, 3.200], center=false);
+                  cube(size=[3.600, 21.200, 2.400], center=false);
                 } // End rotate
                 } // End translate
               } // End difference
@@ -285,7 +285,7 @@ difference() {
     } // End rotate
     } // End translate
   } // End difference
-  translate(v=[0.000, -26.118, 41.318]) {
+  translate(v=[0.000, -25.918, 41.318]) {
   rotate([-90.000,-180.000,-0.000]){
     color([0.500, 0.500, 0.500, 1.000]) {
       union() {

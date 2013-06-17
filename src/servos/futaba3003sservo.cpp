@@ -25,9 +25,9 @@
  *  \brief Futaba 3003s servo.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Jun 14th, 2013
+ * \date Jun 17th, 2013
  *
- * \todo Put the correct dimensions of the horns.
+ * \todo Add more horns.
  */
 
 #include "futaba3003sservo.h"
@@ -37,7 +37,7 @@ Futaba3003sServo::Futaba3003sServo(): BasicServo()
     //-- Servo body dimensions:
     //---------------------------------------------------------------------------------
     //-- Main dimensions:
-    width = 20.;
+    width = 20.5;
     length = 40.5;
     height = 37.7;
 
@@ -54,12 +54,12 @@ Futaba3003sServo::Futaba3003sServo(): BasicServo()
     hole_y = 3;
 
     //-- Axis dimensions:
-    axis_h = 4.5;
+    axis_h = 42. - height;
     axis_r = 3;
     axis_y = 30;
 
     //-- Horn placement:
-    horn_dist_axis = 4;
+    horn_dist_axis = 44-2.1-37.7;
 
     //-- Tolerances by default:
     width_tol = 0;
@@ -99,10 +99,10 @@ void Futaba3003sServo::update_horn()
 
     case 0:
 	//-- Rounded horn:
-	horn_h_top = 3;
-	horn_r_top = 20.5 / 2.0;
-	horn_h_axis = 3.5;
-	horn_r_axis = 9 / 2.0;
+	horn_h_top = 2.2;
+	horn_r_top = 21 / 2.0;
+	horn_h_axis = 6.3 - horn_h_top;
+	horn_r_axis = 8.1 / 2.0;
 	//-- Not needed for rounded horn:
 	horn_arm_r = 0;
 	horn_arm_shift = 0;
