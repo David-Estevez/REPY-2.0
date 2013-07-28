@@ -25,13 +25,15 @@ SET(OOML_LINK_DIR "/usr/lib" CACHE STRING "OOML Libraries Directory")
 INCLUDE_DIRECTORIES(${OOML_INCLUDE_DIR})
 LINK_DIRECTORIES(${OOML_LINK_DIR})
 
-# Set the install path to bin
-SET( CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 
-# Create the bin folder if it doesn't exist
-IF(NOT EXISTS "../bin")
-	execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory "./bin")
-ENDIF(NOT EXISTS "../bin")
+
+# Create folders if they don't exist
+IF (NOT EXISTS "${PROJECT_SOURCE_DIR}/bin")
+    execute_process( COMMAND ${CMAKE_COMMAND} -E make_directory  "${PROJECT_SOURCE_DIR}/bin")
+ENDIF(NOT EXISTS "${PROJECT_SOURCE_DIR}/bin")
+
+# Set output path
+set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin")
 
 # Add REPY module:
 ADD_SUBDIRECTORY( "${PROJECT_SOURCE_DIR}/src")
