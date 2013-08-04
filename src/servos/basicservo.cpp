@@ -28,7 +28,7 @@
  *  should inherit from this 'BasicServo'
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 8th, 2013
+ * \date Aug 4th, 2013
  *
  */
 
@@ -74,6 +74,10 @@ double BasicServo::get_width_tol() {	return width_tol;   }
 double BasicServo::get_length_tol(){	return length_tol;  }
 double BasicServo::get_height_tol(){	return height_tol;  }
 
+//-- Servo body:
+Component BasicServo::get_servo_body(){	return servo;	    }
+
+
 //-- Horn data interface:
 //============================================================================================
 bool BasicServo::horn_shown()	{   return display_horn; }
@@ -105,6 +109,13 @@ void BasicServo::set_horn(int arms, double angle, bool visibility, double cut)
     this->update_horn();
 }
 
+void BasicServo::set_horn_visibility( bool visibility)
+{
+    display_horn = visibility;
+
+    this->update_horn();
+}
+
 void BasicServo::set_tolerances(double width_tol, double length_tol, double height_tol)
 {
     this->width_tol = width_tol;
@@ -120,15 +131,15 @@ void BasicServo::set_tolerances(double width_tol, double length_tol, double heig
 Component BasicServo::build()
 {
     //-- Create body
-    Component body = Cube::create( width + width_tol, length + length_tol, height + height_tol, false);
+    Component body = Cube( width + width_tol, length + length_tol, height + height_tol, false);
     body.translate( -width/2, 0,0);
 
     //-- Create axis
-    Component axis = Cylinder::create( axis_r, axis_h, 20, true);
+    Component axis = Cylinder( axis_r, axis_h, 20, true);
     axis.translate( 0, axis_y, height + axis_h / 2);
 
     //-- Create legs
-    Component leg_top = Cube::create( leg_x, leg_y, leg_z, false);
+    Component leg_top = Cube( leg_x, leg_y, leg_z, false);
     leg_top.translate( -leg_x/2, length, leg_h);
 
     Component leg_bottom = leg_top.translatedCopy( 0, -( length + leg_y), 0);
@@ -155,7 +166,7 @@ Component BasicServo::build()
     }
 
     //-- Composing the servo:
-    Component servo = body + axis + leg_top + leg_bottom - holes;
+    servo = body + axis + leg_top + leg_bottom - holes;
 
     //-- Add a link for the horn:
     servo.addLink( RefSys( 0, axis_y, height + horn_dist_axis));
@@ -183,11 +194,27 @@ Component BasicServo::build()
 	make_horn();
 	horn.color( horn_color[0], horn_color[1], horn_color[2], horn_color[3]);
 	horn.relRotate(0,0, horn_angle);
-	servo.attach( 0, horn, 2 );
+	/*----------------------------------------------------------------------
+	 *  Weird fix to substitute: (it does not work yet)
+	 * servo.attach( 0, horn, 2 );
+	 * ---------------------------------------------------------------------*/
 
+	TransformMatrix hornMatrix = horn.getLink(0).getTransformMatrix().getInv();
+	TransformMatrix servoMatrix = servo.getLink(0).getTransformMatrix();
+	TransformMatrix finalMatrix = servoMatrix * hornMatrix;
+	double xa, ya, za; finalMatrix.getGlobalXYZAngles(xa, ya, za);
+	double x, y, z; finalMatrix.getGlobalTranslation(x, y, z);
+	horn.rotate(xa, ya, za);
+	horn.translate(x, y, z);
+
+	return servo + horn;
+
+	/* End of the fix */
     }
-
-    return servo;
+    else
+    {
+	return servo;
+    }
 }
 
 //-- Servo horn:

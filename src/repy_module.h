@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 1st, 2013
+ * \date Aug 4th, 2013
  *
  */
 
@@ -250,6 +250,14 @@ private:
      *
      */
     Component fake_axis, fake_axis_with_tol;
+
+    /*!
+      *  \var RefSys servo_RefSys
+      *  \brief Reference System containing the final position of the servo for its
+      *	 placement
+      *
+      */
+    RefSys servo_RefSys;
 
 
     //-- Needed dimensions

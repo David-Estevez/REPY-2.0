@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Jun 4th, 2013
+ * \date Aug 4th, 2013
  *
  */
 
@@ -36,6 +36,7 @@
 
 REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
 {
+
     this->servo = &servo;
     this->pcb = &pcb;
 
@@ -105,9 +106,9 @@ void REPY_module::configHorn(int num_arms, int cut_part)
 
 Component REPY_module::build()
 {
-    //-- Choose horn:
-    //-------------------------------------------------------------------------------------------
-
+    //###########################################################################################
+    //-- Calculating dimensions and setup
+    //###########################################################################################
 
     //-- Set servo tolerances:
     //-------------------------------------------------------------------------------------------
@@ -118,20 +119,28 @@ Component REPY_module::build()
     //--Total side:
     side = pcb->get_side() + 2* board_safe;
 
-    //-- Calculate the dimensions of the central part (not to be confused with central park):
+    //-- Calculate the dimensions of the central part:
     central_part = ( servo->get_height() + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness) +
 		   ( upper_front_ear_thickness) +
 		   //( servo->get_horn_h_top()); //-- For the smaller one.
 		   ( servo->get_horn_dist_axis() - servo->get_horn_h_axis() );
 
+
     //-- Place servo:
     //--------------------------------------------------------------------------------------------
-    servo->rotate(90, 0 , 180);
-    servo->translate(0, 0, servo->get_leg_y() + lower_base_thickness);
-    servo->translate( 0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness, 0);
+
+    //-- Creating the RefSys for the placement of the servo
+    servo_RefSys = RefSys(0,0,0);
+    servo_RefSys.rotate( 90, 0, 180);
+    servo_RefSys.translate(0, 0, servo->get_leg_y() + lower_base_thickness);
+    servo_RefSys.translate( 0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness, 0);
+
+    servo->transform( servo_RefSys.getTransformMatrix() );
+
 
     //-- Fake axis:
     //-------------------------------------------------------------------------------------------
+
     //-- Make fake axis screw, for the upper part:
     fake_axis =  Cylinder( 6/2.0, 2 + 0.2 , 100, false)
 	      + Cylinder( 2.9/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 6, false).relTranslate( 0, 0, 2 + 0.1);
@@ -151,9 +160,18 @@ Component REPY_module::build()
     fake_axis_with_tol.moveToLink( *servo, 0);
     fake_axis_with_tol.translate( 0 , upper_front_ear_thickness - servo->get_horn_h_axis() -central_part -0.1, 0);
 
+
+
+    //#############################################################################################
     //--Compose the module:
-    //-------------------------------------------------------------------------------------------
+    //#############################################################################################
+
+    servo->set_horn_visibility( false);
+    servo->transform( servo_RefSys.getTransformMatrix() ); //-- Place Servo
     lower_part(); //-- Refresh lower component
+
+    servo->set_horn_visibility( true);
+    servo->transform( servo_RefSys.getTransformMatrix() ); //-- Place Servo
     upper_part(); //-- Refresh upper component
 
     Component result;
@@ -316,7 +334,15 @@ Component REPY_module::upper_part()
     upper.addLink( RefSys(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0));
     upper.addLink( RefSys( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0));
 
-    return upper - base_drill01 - base_drill02 - base_drill03 - base_drill04; //-- Temporal fix
+    //-- Temporal fix for smaller servos:
+    //! \todo Change this to something else
+    upper = upper  - base_drill01 - base_drill02 - base_drill03 - base_drill04;
+
+    //-- Show servo horn
+    if (show_servo)
+	upper = upper + servo->get_horn().transform( servo_RefSys.getTransformMatrix() );
+
+    return upper;
 }
 
 Component REPY_module::make_ear(double base, double height, double thickness, double shift, double radius)
@@ -328,7 +354,6 @@ Component REPY_module::make_ear(double base, double height, double thickness, do
 
     return square & circle;
 }
-
 
 //-- Data interface
 //-----------------------------------------------------------------------------------------------------------------
