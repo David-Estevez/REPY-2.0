@@ -13,7 +13,7 @@ Symmetric module for modular robots.
 
 More information about REPY-2.0 on:
 
-* [d-squared:wiki - REPY-2.0](http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0)
+* [d-squared:wiki - REPY-2.0](http://www.dsquaredrobotics.com/wiki/doku.php?id=en:repy-2.0)
 
 More information about Juan Gonzalez-Gomez's work on
 
