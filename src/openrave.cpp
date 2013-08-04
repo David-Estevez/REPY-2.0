@@ -39,6 +39,7 @@
 #include <ooml/components.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "servos/futaba3003sservo.h"
 #include "servos/fakefutaba3003sservo.h"
@@ -98,16 +99,74 @@ int main()
     generate_scad( REPY_futaba, "../scad/OpenRAVE/Head.scad");
     std::cout << "[ok]" << std::endl;
 
-    //-- Servo
-    std::cout << "\t[+] Servo... ";
-    generate_scad( fakefutaba3003s/*.get_horn()*/, "../scad/OpenRAVE/servo.scad");
-    std::cout << "[ok]" << std::endl;
+    //-- Generate important data
+    //------------------------------------------------------------
+    std::cout << "[+] Obtaining important dimensions..." << std::endl;
+
+    //-- Lower part:
+    std::cout << "\t[+] Body..." << std::endl;
+
+    double lower_length = REPY_futaba.get_side();
+    double lower_width  = REPY_futaba.get_side();
+    double lower_height = REPY_futaba.get_lower_base_thickness() +
+			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y() +
+			  REPY_futaba.get_lower_ear_radius();
+
+    //-- Upper part:
+    std::cout << "\t[+] Head..." << std::endl;
+
+    double upper_length = REPY_futaba.get_side();
+    double upper_width  = REPY_futaba.get_side();
+    double upper_height = REPY_futaba.get_upper_base_thickness() +
+			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y() +
+			  REPY_futaba.get_upper_ear_radius();
+
+    //-- Transformation of the upper part:
+    std::cout << "\t[+] Other... " << std::endl;
+
+    //-- Translation values:
+    double x, y, z;
+    REPY_futaba.get_upper_RefSys().getTransformMatrix().getGlobalTranslation(x, y, z);
+
+    //-- Rotation values:
+    double xa, ya, za;
+    REPY_futaba.get_upper_RefSys().getTransformMatrix().getGlobalXYZAngles(xa, ya, za);
+
+    //-- Compose output text:
+    std::stringstream output_text;
+
+    output_text << "# REPY module data for openRAVE model" << std::endl;
+    output_text << "# -----------------------------------" << std::endl << std::endl;
+    output_text << "# Body dimensions in mm (length, width, height): "	<< std::endl;
+    output_text << lower_length << " " << lower_width << " " << lower_height << std::endl << std::endl;
+    output_text << "# Head dimensions in mm (length, width, height): "	<< std::endl;
+    output_text << upper_length << " " << upper_width << " " << upper_height << std::endl << std::endl;
+    output_text << "# Transform data for upper part:" << std::endl;
+    output_text << "# Rotation angles: " << std::endl;
+    output_text << xa << " " << ya << " " << za << std::endl;
+    output_text << "# Translation distances: " << std::endl;
+    output_text << x << " " << y << " " << z << std::endl;
+
+    //-- Output text on screen:
+    std::cout << "\t[+] Generated data: " << std::endl << std::endl;
+    std::cout << output_text.str() << std::endl;
+    std::cout << "[+] Saving data to file..." << std::endl;
+
+    //-- Open file
+    std::ofstream datafile( "./REPY_openRAVE_data.txt" );
+
+    if ( datafile.is_open() && datafile.good() )
+    {
+	datafile << output_text.str().c_str(); //-- There must be a simpler way of doing this...
+    }
+
+    datafile.close();
 
     //-- Create stls
-    //----------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------
     char ans[3];
     std::cout << "[?] Would you like to generate the stl files?" << std::endl;
-    std::cout << "[?] This operation will take a long, long, long time.(yes/no) > ";
+    std::cout << "[?] This operation may take a long, long, long time.(yes/no) > ";
     std::cin >> ans;
 
     if (ans[0]  == 'y' || ans[0] == 'Y')

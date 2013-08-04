@@ -126,7 +126,7 @@ Component REPY_module::build()
 		   ( servo->get_horn_dist_axis() - servo->get_horn_h_axis() );
 
 
-    //-- Place servo:
+    //-- Part placement:
     //--------------------------------------------------------------------------------------------
 
     //-- Creating the RefSys for the placement of the servo
@@ -136,6 +136,11 @@ Component REPY_module::build()
     servo_RefSys.translate( 0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness, 0);
 
     servo->transform( servo_RefSys.getTransformMatrix() );
+
+    //-- Creating the RefSys for the placement of the upper part:
+    upper_RefSys = RefSys(0,0,0);
+    upper_RefSys.rotate(0,180,0);
+    upper_RefSys.translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness);
 
 
     //-- Fake axis:
@@ -177,7 +182,7 @@ Component REPY_module::build()
     Component result;
 
     if ( show_assembly )
-	result = lower + upper.rotate(0,180,0).translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness) ;
+	result = lower + upper.transform( upper_RefSys.getTransformMatrix() );
     else
 	if ( show_lower && show_upper)
 	    result = lower.translate( - side/2.0 - 2, 0, 0) + upper.translate( side/2.0 + 2, 0, 0);
@@ -398,3 +403,7 @@ bool REPY_module::get_show_upper()	{   return show_upper;	    }
 //-- Dimensions calculated by the software to build the module:
 double REPY_module::get_side()		{   return side;	    }
 double REPY_module::get_central_part()	{   return central_part;    }
+
+//--Reference systems:
+RefSys REPY_module::get_servo_RefSys()	{   return servo_RefSys;    }
+RefSys REPY_module::get_upper_RefSys()	{   return upper_RefSys;    }

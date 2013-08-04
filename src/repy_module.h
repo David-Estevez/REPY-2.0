@@ -193,6 +193,13 @@ public:
     //! \brief Returns the dimension used to center the servo and ears on the module
     double get_central_part();
 
+    //-- Reference systems for part placement:
+    //---------------------------------------
+    //! \brief Reference System containing the final position of the servo for its placement
+    RefSys get_servo_RefSys();
+
+    //! \brief Reference System containing the final position of the upper part for its placement
+    RefSys get_upper_RefSys();
 
 protected:
 
@@ -259,6 +266,13 @@ private:
       */
     RefSys servo_RefSys;
 
+    /*!
+      *  \var RefSys upper_RefSys
+      *  \brief Reference System containing the final position of the upper part for its
+      *	 placement
+      *
+      */
+    RefSys upper_RefSys;
 
     //-- Needed dimensions
     //-------------------------------------------------------------------------------
