@@ -108,18 +108,18 @@ int main()
 
     double lower_length = REPY_futaba.get_side();
     double lower_width  = REPY_futaba.get_side();
-    double lower_height = REPY_futaba.get_lower_base_thickness() +
-			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y() +
-			  REPY_futaba.get_lower_ear_radius();
+    double lower_axis_h = REPY_futaba.get_lower_base_thickness() +
+			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y();
+    double lower_height = lower_axis_h + REPY_futaba.get_lower_ear_radius();
 
     //-- Upper part:
     std::cout << "\t[+] Head..." << std::endl;
 
     double upper_length = REPY_futaba.get_side();
     double upper_width  = REPY_futaba.get_side();
-    double upper_height = REPY_futaba.get_upper_base_thickness() +
-			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y() +
-			  REPY_futaba.get_upper_ear_radius();
+    double upper_axis_h = REPY_futaba.get_lower_base_thickness() +
+			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y();
+    double upper_height = lower_axis_h + REPY_futaba.get_lower_ear_radius();
 
     //-- Transformation of the upper part:
     std::cout << "\t[+] Other... " << std::endl;
@@ -137,10 +137,10 @@ int main()
 
     output_text << "# REPY module data for openRAVE model" << std::endl;
     output_text << "# -----------------------------------" << std::endl << std::endl;
-    output_text << "# Body dimensions in mm (length, width, height): "	<< std::endl;
-    output_text << lower_length << " " << lower_width << " " << lower_height << std::endl << std::endl;
-    output_text << "# Head dimensions in mm (length, width, height): "	<< std::endl;
-    output_text << upper_length << " " << upper_width << " " << upper_height << std::endl << std::endl;
+    output_text << "# Body dimensions in mm (length, width, height, axis height): "	<< std::endl;
+    output_text << lower_length << " " << lower_width << " " << lower_height << " " << lower_axis_h << std::endl << std::endl;
+    output_text << "# Head dimensions in mm (length, width, height, axis height): "	<< std::endl;
+    output_text << upper_length << " " << upper_width << " " << upper_height << " " << upper_axis_h << std::endl << std::endl;
     output_text << "# Transform data for upper part:" << std::endl;
     output_text << "# Rotation angles: " << std::endl;
     output_text << xa << " " << ya << " " << za << std::endl;

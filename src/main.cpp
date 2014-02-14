@@ -31,7 +31,7 @@
  *  \brief Generate the scad and stl files for the REPY-2.0 module.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Jun 17th, 2013
+ * \date Aug 4th, 2013
  */
 
 
