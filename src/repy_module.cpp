@@ -315,6 +315,31 @@ Component REPY_module::upper_part()
 			    upper_base_thickness+0.2,
 			    upper_border_safe /2.5 );
 
+    //-- Drills of the front side:
+    Component front_side_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_front_ear_thickness*2 + 0.2, 6, true);
+    Component front_side_drill01 = front_side_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component front_side_drill02 = front_side_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component front_side_drill03 = front_side_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+    Component front_side_drill04 = front_side_drill.translatedCopy( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+
+    Component front_side_drills = front_side_drill01 + front_side_drill02 + front_side_drill03 + front_side_drill04;
+    front_side_drills.translate(0, 0, lower_base_thickness/2.0 + side / 2.0);
+    front_side_drills.relRotate( -90, 0, 0);
+    front_side_drills.relTranslate( 0, 0, central_part / 2.0 - upper_front_ear_thickness /2.0 -0.1);
+
+    //-- Drills of the back side:
+    Component back_side_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_back_ear_thickness*2 + 0.2, 6, true);
+    Component back_side_drill01 = back_side_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component back_side_drill02 = back_side_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component back_side_drill03 = back_side_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+    Component back_side_drill04 = back_side_drill.translatedCopy( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+
+    Component back_side_drills = back_side_drill01 + back_side_drill02 + back_side_drill03 + back_side_drill04;
+    back_side_drills.translate(0, 0, lower_base_thickness/2.0 + side / 2.0);
+    back_side_drills.relRotate( 90, 0, 0);
+    back_side_drills.relTranslate( 0, 0, central_part / 2.0 - upper_back_ear_thickness /2.0 -0.1);
+
+
     //-- Make base:
     base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - cross;
     base.translate(0, 0, lower_base_thickness/2.0);
@@ -346,6 +371,9 @@ Component REPY_module::upper_part()
     //-- Show servo horn
     if (show_servo)
 	upper = upper + servo->get_horn().transform( servo_RefSys.getTransformMatrix() );
+
+    //-- Substract side holes
+    upper = upper - front_side_drills - back_side_drills;
 
     return upper;
 }
