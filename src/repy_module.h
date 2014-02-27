@@ -155,6 +155,12 @@ public:
     //! \brief Returns the space around the border to keep when making the base holes
     double get_upper_border_safe();
 
+    //! \brief Returns the height of the center of the side holes centroid
+    double get_side_holes_center_height();
+
+    //! \brief Returns the distance from the z axis to the center of the side holes centroid on the ear outer surface
+    double get_side_holes_distance_from_z();
+
     //-- Tolerances:
     //--------------------------------------
     //! \brief Returns the clearance to insert the servo, x axis

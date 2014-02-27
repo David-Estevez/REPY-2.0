@@ -323,9 +323,10 @@ Component REPY_module::upper_part()
     Component front_side_drill04 = front_side_drill.translatedCopy( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
 
     Component front_side_drills = front_side_drill01 + front_side_drill02 + front_side_drill03 + front_side_drill04;
-    front_side_drills.translate(0, 0, lower_base_thickness/2.0 + side / 2.0);
+    front_side_drills.translate(0, 0, upper_base_thickness + side / 2.0);
     front_side_drills.relRotate( -90, 0, 0);
     front_side_drills.relTranslate( 0, 0, central_part / 2.0 - upper_front_ear_thickness /2.0 -0.1);
+    front_side_drill.debugMode();
 
     //-- Drills of the back side:
     Component back_side_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_back_ear_thickness*2 + 0.2, 6, true);
@@ -335,10 +336,12 @@ Component REPY_module::upper_part()
     Component back_side_drill04 = back_side_drill.translatedCopy( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
 
     Component back_side_drills = back_side_drill01 + back_side_drill02 + back_side_drill03 + back_side_drill04;
-    back_side_drills.translate(0, 0, lower_base_thickness/2.0 + side / 2.0);
+    back_side_drills.translate(0, 0, upper_base_thickness + side / 2.0);
     back_side_drills.relRotate( 90, 0, 0);
     back_side_drills.relTranslate( 0, 0, central_part / 2.0 - upper_back_ear_thickness /2.0 -0.1);
 
+    std::cout << "\n[*]Side holes, transformation:\ntranslate([0, 0, " << upper_base_thickness + side / 2.0 << "])\n";
+    std::cout << "rotate( [90, 0, 0])\ntranslate( [0, 0, " << central_part / 2.0 - upper_back_ear_thickness /2.0 -0.1 << " ])" << std::endl;
 
     //-- Make base:
     base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - cross;
@@ -415,6 +418,9 @@ double REPY_module::get_upper_ear_shift()	    {	return upper_ear_shift;		 }
 double REPY_module::get_upper_ear_radius()	    {	return upper_ear_radius;	 }
 double REPY_module::get_upper_screw_safe()	    {	return upper_screw_safe;	 }
 double REPY_module::get_upper_border_safe()	    {	return upper_border_safe;	 }
+double REPY_module::get_side_holes_center_height() { return upper_base_thickness + side / 2.0; }
+double REPY_module::get_side_holes_distance_from_z() { return central_part / 2.0;  }
+
 
 //-- Tolerances:
 double REPY_module::get_body_servo_x_tol()  {	return body_servo_x_tol;    }

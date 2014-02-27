@@ -81,24 +81,6 @@ int main()
     std::cout << "[ok]" << std::endl;
 
 
-    //-- Generate SCAD files
-    //-----------------------------------------------------------
-    std::cout << "[+] Generating SCAD files..." << std::endl;
-
-    REPY_futaba.configHorn( 0 );
-
-    //-- Lower part
-    std::cout << "\t[+] Body... ";
-    REPY_futaba.configRender( true, false, true, false);
-    generate_scad( REPY_futaba, "../scad/OpenRAVE/Body.scad");
-    std::cout << "[ok]" << std::endl;
-
-    //-- Upper part
-    std::cout << "\t[+] Head... ";
-    REPY_futaba.configRender( true, false, false, true);
-    generate_scad( REPY_futaba, "../scad/OpenRAVE/Head.scad");
-    std::cout << "[ok]" << std::endl;
-
     //-- Generate important data
     //------------------------------------------------------------
     std::cout << "[+] Obtaining important dimensions..." << std::endl;
@@ -109,7 +91,7 @@ int main()
     double lower_length = REPY_futaba.get_side();
     double lower_width  = REPY_futaba.get_side();
     double lower_axis_h = REPY_futaba.get_lower_base_thickness() +
-			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y();
+              REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y();
     double lower_height = lower_axis_h + REPY_futaba.get_lower_ear_radius();
 
     //-- Upper part:
@@ -118,8 +100,11 @@ int main()
     double upper_length = REPY_futaba.get_side();
     double upper_width  = REPY_futaba.get_side();
     double upper_axis_h = REPY_futaba.get_lower_base_thickness() +
-			  REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y();
+              REPY_futaba.get_servo()->get_axis_y() + REPY_futaba.get_servo()->get_leg_y();
     double upper_height = lower_axis_h + REPY_futaba.get_lower_ear_radius();
+
+    double upper_side_holes_h = REPY_futaba.get_side_holes_center_height();
+    double upper_side_holes_z_dist = REPY_futaba.get_side_holes_distance_from_z();
 
     //-- Transformation of the upper part:
     std::cout << "\t[+] Other... " << std::endl;
@@ -131,6 +116,33 @@ int main()
     //-- Rotation values:
     double xa, ya, za;
     REPY_futaba.get_upper_RefSys().getTransformMatrix().getGlobalXYZAngles(xa, ya, za);
+
+
+    //-- Generate SCAD files
+    //-----------------------------------------------------------
+    std::cout << "[+] Generating SCAD files..." << std::endl;
+
+    REPY_futaba.configHorn( 0 );
+
+    //-- Lower part
+    std::cout << "\t[+] Body... ";
+    REPY_futaba.configRender( true, false, true, false);
+    REPY_futaba.rotate(0, 90, 0);
+    REPY_futaba.rotate(0, 0, 90);
+    REPY_futaba.translate( 0, -lower_axis_h, 0 );
+    generate_scad( REPY_futaba, "../scad/OpenRAVE/Body.scad");
+    std::cout << "[ok]" << std::endl;
+
+    //-- Upper part
+    std::cout << "\t[+] Head... ";
+    REPY_futaba.configRender( true, false, false, true);
+    REPY_futaba.rotate(0, -90, 0);
+    REPY_futaba.rotate(0, 0, 90);
+    REPY_futaba.translate( 0, lower_axis_h, 0 );
+    generate_scad( REPY_futaba, "../scad/OpenRAVE/Head.scad");
+    std::cout << "[ok]" << std::endl;
+
+
 
     //-- Compose output text:
     std::stringstream output_text;
@@ -146,6 +158,9 @@ int main()
     output_text << xa << " " << ya << " " << za << std::endl;
     output_text << "# Translation distances: " << std::endl;
     output_text << x << " " << y << " " << z << std::endl;
+    output_text << "# Transform data for side holes:" << std::endl;
+    output_text << "# Side holes centroid height: " << upper_side_holes_h << std::endl;
+    output_text << "# Side holes distance from z axis: " << upper_side_holes_z_dist << std::endl;
 
     //-- Output text on screen:
     std::cout << "\t[+] Generated data: " << std::endl << std::endl;

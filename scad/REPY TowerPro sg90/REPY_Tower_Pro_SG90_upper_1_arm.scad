@@ -335,7 +335,7 @@ difference() {
       } // End rotate
       } // End translate
     } // End difference
-    translate(v=[0.000, 15.965, 20.367]) {
+    translate(v=[0.000, 15.965, 21.734]) {
     rotate([90.000,-180.000,-180.000]){
       union() {
         translate(v=[15.000, 15.000, 0.000]) {
@@ -362,7 +362,7 @@ difference() {
     } // End rotate
     } // End translate
   } // End difference
-  translate(v=[0.000, -16.380, 20.367]) {
+  translate(v=[0.000, -16.380, 21.734]) {
   rotate([-90.000,-180.000,-180.000]){
     union() {
       translate(v=[15.000, 15.000, 0.000]) {
