@@ -400,7 +400,9 @@ union() {
     } // End color
   } // End rotate
   } // End translate
-  translate(v=[0.000, 0.000, 82.635]) {
+  translate(v=[0.000, 0.000, 41.3175]) 
+  //rotate([0, 62.5, 0]) {
+  translate(v=[0.000, 0.000, 41.3175]) {
   rotate([-0.000,180.000,-0.000]){
     difference() {
       difference() {
