@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 1st, 2013
+ * \date Aug 4th, 2013
  *
  */
 
@@ -155,6 +155,12 @@ public:
     //! \brief Returns the space around the border to keep when making the base holes
     double get_upper_border_safe();
 
+    //! \brief Returns the height of the center of the side holes centroid
+    double get_side_holes_center_height();
+
+    //! \brief Returns the distance from the z axis to the center of the side holes centroid on the ear outer surface
+    double get_side_holes_distance_from_z();
+
     //-- Tolerances:
     //--------------------------------------
     //! \brief Returns the clearance to insert the servo, x axis
@@ -193,6 +199,13 @@ public:
     //! \brief Returns the dimension used to center the servo and ears on the module
     double get_central_part();
 
+    //-- Reference systems for part placement:
+    //---------------------------------------
+    //! \brief Reference System containing the final position of the servo for its placement
+    RefSys get_servo_RefSys();
+
+    //! \brief Reference System containing the final position of the upper part for its placement
+    RefSys get_upper_RefSys();
 
 protected:
 
@@ -251,6 +264,21 @@ private:
      */
     Component fake_axis, fake_axis_with_tol;
 
+    /*!
+      *  \var RefSys servo_RefSys
+      *  \brief Reference System containing the final position of the servo for its
+      *	 placement
+      *
+      */
+    RefSys servo_RefSys;
+
+    /*!
+      *  \var RefSys upper_RefSys
+      *  \brief Reference System containing the final position of the upper part for its
+      *	 placement
+      *
+      */
+    RefSys upper_RefSys;
 
     //-- Needed dimensions
     //-------------------------------------------------------------------------------
