@@ -28,7 +28,7 @@
  *  should inherit from this 'BasicServo'
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Apr 8th, 2013
+ * \date Aug 4th, 2013
  *
  */
 
@@ -117,6 +117,11 @@ public:
     double get_height_tol();
 
 
+    //-- Servo (others)
+    //------------------------------------------
+    //! \brief Returns the body of the servo
+    Component get_servo_body();
+
     //-- Horn dimensions:
     //------------------------------------------
     //! \brief Returns the number of arms of the horn
@@ -172,6 +177,11 @@ public:
      */
     void set_horn( int arms, double angle = 0, bool visibility = true, double cut = 0);
 
+    /*! \brief Sets the visibility of the horn
+     *
+     *  \param visibility Horn shown or not shown
+     */
+    void set_horn_visibility( bool visibility);
 
     /*! \brief Sets main servo body tolerances
      *
@@ -198,6 +208,11 @@ protected:
 
     //-- Servo characteristics:
     //------------------------------------------------------------------
+    /*! \var Component servo
+     *  \brief Servo body (servo without horn)
+     */
+    Component servo;
+
     //-- Main dimensions:
     /*!
      * \var double width

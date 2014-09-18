@@ -28,7 +28,7 @@
  *  generates a REPY module according to their dimensions.
  *
  * \author David Estévez Fernández ( http://github.com/David-Estevez )
- * \date Jun 4th, 2013
+ * \date Aug 4th, 2013
  *
  */
 
@@ -36,6 +36,7 @@
 
 REPY_module::REPY_module(BasicServo& servo,  BasicSquaredPCB& pcb)
 {
+
     this->servo = &servo;
     this->pcb = &pcb;
 
@@ -105,9 +106,9 @@ void REPY_module::configHorn(int num_arms, int cut_part)
 
 Component REPY_module::build()
 {
-    //-- Choose horn:
-    //-------------------------------------------------------------------------------------------
-
+    //###########################################################################################
+    //-- Calculating dimensions and setup
+    //###########################################################################################
 
     //-- Set servo tolerances:
     //-------------------------------------------------------------------------------------------
@@ -118,20 +119,33 @@ Component REPY_module::build()
     //--Total side:
     side = pcb->get_side() + 2* board_safe;
 
-    //-- Calculate the dimensions of the central part (not to be confused with central park):
+    //-- Calculate the dimensions of the central part:
     central_part = ( servo->get_height() + lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness) +
 		   ( upper_front_ear_thickness) +
 		   //( servo->get_horn_h_top()); //-- For the smaller one.
 		   ( servo->get_horn_dist_axis() - servo->get_horn_h_axis() );
 
-    //-- Place servo:
+
+    //-- Part placement:
     //--------------------------------------------------------------------------------------------
-    servo->rotate(90, 0 , 180);
-    servo->translate(0, 0, servo->get_leg_y() + lower_base_thickness);
-    servo->translate( 0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness, 0);
+
+    //-- Creating the RefSys for the placement of the servo
+    servo_RefSys = RefSys(0,0,0);
+    servo_RefSys.rotate( 90, 0, 180);
+    servo_RefSys.translate(0, 0, servo->get_leg_y() + lower_base_thickness);
+    servo_RefSys.translate( 0, -central_part/2.0 + upper_back_ear_thickness + ear_clearance_tol + lower_back_ear_thickness, 0);
+
+    servo->transform( servo_RefSys.getTransformMatrix() );
+
+    //-- Creating the RefSys for the placement of the upper part:
+    upper_RefSys = RefSys(0,0,0);
+    upper_RefSys.rotate(0,180,0);
+    upper_RefSys.translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness);
+
 
     //-- Fake axis:
     //-------------------------------------------------------------------------------------------
+
     //-- Make fake axis screw, for the upper part:
     fake_axis =  Cylinder( 6/2.0, 2 + 0.2 , 100, false)
 	      + Cylinder( 2.9/2.0, lower_back_ear_thickness + ear_clearance_tol + upper_back_ear_thickness - 2 + 0.1, 6, false).relTranslate( 0, 0, 2 + 0.1);
@@ -151,15 +165,24 @@ Component REPY_module::build()
     fake_axis_with_tol.moveToLink( *servo, 0);
     fake_axis_with_tol.translate( 0 , upper_front_ear_thickness - servo->get_horn_h_axis() -central_part -0.1, 0);
 
+
+
+    //#############################################################################################
     //--Compose the module:
-    //-------------------------------------------------------------------------------------------
+    //#############################################################################################
+
+    servo->set_horn_visibility( false);
+    servo->transform( servo_RefSys.getTransformMatrix() ); //-- Place Servo
     lower_part(); //-- Refresh lower component
+
+    servo->set_horn_visibility( true);
+    servo->transform( servo_RefSys.getTransformMatrix() ); //-- Place Servo
     upper_part(); //-- Refresh upper component
 
     Component result;
 
     if ( show_assembly )
-	result = lower + upper.rotate(0,180,0).translate(0,0,2*(servo->get_axis_y()+servo->get_leg_y())+lower_base_thickness+upper_base_thickness) ;
+	result = lower + upper.transform( upper_RefSys.getTransformMatrix() );
     else
 	if ( show_lower && show_upper)
 	    result = lower.translate( - side/2.0 - 2, 0, 0) + upper.translate( side/2.0 + 2, 0, 0);
@@ -292,6 +315,34 @@ Component REPY_module::upper_part()
 			    upper_base_thickness+0.2,
 			    upper_border_safe /2.5 );
 
+    //-- Drills of the front side:
+    Component front_side_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_front_ear_thickness*2 + 0.2, 6, true);
+    Component front_side_drill01 = front_side_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component front_side_drill02 = front_side_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component front_side_drill03 = front_side_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+    Component front_side_drill04 = front_side_drill.translatedCopy( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+
+    Component front_side_drills = front_side_drill01 + front_side_drill02 + front_side_drill03 + front_side_drill04;
+    front_side_drills.translate(0, 0, upper_base_thickness + side / 2.0);
+    front_side_drills.relRotate( -90, 0, 0);
+    front_side_drills.relTranslate( 0, 0, central_part / 2.0 - upper_front_ear_thickness /2.0 -0.1);
+    front_side_drill.debugMode();
+
+    //-- Drills of the back side:
+    Component back_side_drill = Cylinder( pcb->get_drill_diam()/2.0, upper_back_ear_thickness*2 + 0.2, 6, true);
+    Component back_side_drill01 = back_side_drill.translatedCopy(  pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component back_side_drill02 = back_side_drill.translatedCopy( -pcb->get_drill_x()/2.0,  pcb->get_drill_y()/2.0, 0);
+    Component back_side_drill03 = back_side_drill.translatedCopy(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+    Component back_side_drill04 = back_side_drill.translatedCopy( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0);
+
+    Component back_side_drills = back_side_drill01 + back_side_drill02 + back_side_drill03 + back_side_drill04;
+    back_side_drills.translate(0, 0, upper_base_thickness + side / 2.0);
+    back_side_drills.relRotate( 90, 0, 0);
+    back_side_drills.relTranslate( 0, 0, central_part / 2.0 - upper_back_ear_thickness /2.0 -0.1);
+
+    std::cout << "\n[*]Side holes, transformation:\ntranslate([0, 0, " << upper_base_thickness + side / 2.0 << "])\n";
+    std::cout << "rotate( [90, 0, 0])\ntranslate( [0, 0, " << central_part / 2.0 - upper_back_ear_thickness /2.0 -0.1 << " ])" << std::endl;
+
     //-- Make base:
     base = base - base_drill01 - base_drill02 - base_drill03 - base_drill04 - cross;
     base.translate(0, 0, lower_base_thickness/2.0);
@@ -316,7 +367,18 @@ Component REPY_module::upper_part()
     upper.addLink( RefSys(  pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0));
     upper.addLink( RefSys( -pcb->get_drill_x()/2.0, -pcb->get_drill_y()/2.0, 0));
 
-    return upper - base_drill01 - base_drill02 - base_drill03 - base_drill04; //-- Temporal fix
+    //-- Temporal fix for smaller servos:
+    //! \todo Change this to something else
+    upper = upper  - base_drill01 - base_drill02 - base_drill03 - base_drill04;
+
+    //-- Show servo horn
+    if (show_servo)
+	upper = upper + servo->get_horn().transform( servo_RefSys.getTransformMatrix() );
+
+    //-- Substract side holes
+    upper = upper - front_side_drills - back_side_drills;
+
+    return upper;
 }
 
 Component REPY_module::make_ear(double base, double height, double thickness, double shift, double radius)
@@ -328,7 +390,6 @@ Component REPY_module::make_ear(double base, double height, double thickness, do
 
     return square & circle;
 }
-
 
 //-- Data interface
 //-----------------------------------------------------------------------------------------------------------------
@@ -357,6 +418,9 @@ double REPY_module::get_upper_ear_shift()	    {	return upper_ear_shift;		 }
 double REPY_module::get_upper_ear_radius()	    {	return upper_ear_radius;	 }
 double REPY_module::get_upper_screw_safe()	    {	return upper_screw_safe;	 }
 double REPY_module::get_upper_border_safe()	    {	return upper_border_safe;	 }
+double REPY_module::get_side_holes_center_height() { return upper_base_thickness + side / 2.0; }
+double REPY_module::get_side_holes_distance_from_z() { return central_part / 2.0;  }
+
 
 //-- Tolerances:
 double REPY_module::get_body_servo_x_tol()  {	return body_servo_x_tol;    }
@@ -373,3 +437,7 @@ bool REPY_module::get_show_upper()	{   return show_upper;	    }
 //-- Dimensions calculated by the software to build the module:
 double REPY_module::get_side()		{   return side;	    }
 double REPY_module::get_central_part()	{   return central_part;    }
+
+//--Reference systems:
+RefSys REPY_module::get_servo_RefSys()	{   return servo_RefSys;    }
+RefSys REPY_module::get_upper_RefSys()	{   return upper_RefSys;    }
