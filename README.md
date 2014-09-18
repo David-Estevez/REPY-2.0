@@ -13,7 +13,12 @@ Symmetric module for modular robots.
 
 More information about REPY-2.0 on:
 
+* [d-squared:wiki - REPY-2.1](http://www.dsquaredrobotics.com/wiki/doku.php?id=en:repy-2.1)
 * [d-squared:wiki - REPY-2.0](http://www.dsquaredrobotics.com/wiki/doku.php?id=en:repy-2.0)
+
+This module was part of my Bachelor's Thesis work:
+
+* [Bachelor's Thesis](http://www.dsquaredrobotics.com/wiki/doku.php?id=en:bachelor_thesis_def)
 
 More information about Juan Gonzalez-Gomez's work on
 
@@ -74,10 +79,13 @@ for the REPY-2.0 module.
 Doxygen documentation can be found on [Doxygen documentation](http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0#Doxygen_documentation).
 
 ### 2.4. More info ###
+Info about the current version of the module (REPY-2.1) can be found [here](http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.1)
+
 More info for developers can be found on the [d-Squared:robotics wiki](http://www.dsquaredrobotics.com/wiki/index.php?title=REPY-2.0#Developer.27s_manual).
 
 4. Version log
 -----------------------------------------------------------
+ * Version **2.1** (thesis): added side connectors to the modules, dimensions fixed.
  * Version **1.1** (release): module fixed and tested.
  * Version **1.0** (prototype): module finished and tested, but needs some fixes.
  * Version **0.9** (pre-release): module finished, but not tested yet.
