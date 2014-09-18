@@ -1,4 +1,4 @@
-REPY-2.0
+REPY-2
 =========================================================
 
 Symmetric module for modular robots.
@@ -9,9 +9,9 @@ Symmetric module for modular robots.
 [Juan Gonzalez-Gomez (Obijuan) on Thingiverse](http://www.thingiverse.com/Obijuan) <br/>
 [Juan Gonzalez-Gomez (Obijuan) on Github](https://github.com/Obijuan)
 
-<img src="http://www.dsquaredrobotics.com/wiki/images/thumb/e/e2/REPY_2_first_prototype_scad.png/800px-REPY_2_first_prototype_scad.png" alt="Version 2.0" width="300" /> 
+<img src="http://www.dsquaredrobotics.com/wiki/lib/exe/fetch.php?cache=&media=wiki:othersdef:bach_thesis:hardware_repy_2_1_real.jpg" alt="Version 2.1" width="300" /> 
 
-More information about REPY-2.0 on:
+More information about REPY-2 module on:
 
 * [d-squared:wiki - REPY-2.1](http://www.dsquaredrobotics.com/wiki/doku.php?id=en:repy-2.1)
 * [d-squared:wiki - REPY-2.0](http://www.dsquaredrobotics.com/wiki/doku.php?id=en:repy-2.0)
